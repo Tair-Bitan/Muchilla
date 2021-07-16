@@ -4,13 +4,37 @@
         "username": "popo",
         "password": "popo1",
         "fullname": "popo lopo",
-        "imgUrl" : "https://randomuser.me/api/portraits/men/1.jpg",
+        "email" : "popo@gmail.com",
+        "imgUrl": "https://randomuser.me/api/portraits/men/1.jpg",
+        "interests": {
+            "biking": true,
+            "cooking": false,
+            "fashion": false,
+            "hobbies and crafts": false,
+            "meditation and yoga": false,
+            "music and concerts": true,
+            "reading books": false,
+            "sports": true,
+            "camping": true,
+            "dancing": false,
+            "fishing and hunting": false,
+            "movies": false,
+            "nature": true,
+            "sailing": true,
+            "travelling": false,
+            "cars": false,
+            "diving": false,
+            "museums and art": false,
+            "party and night clubs": false,
+            "shopping": false,
+            "lying on the beach": true
+        },
         "trips": [
             {
-                "_id" : "d468w4d6d",
+                "_id": "d468w4d6d",
                 "createdAt": 1626432103554,
-                "loc" : {
-                    "state" : "Nepal",
+                "loc": {
+                    "state": "Nepal",
                     "city": "lukla",
                     "pos": {
                         "lng": 27.68566,
@@ -20,8 +44,8 @@
                 "group": [
                     {
                         "_id": "d5s4f68e4",
-                        "username" : "toto",
-                        "joinedAt" : 1626432103544 
+                        "username": "toto",
+                        "joinedAt": 1626432103544
                     }
                 ]
             }
@@ -32,13 +56,37 @@
         "username": "toto",
         "password": "toto1",
         "fullname": "toto loto",
-        "imgUrl" : "https://randomuser.me/api/portraits/men/2.jpg",
+        "email" : "toto@gmail.com",
+        "imgUrl": "https://randomuser.me/api/portraits/men/2.jpg",
+        "interests": {
+            "biking": false,
+            "cooking": false,
+            "fashion": false,
+            "hobbies and crafts": false,
+            "meditation and yoga": true,
+            "music and concerts": true,
+            "reading books": false,
+            "sports": true,
+            "camping": false,
+            "dancing": true,
+            "fishing and hunting": false,
+            "movies": false,
+            "nature": false,
+            "sailing": true,
+            "travelling": false,
+            "cars": false,
+            "diving": false,
+            "museums and art": false,
+            "party and night clubs": true,
+            "shopping": false,
+            "lying on the beach": true
+        },
         "trips": [
             {
-                "_id" : "d468w4d6d",
+                "_id": "d468w4d6d",
                 "createdAt": 1626432103554,
-                "loc" : {
-                    "state" : "Nepal",
+                "loc": {
+                    "state": "Nepal",
                     "city": "lukla",
                     "pos": {
                         "lng": 27.68566,
@@ -48,8 +96,8 @@
                 "group": [
                     {
                         "_id": "d46a68d466",
-                        "username" : "popo",
-                        "joinedAt" : 1626431103554 
+                        "username": "popo",
+                        "joinedAt": 1626431103554
                     }
                 ]
             }
