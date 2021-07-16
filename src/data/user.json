@@ -1,0 +1,58 @@
+[
+    {
+        "_id": "d46a68d466",
+        "username": "popo",
+        "password": "popo1",
+        "fullname": "popo lopo",
+        "imgUrl" : "https://randomuser.me/api/portraits/men/1.jpg",
+        "trips": [
+            {
+                "_id" : "d468w4d6d",
+                "createdAt": 1626432103554,
+                "loc" : {
+                    "state" : "Nepal",
+                    "city": "lukla",
+                    "pos": {
+                        "lng": 27.68566,
+                        "lat": 86.727806
+                    }
+                },
+                "group": [
+                    {
+                        "_id": "d5s4f68e4",
+                        "username" : "toto",
+                        "joinedAt" : 1626432103544 
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "d5s4f68e4",
+        "username": "toto",
+        "password": "toto1",
+        "fullname": "toto loto",
+        "imgUrl" : "https://randomuser.me/api/portraits/men/2.jpg",
+        "trips": [
+            {
+                "_id" : "d468w4d6d",
+                "createdAt": 1626432103554,
+                "loc" : {
+                    "state" : "Nepal",
+                    "city": "lukla",
+                    "pos": {
+                        "lng": 27.68566,
+                        "lat": 86.727806
+                    }
+                },
+                "group": [
+                    {
+                        "_id": "d46a68d466",
+                        "username" : "popo",
+                        "joinedAt" : 1626431103554 
+                    }
+                ]
+            }
+        ]
+    }
+]
