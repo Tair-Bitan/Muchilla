@@ -1,8 +1,13 @@
+import { ReactElement } from 'react'
 import { NavLink, Link } from 'react-router-dom';
+
 import "../styles/style.scss"
 
+interface Props {
 
-export const MainHeader = () => {
+}
+
+export function MainHeader({ }: Props): ReactElement {
 
     return (
         <section className="main-header main">

@@ -1,17 +1,22 @@
+import { ReactElement } from 'react'
 import { useState } from "react"
+
 import '../styles/style.scss';
 // import img1 from '../assets/imgs/1.PNG'
 // import img2 from '../assets/imgs/2.PNG'
 // import img3 from '../assets/imgs/3.jpg'
 
+interface Props {
 
-export const Home = () => {
+}
+
+export function Home({ }: Props): ReactElement {
 
     const [state, setState] = useState({})
 
     return (
         <main className='home-page main'>
-              <div className="hero full">
+            <div className="hero full">
                 <div className="hero-txt">
                     <h1>Simple way to discover a new world of traveling</h1>
                     <button>Start here</button>
