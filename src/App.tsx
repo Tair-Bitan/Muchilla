@@ -1,10 +1,31 @@
+import { ReactElement } from 'react'
+import { HashRouter as Router, Switch, Route } from "react-router-dom"
 
-function App() {
+import './styles/style.scss';
+import { Home } from './pages/home';
+import { MainHeader } from './cmps/MainHeader';
+
+interface Props {
+
+}
+
+export function App({ }: Props): ReactElement {
+
   return (
-    <section>
-      <h1>Muchilla</h1>
-    </section>
+    <div className="App">
+      <Router>
+        <MainHeader></MainHeader>
+        <Switch>
+          <Route component={Home} path='/'></Route>
+        </Switch>
+      </Router>
+    </div>
   );
 }
 
 export default App;
+
+
+
+
+
