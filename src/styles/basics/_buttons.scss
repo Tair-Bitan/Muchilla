@@ -1,0 +1,18 @@
+.main-btn{
+    padding: 10px 20px;
+    background-color: $clr-1;
+    border: none;
+    border-radius: 8px;
+    color: $clr-4;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    
+    &:hover{
+        background-color: $clr-4;
+        color: $clr-1;
+        
+    }
+
+}
