@@ -1,6 +1,8 @@
 import { ReactElement, SyntheticEvent, useEffect, useState } from 'react'
+import { useLocation } from 'react-router';
 
-import { LoginCreds,SignupCreds } from '../interfaces/Creds.interface'
+import '../styles/style.scss'
+import { LoginCreds } from '../interfaces/Creds.interface'
 import { useForm } from '../services/customHooks'
 import { userService } from '../services/user-service'
 
@@ -10,11 +12,19 @@ interface Props {
 
 export function Login({ }: Props): ReactElement {
 
+    const [isLogin, setIsLogin] = useState(true)
     const [creds, handelChange] = useForm<LoginCreds>({ username: '', password: '' })
+    const path = useLocation()
 
     useEffect(() => {
         loadUsers()
     }, [])
+
+    useEffect(() => {
+        if (path.pathname === '/signup') {
+            setIsLogin(false)
+        }
+    }, [path.pathname])
 
     const loadUsers = async () => {
         const users = await userService.query()
@@ -28,30 +38,35 @@ export function Login({ }: Props): ReactElement {
         if (user) console.log('user', user)
     }
 
-    
+
     return (
-        <section>
-            <form className="login-form" onSubmit={(ev) => onLogin(ev)}>
-                <input
-                    type="text"
-                    name="username"
-                    value={creds.username}
-                    placeholder="username"
-                    onChange={handelChange}
-                    required
-                />
+        <section className="login main">
+            <div className="login-container">
+                <h2>{isLogin ? 'LOGIN' : 'SINGUP'}</h2>
+                <form className="login-form" onSubmit={(ev) => onLogin(ev)}>
+                    <input
+                        className="main-input"
+                        type="text"
+                        name="username"
+                        value={creds.username}
+                        placeholder="username"
+                        onChange={handelChange}
+                        required
+                    />
 
-                <input
-                    type="text"
-                    name="password"
-                    value={creds.password}
-                    placeholder="password"
-                    onChange={handelChange}
-                    required
-                />
+                    <input
+                        className="main-input"
+                        type="text"
+                        name="password"
+                        value={creds.password}
+                        placeholder="password"
+                        onChange={handelChange}
+                        required
+                    />
 
-                <button>Login</button>
-            </form>
+                    <button className="main-btn">Save</button>
+                </form>
+            </div>
         </section>
     )
 }

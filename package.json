@@ -10,9 +10,12 @@
     "@types/node": "^12.20.16",
     "@types/react": "^17.0.14",
     "@types/react-dom": "^17.0.9",
+    "google-map-react": "^2.1.10",
+    "google-maps": "^4.3.3",
     "node-sass": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-google-maps": "^9.4.5",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
@@ -44,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "@types/google-map-react": "^2.1.2",
     "@types/react-router-dom": "^5.1.8"
   }
 }
