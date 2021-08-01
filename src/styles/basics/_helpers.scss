@@ -1,0 +1,154 @@
+/* HELPERS */
+
+/*layout helpers*/
+.main-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.screen {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: tomato;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    opacity: 0;
+    cursor: default;
+}
+.dark-screen {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    transition: 0.3s;
+    cursor: default;
+    background-color: rgba(56, 56, 56, 0.685);
+    &:hover {
+        background-color: transparent;
+    }
+}
+.dark-screen-nover {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(56, 56, 56, 0.685);
+    top: 0;
+    left: 0;
+    z-index: 5;
+    transition: 0.3s;
+    cursor: default;
+}
+/* grid-helpers */
+
+.grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, 50px);
+    grid-template-rows: repeat(auto-fill, 50px);
+    grid-auto-flow: dense;
+}
+/* position-helpers*/
+.relative {
+    position: relative;
+}
+.absolute {
+    position: absolute;
+}
+/* flex-helpers */
+
+.flex {
+    display: flex;
+}
+
+.flex.col {
+    flex-direction: column;
+}
+
+.inline-flex {
+    display: inline-flex;
+}
+
+.flex.align-center {
+    align-items: center;
+}
+
+.flex.align-start {
+    align-items: flex-start;
+}
+
+.flex.align-end {
+    align-items: flex-end;
+}
+
+.flex.space-between {
+    justify-content: space-between;
+}
+
+.flex.space-around {
+    justify-content: space-around;
+}
+
+.flex.center {
+    justify-content: center;
+}
+
+.flex.end {
+    justify-content: flex-end;
+}
+
+.flex.start {
+    justify-content: flex-start;
+}
+
+.flex.wrap {
+    flex-wrap: wrap;
+}
+
+.self-center {
+    align-self: center;
+}
+
+/* list-helpers */
+
+.clean-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+// editable content
+.editable {
+    border: 1px dashed transparent;
+    padding: 3px 7px 3px 0;
+    &:hover {
+        border-color: rgb(172, 169, 169);
+    }
+    &:focus {
+        outline: none;
+        border-color: rgb(46, 45, 45);
+    }
+}
+// pretty input
+.input {
+    border: none;
+    border-bottom: #4c4c4c96 1px solid;
+    transition: 0.3s;
+    &:hover,
+    &:focus {
+        border-bottom: #363636 1px solid;
+    }
+    &:focus {
+        outline: none;
+    }
+}
+
+// text overflow
+.text-no-overflow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

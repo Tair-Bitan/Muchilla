@@ -1,5 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 
+import { UseFormReturnVal } from "../types/UseFormType"
+
 export function useDebounce(val: string | number, delay: number) {
     const [debouncedValue, setDebouncedValue] = useState(val);
 
@@ -18,7 +20,8 @@ export function useDebounce(val: string | number, delay: number) {
     return debouncedValue
 }
 
-export function useForm(initialState: any, cb = (args?: any) => { }) {
+export function useForm<T1>(initialState: T1, cb = <T2>(arg?: T2): void => { }): UseFormReturnVal<T1> {
+
     const [fields, setFields] = useState(initialState)
 
     useEffect(() => {
@@ -30,7 +33,7 @@ export function useForm(initialState: any, cb = (args?: any) => { }) {
         function (ev: ChangeEvent<HTMLInputElement>) {
             const field = ev.target.name
             const value = (ev.target.type === 'number') ? +ev.target.value : ev.target.value
-            setFields((prevFields: any) => ({ ...prevFields, [field]: value }))
+            setFields((prevFields) => ({ ...prevFields, [field]: value }))
         },
         setFields /* for using setFields outside the hook. 
         example: if we want to use the hook in edit page and need
