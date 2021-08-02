@@ -2,6 +2,7 @@
     {
         "_id": "d468w4d6d",
         "createdAt": 1626432103554,
+        "type": "hiking",
         "createdBy": {
             "_id": "d46a68d466",
             "username": "popo",
@@ -15,18 +16,25 @@
                 "lng": 86.727806
             }
         },
-        "group": [
+        "members": [
             {
                 "_id": "d5s4f68e4",
                 "username": "toto",
                 "imgUrl": "https://randomuser.me/api/portraits/men/2.jpg",
                 "joinedAt": 1626432103544
+            },
+            {
+                "_id": "d46a68d466",
+                "username": "popo",
+                "imgUrl": "https://randomuser.me/api/portraits/men/1.jpg",
+                "joinedAt": 1626431103554
             }
         ]
     },
     {
         "_id": "d468w4g6d",
         "createdAt": 1626432303554,
+        "type": "shopping",
         "createdBy": {
             "_id": "d46a68d466",
             "username": "popo",
@@ -40,18 +48,19 @@
                 "lng": 86.5602614
             }
         },
-        "group": [
+        "members": [
             {
-                "_id": "d5s4f68e4",
-                "username": "toto",
-                "imgUrl": "https://randomuser.me/api/portraits/men/2.jpg",
-                "joinedAt": 1626332103544
+                "_id": "d46a68d466",
+                "username": "popo",
+                "imgUrl": "https://randomuser.me/api/portraits/men/1.jpg",
+                "joinedAt": 1626432303554
             }
         ]
     },
     {
         "_id": "d464w4d6d",
         "createdAt": 1626432103554,
+        "type": "clubbing",
         "createdBy": {
             "_id": "d5s4f68e4",
             "username": "toto",
@@ -65,12 +74,12 @@
                 "lng": 86.723806
             }
         },
-        "group": [
+        "members": [
             {
-                "_id": "d46a68d466",
-                "username": "popo",
-                "imgUrl": "https://randomuser.me/api/portraits/men/1.jpg",
-                "joinedAt": 1626432103544
+                "_id": "d5s4f68e4",
+                "username": "toto",
+                "imgUrl": "https://randomuser.me/api/portraits/men/2.jpg",
+                "joinedAt": 1626432103554
             }
         ]
     }

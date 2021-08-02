@@ -16,8 +16,9 @@ export const TripDetails = ({ trip }: Props): ReactElement => {
 
             <h1>{trip?.createdBy?.username}</h1>
             <h2>Creator</h2>
+            <h2>Type</h2>
             <h3>Created At</h3>
-            <h3>group</h3>
+            <h3>members</h3>
 
         </section>
     )

@@ -1,11 +1,12 @@
 export interface Trip {
     _id: string,
     createdAt: number,
+    type: string,
     createdBy: {
         _id: string,
         username: string,
         imgUrl: string
-    }
+    },
     loc: {
         state: string,
         city: string,
@@ -14,9 +15,10 @@ export interface Trip {
             lat: number
         }
     },
-    group: {
+    members: {
         _id: string,
         username: string,
+        imgUrl: string,
         joinedAt: number
     }[]
 }
