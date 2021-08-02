@@ -94,7 +94,7 @@ function _saveLocalUser(user: User): void {
 
 function _loadUsers(): void {
     gUsers = storageService.loadFromStorage(users_KEY)
-    if (!gUsers.length) {
+    if (!gUsers?.length) {
         gUsers = users
         storageService.saveToStorage(users_KEY, gUsers)
     }

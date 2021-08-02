@@ -38,7 +38,6 @@ export function Login({ }: Props): ReactElement {
         if (user) console.log('user', user)
     }
 
-
     return (
         <section className="login main">
             <div className="login-container">
