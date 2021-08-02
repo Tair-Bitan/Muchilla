@@ -18,6 +18,7 @@ export function MainHeader({ }: Props): ReactElement {
                     <NavLink exact to="/">Home</NavLink>
                     <NavLink exact to="/map">Map</NavLink>
                     <NavLink to="/about">About</NavLink>
+                    <NavLink to="user/123">User</NavLink> 
                 </nav>
                 <div className="user-container">
                     <Link to="/login">Login</Link>

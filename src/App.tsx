@@ -4,8 +4,9 @@ import { HashRouter as Router, Switch, Route } from "react-router-dom"
 import './styles/style.scss';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
-import {SimpleMap} from './pages/Map';
+import {Map} from './pages/Map';
 import { MainHeader } from './cmps/MainHeader';
+import { UserDetails } from './pages/UserDetails';
 
 interface Props {
 
@@ -18,9 +19,10 @@ export function App({ }: Props): ReactElement {
       <Router>
         <MainHeader></MainHeader>
         <Switch>
+          <Route component={UserDetails} path='/user/:userId'></Route>
           <Route component={Login} path='/login'></Route>
           <Route component={Login} path='/signup'></Route>
-          <Route component={SimpleMap} path='/map'></Route>
+          <Route component={Map} path='/map'></Route>
           <Route component={Home} path='/'></Route>
         </Switch>
       </Router>

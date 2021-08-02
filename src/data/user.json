@@ -19,15 +19,20 @@
             {
                 "_id": "d468w4d6d",
                 "createdAt": 1626432103554,
+                "createdBy": {
+                    "_id": "d46a68d466",
+                    "username": "popo",
+                    "imgUrl" : "https://randomuser.me/api/portraits/men/1.jpg"
+                },
                 "loc": {
                     "state": "Nepal",
                     "city": "lukla",
                     "pos": {
-                        "lng": 27.68566,
-                        "lat": 86.727806
+                        "lat": 27.68566,
+                        "lng": 86.727806
                     }
                 },
-                "members": [
+                "group": [
                     {
                         "_id": "d46a68d466",
                         "username": "popo",
@@ -62,15 +67,20 @@
             {
                 "_id": "d468w4d6d",
                 "createdAt": 1626432103554,
+                "createdBy": {
+                    "_id": "d46a68d466",
+                    "username": "popo",
+                    "imgUrl" : "https://randomuser.me/api/portraits/men/1.jpg"
+                },
                 "loc": {
                     "state": "Nepal",
                     "city": "lukla",
                     "pos": {
-                        "lng": 27.68566,
-                        "lat": 86.727806
+                        "lat": 27.68566,
+                        "lng": 86.727806
                     }
                 },
-                "members": [
+                "group": [
                     {
                         "_id": "d46a68d466",
                         "username": "popo",
