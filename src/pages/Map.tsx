@@ -68,7 +68,7 @@ export const Map = () => {
                             key={trip._id}
                             position={trip.loc.pos}
                             icon={{
-                                url: trip.type,
+                                url: trip.typeImgUrl,
                                 scaledSize: new google.maps.Size(50, 50),
                                 origin: new window.google.maps.Point(0, 0),
                                 anchor: new window.google.maps.Point(25, 25)
@@ -76,6 +76,7 @@ export const Map = () => {
                             onClick={() => { onSelectTrip(trip._id) }}
                         />
                     )
+                    
                 })}
 
             </GoogleMap>
