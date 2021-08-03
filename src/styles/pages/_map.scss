@@ -1,3 +1,38 @@
-.map-container{
+.map-container {
     display: flex;
+    gap: 20px;
+
+    .trip-info-window {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        > img {
+            height: 50%;
+            width: 100%;
+        }
+
+        .trip-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            >div{
+                display: flex;
+                gap: 10px;
+
+                > img {
+                    height: 15px;
+                    width: 15px;
+                    object-fit: cover;
+                }
+
+            }
+
+        }
+
+        .gm-style-iw-d{
+            overflow: hidden !important;
+        }
+    }
 }
