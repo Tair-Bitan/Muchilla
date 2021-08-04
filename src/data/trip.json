@@ -3,7 +3,7 @@
         "_id": "d468w4d6d",
         "createdAt": 1626432103554,
         "type": "hiking",
-        "typeImgUrl": "https://image.flaticon.com/icons/png/512/3412/3412876.png",
+        "typeImgUrl": "https://image.flaticon.com/icons/png/512/71/71423.png",
         "createdBy": {
             "_id": "d46a68d466",
             "username": "popo",
@@ -36,7 +36,7 @@
         "_id": "d468w4g6d",
         "createdAt": 1626432303554,
         "type": "shopping",
-        "typeImgUrl": "https://image.flaticon.com/icons/png/512/3081/3081415.png",
+        "typeImgUrl": "https://image.flaticon.com/icons/png/512/3081/3081433.png",
         "createdBy": {
             "_id": "d46a68d466",
             "username": "popo",
@@ -63,7 +63,7 @@
         "_id": "d464w4d6d",
         "createdAt": 1626432103554,
         "type": "clubbing",
-        "typeImgUrl": "https://image.flaticon.com/icons/png/512/860/860330.png",
+        "typeImgUrl": "https://img-premium.flaticon.com/png/512/2778/premium/2778574.png?token=exp=1628089728~hmac=b9af15e845398ddefd5fa7d4b9860b4c",
         "createdBy": {
             "_id": "d5s4f68e4",
             "username": "toto",

@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
 import { useState } from "react"
+import { Link } from 'react-router-dom';
 
 import '../styles/style.scss';
 
@@ -21,7 +22,7 @@ export function Home({ }: Props): ReactElement {
                 <div className="main">
                     <div className="hero-txt">
                         <h1>Simple way to discover a new world of traveling</h1>
-                        <button>Start here</button>
+                        <Link to="/map">Start here</Link>
                     </div>
                 </div>
             </div>

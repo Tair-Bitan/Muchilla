@@ -56,10 +56,10 @@ export const Map = () => {
         <main className='main'>
             <div className="map-container">
                 <TripList />
-              
+
                 <GoogleMap
                     mapContainerStyle={{ width: '50vw', height: '90vh' }}
-                    zoom={8}
+                    zoom={15}
                     center={{ lng: 86.727806, lat: 27.68566 }}
                     options={options}
                     onClick={(ev) => {
@@ -77,7 +77,7 @@ export const Map = () => {
                                 position={trip.loc.pos}
                                 // label={{
                                 //     text: `${trip.members.length}`,
-                                //     fontSize: '1rem',
+                                //     fontSize: '0.75rem',
                                 //     fontWeight: '500',
                                 //     className: 'marker-label'
 
@@ -86,7 +86,7 @@ export const Map = () => {
                                     url: trip.typeImgUrl,
                                     scaledSize: new google.maps.Size(40, 40),
                                     origin: new window.google.maps.Point(0, 0),
-                                    anchor: new window.google.maps.Point(15, 15)
+                                    anchor: new window.google.maps.Point(20, 20)
                                 }}
                                 onClick={() => { onSelectTrip(trip._id) }}
 
@@ -122,13 +122,13 @@ export const Map = () => {
                                         })}
                                     </div>
                                 </div>
-                                <button onClick={()=>{window.location.hash = `/trip/${selectedTrip._id}`}}>Join Now</button>
+                                <button onClick={() => { window.location.hash = `/trip/${selectedTrip._id}` }}>Join Now</button>
                             </div>
                         </InfoWindow>
                     )}
                 </GoogleMap>
-                </div>
-   
+            </div>
+
         </main>
     )
 }

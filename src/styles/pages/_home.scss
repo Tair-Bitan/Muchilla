@@ -20,7 +20,10 @@
                 color: $clr-4;
             }
 
-            button {
+            a {
+                display: inline-block;
+                width: 200px;
+                text-align: center;
                 background-color: $clr-3;
                 color: $clr-4;
                 border: none;
@@ -53,7 +56,7 @@
                 object-fit: cover;
                 border-radius: 13px;
                 background-color: $clr-1;
-                background-blend-mode: multiply;
+                // background-blend-mode: multiply;
                 background-size: cover;
 
                 &.together {
