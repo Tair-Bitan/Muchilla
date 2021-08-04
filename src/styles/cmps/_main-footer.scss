@@ -1,0 +1,35 @@
+.main-footer {
+    // position: sticky;
+    bottom: 0;
+    z-index: 2;
+    box-shadow: 0 0 5px 1px #00000026;
+    background-color: rgb(48, 48, 48);
+    color: rgb(252, 252, 252);
+    height: 15vh;
+    
+    .footer-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+
+        .main-logo{
+            color: rgb(252, 252, 252);
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 30px;
+
+            a {
+                color: rgb(252, 252, 252);
+                font-size: 0.9em;
+                font-weight: 500;
+            }
+
+            .active {
+                color: $clr-1;
+            }
+        }
+    }
+}

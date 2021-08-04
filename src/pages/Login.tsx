@@ -21,14 +21,11 @@ export function Login({ }: Props): ReactElement {
     }, [])
 
     useEffect(() => {
-        if (path.pathname === '/signup') {
-            setIsLogin(false)
-        }
+        setIsLogin(path.pathname === '/signup' ? false : true)
     }, [path.pathname])
 
     const loadUsers = async () => {
         const users = await userService.query()
-        console.log('users', users);
     }
 
     const onLogin = async (ev: SyntheticEvent) => {

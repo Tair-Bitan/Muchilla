@@ -56,6 +56,7 @@ export const Map = () => {
         <main className='main'>
             <div className="map-container">
                 <TripList />
+              
                 <GoogleMap
                     mapContainerStyle={{ width: '50vw', height: '90vh' }}
                     zoom={8}
@@ -74,15 +75,24 @@ export const Map = () => {
                             <Marker
                                 key={trip._id}
                                 position={trip.loc.pos}
+                                // label={{
+                                //     text: `${trip.members.length}`,
+                                //     fontSize: '1rem',
+                                //     fontWeight: '500',
+                                //     className: 'marker-label'
+
+                                // }}
                                 icon={{
                                     url: trip.typeImgUrl,
-                                    scaledSize: new google.maps.Size(50, 50),
+                                    scaledSize: new google.maps.Size(40, 40),
                                     origin: new window.google.maps.Point(0, 0),
-                                    anchor: new window.google.maps.Point(25, 25)
+                                    anchor: new window.google.maps.Point(15, 15)
                                 }}
                                 onClick={() => { onSelectTrip(trip._id) }}
 
-                            />
+                            >
+
+                            </Marker>
                         )
                     })}
 
@@ -101,13 +111,24 @@ export const Map = () => {
                                         <h4>{new Date(selectedTrip.createdAt).toLocaleDateString()}</h4>
                                     </div>
                                     <h2>{selectedTrip.loc.city} , {selectedTrip.loc.state}</h2>
+                                    <div className="members-imgs">
+                                        {selectedTrip.members.map((member: {
+                                            "_id": string,
+                                            "username": string,
+                                            "imgUrl": string,
+                                            "joinedAt": number
+                                        }) => {
+                                            return <img src={member.imgUrl} alt="memberAvater"></img>
+                                        })}
+                                    </div>
                                 </div>
-                                <button>Join Now</button>
+                                <button onClick={()=>{window.location.hash = `/trip/${selectedTrip._id}`}}>Join Now</button>
                             </div>
                         </InfoWindow>
                     )}
                 </GoogleMap>
-            </div>
+                </div>
+   
         </main>
     )
 }

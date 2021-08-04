@@ -8,11 +8,16 @@
 @import "basics/helpers";
 @import "basics/buttons";
 @import "basics/inputs";
+@import "basics/default-map-overwrite";
 
 @import "cmps/main-header";
+@import "cmps/main-footer";
 @import "cmps/trip-list";
 @import "cmps/trip-preview";
 
 @import "pages/home";
 @import "pages/login";
 @import "pages/map";
+@import "pages/trip-details";
+
+
