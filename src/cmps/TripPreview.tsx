@@ -1,21 +1,31 @@
 
 
-import React, { ReactElement } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import { Trip } from '../interfaces/Trip.interface'
-import { MAP_API_KEY, PLACES_API_KEY } from '../keys'
+import { MAP_API_KEY} from '../keys'
+import { tripService } from '../services/trip-service'
 
 interface Props {
     trip: Trip
+    setCoords: Function
 }
 
-export default function TripPreview({ trip }: Props): ReactElement {
+export default function TripPreview({ trip, setCoords }: Props): ReactElement {
     const { loc, type, typeImgUrl, createdAt, createdBy, members } = trip
+
+    const [photoRef , setPhotoRef] = useState()
+
+    const setLocation = (pos: { lat: number, lng: number }) => {
+        setCoords(pos)
+    }
+
     return (
-        <div className="trip-preview-container">
-           
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAcWl_v84bh6jiDX0IjHjUvPDhS8nRXZ7WPQ&usqp=CAU" alt="tripImg" />
-         
+        <div className="trip-preview-container" onClick={() => setLocation(loc.pos)}>
+        
+            <img src={trip.imgUrl} alt="tripImg" />
+          
             <div className="trip-info">
+
                 <h4>{new Date(createdAt).toLocaleDateString()}</h4>
                 <h2>{loc.city} , {loc.state}</h2>
                 <div className="trip-type">
@@ -24,7 +34,7 @@ export default function TripPreview({ trip }: Props): ReactElement {
                 </div>
                 <div className="members-img-container">
                     {members.map(member => {
-                        return <img src={member.imgUrl} alt="memberAvater"></img>
+                        return <img key={`trip-preview-member-${member._id}`} src={member.imgUrl} alt="memberAvater"></img>
                     })}
                 </div>
             </div>

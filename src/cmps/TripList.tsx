@@ -4,11 +4,11 @@ import { tripService } from '../services/trip-service'
 import TripPreview from './TripPreview'
 
 interface Props {
-    // trip: Trip
+    setCoords: Function
 }
 
 
-export const TripList = ({}: Props): ReactElement => {
+export const TripList = ({setCoords}: Props): ReactElement => {
     const [trips, setTrips] = useState([] as Trip[])
 
     useEffect(() => {
@@ -30,7 +30,7 @@ export const TripList = ({}: Props): ReactElement => {
             
             {trips.map((trip)=>{
                 return (
-                    <TripPreview trip={trip}/>
+                    <TripPreview key={`preview-${trip._id}`} trip={trip} setCoords={setCoords}/>
                 )
             })}
 

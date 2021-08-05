@@ -1,13 +1,16 @@
+import usePlacesAutocomplete, { getDetails, getGeocode } from 'use-places-autocomplete';
 import trips from "../data/trip.json"
 
 import { storageService } from "./storage-service";
 import { Trip } from "../interfaces/Trip.interface";
 
+
 export const tripService = {
     query,
     getById,
     remove,
-    update
+    update,
+    getTripPhoto: setTripPhoto
 }
 
 const trips_KEY = 'trips'
@@ -48,6 +51,14 @@ async function update(updatedTrip: Trip): Promise<Trip> {
     storageService.saveToStorage(trips_KEY, gTrips)
 
     return tripToUpdate
+}
+
+async function setTripPhoto(trip: Trip) {
+    const results = await getGeocode({ address: `${trip.loc.state}, ${trip.loc.city}` })
+    const placeId = results[0].place_id
+    const place: any = await getDetails({ placeId })
+    trip.imgUrl = place.photos[0].getUrl()
+    update(trip)
 }
 
 function _loadTrips(): void {

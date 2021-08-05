@@ -1,5 +1,4 @@
 
 export const MAP_API_KEY = 'AIzaSyBJt1HJ2UX7AlXY9pgE_f3VQena2BBVFVg'
-export const PLACES_API_KEY = 'AIzaSyDMduog8FFxYwsCCltJ4S1_8ucJUq4CHDI'
-export const FLICKER_API_KEY = '453b879d465ead63239ef48eaa493430'
-export const FLICKER_SECRET_API_KEY = '3faf24d5c5636436'
+export const GEOCODING_API_KEY = 'AIzaSyButiEJ7MnUOsX_rMe3Znh3gEi8GWeOPZQ'
+

@@ -2,7 +2,8 @@ export interface Trip {
     _id: string,
     createdAt: number,
     type: string,
-   typeImgUrl: string,
+    typeImgUrl: string,
+    imgUrl?: string,
     createdBy: {
         _id: string,
         username: string,

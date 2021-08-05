@@ -42,7 +42,7 @@ export default function TripDetails({ }: Props): ReactElement {
                     </div>
                     <div className="members-img-container">
                         {trip.members?.map(member => {
-                            return <img src={member.imgUrl} alt="memberAvater"></img>
+                            return <img key={`details-member-img-${member._id}`} src={member.imgUrl} alt="memberAvater"></img>
                         })}
                     </div>
                 </div>
