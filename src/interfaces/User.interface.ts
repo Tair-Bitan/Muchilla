@@ -8,5 +8,5 @@ export interface User {
     email: string,
     imgUrl: string,
     interests: string[] | [],
-    trips: Trip[] | [],
+    trips: string[] | [],
 }

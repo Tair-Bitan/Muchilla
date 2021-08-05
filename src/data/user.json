@@ -16,66 +16,8 @@
             "lying on the beach"
         ],
         "trips": [
-            {
-                "_id": "d468w4d6d",
-                "createdAt": 1626432103554,
-                "type": "hiking",
-                "typeImgUrl": "https://image.flaticon.com/icons/png/512/3412/3412876.png",
-                "createdBy": {
-                    "_id": "d46a68d466",
-                    "username": "popo",
-                    "imgUrl": "https://randomuser.me/api/portraits/men/1.jpg"
-                },
-                "loc": {
-                    "state": "Nepal",
-                    "city": "lukla",
-                    "pos": {
-                        "lat": 27.68566,
-                        "lng": 86.727806
-                    }
-                },
-                "members": [
-                    {
-                        "_id": "d5s4f68e4",
-                        "username": "toto",
-                        "imgUrl": "https://randomuser.me/api/portraits/men/2.jpg",
-                        "joinedAt": 1626432103544
-                    },
-                    {
-                        "_id": "d46a68d466",
-                        "username": "popo",
-                        "imgUrl": "https://randomuser.me/api/portraits/men/1.jpg",
-                        "joinedAt": 1626431103554
-                    }
-                ]
-            },
-            {
-                "_id": "d468w4g6d",
-                "createdAt": 1626432303554,
-                "type": "shopping",
-                "typeImgUrl": "https://image.flaticon.com/icons/png/512/3081/3081415.png",
-                "createdBy": {
-                    "_id": "d46a68d466",
-                    "username": "popo",
-                    "imgUrl": "https://randomuser.me/api/portraits/men/1.jpg"
-                },
-                "loc": {
-                    "state": "Nepal",
-                    "city": "dudhakunda",
-                    "pos": {
-                        "lat": 27.5775969,
-                        "lng": 86.5602614
-                    }
-                },
-                "members": [
-                    {
-                        "_id": "d46a68d466",
-                        "username": "popo",
-                        "imgUrl": "https://randomuser.me/api/portraits/men/1.jpg",
-                        "joinedAt": 1626432303554
-                    }
-                ]
-            }
+            "d468w4d6d",
+            "d468w4g6d"
         ]
     },
     {
@@ -95,66 +37,8 @@
             "lying on the beach"
         ],
         "trips": [
-            {
-                "_id": "d468w4d6d",
-                "createdAt": 1626432103554,
-                "type": "hiking",
-                "typeImgUrl": "https://image.flaticon.com/icons/png/512/3412/3412876.png",
-                "createdBy": {
-                    "_id": "d46a68d466",
-                    "username": "popo",
-                    "imgUrl": "https://randomuser.me/api/portraits/men/1.jpg"
-                },
-                "loc": {
-                    "state": "Nepal",
-                    "city": "lukla",
-                    "pos": {
-                        "lat": 27.68566,
-                        "lng": 86.727806
-                    }
-                },
-                "members": [
-                    {
-                        "_id": "d5s4f68e4",
-                        "username": "toto",
-                        "imgUrl": "https://randomuser.me/api/portraits/men/2.jpg",
-                        "joinedAt": 1626432103544
-                    },
-                    {
-                        "_id": "d46a68d466",
-                        "username": "popo",
-                        "imgUrl": "https://randomuser.me/api/portraits/men/1.jpg",
-                        "joinedAt": 1626431103554
-                    }
-                ]
-            },
-            {
-                "_id": "d464w4d6d",
-                "createdAt": 1626432103554,
-                "type": "clubbing",
-                "typeImgUrl": "https://image.flaticon.com/icons/png/512/860/860330.png",
-                "createdBy": {
-                    "_id": "d5s4f68e4",
-                    "username": "toto",
-                    "imgUrl": "https://randomuser.me/api/portraits/men/2.jpg"
-                },
-                "loc": {
-                    "state": "Nepal",
-                    "city": "lukla",
-                    "pos": {
-                        "lat": 27.67566,
-                        "lng": 86.723806
-                    }
-                },
-                "members": [
-                    {
-                        "_id": "d5s4f68e4",
-                        "username": "toto",
-                        "imgUrl": "https://randomuser.me/api/portraits/men/2.jpg",
-                        "joinedAt": 1626432103554
-                    }
-                ]
-            }
+            "d468w4d6d",
+            "d464w4d6d"
         ]
     }
 ]
