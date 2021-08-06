@@ -44,11 +44,11 @@ export function Home({ }: Props): ReactElement {
                 </div>
             </div>
             {/* <div className="map full"></div> */}
-            {/* <div className="img-gallery full">
+            <div className="img-gallery full">
                 <img src={Img1} />
                 <img src={Img2} />
                 <img src={Img3} />
-            </div> */}
+            </div>
         </main>
     )
 }

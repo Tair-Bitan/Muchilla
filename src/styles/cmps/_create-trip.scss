@@ -1,0 +1,41 @@
+.create-trip-modal {
+    // height: 70vh;
+    width: 40vw;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    padding: 40px;
+
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 12px 6px #00000017;
+    border-radius: 7px;
+
+    h1 {
+        margin-bottom: 1em;
+    }
+
+    h2 {
+        margin-bottom: 1em;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        label {
+            margin-bottom: 0.5em;
+        }
+
+        input {
+            margin-bottom: 1em;
+            padding: 10px 0px;
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            border-bottom: 1px solid rgb(182, 182, 182);
+            outline: none;
+        }
+    }
+}

@@ -4,19 +4,24 @@
 
     > div {
         display: flex;
-        flex-direction: column;
+        gap: 40px;
+    }
 
-        > img {
+    .trip-details-left {
+        flex-grow: 5;
+
+        .main-trip-img {
             border-radius: 25px;
-            object-fit: cover;
-
             margin-bottom: 40px;
+            object-fit: cover;
+            max-height: 30vh;
         }
 
         .trip-info {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            margin-bottom: 40px;
 
             .trip-info-header {
                 width: 100%;
@@ -27,25 +32,59 @@
 
                 .trip-type {
                     display: flex;
+                    align-items: center;
+                    gap: 10px;
 
                     > img {
-                        width: 50px;
-                        height: 50px;
+                        width: 30px;
+                        height: 30px;
+                    }
+
+                    h3 {
+                        text-transform: capitalize;
+                        font-weight: 400;
                     }
                 }
             }
-            .members-img-container{
+            .members-img-container {
                 display: flex;
                 align-items: center;
                 gap: 5px;
+                margin-bottom: 20px;
 
-                >img{
+                > img {
                     width: 60px;
                     height: 60px;
                     object-fit: cover;
                     border-radius: 9px;
                 }
             }
+
+            .trip-info-main {
+                h2 {
+                    margin-bottom: 1em;
+                    color: $clr-2;
+                }
+
+                h3 {
+                    margin-bottom: 1em;
+                    color: $clr-2;
+                }
+
+                p{
+                    line-height: 1.50em;
+                    color: $clr-2;
+                }
+            }
+
+            .join-btn{
+                margin: 30px 0;
+            }
         }
+    }
+
+    .trip-details-right {
+        flex-grow: 3;
+        width: 40vw;
     }
 }

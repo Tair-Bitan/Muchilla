@@ -13,12 +13,11 @@ export const TripList = ({setCoords}: Props): ReactElement => {
 
     useEffect(() => {
         loadTrips()
-    }, [])
+    })
 
     const loadTrips = async () => {
         const trips = await tripService.query()
         setTrips(trips)
-        console.log('trips', trips);
     }
 
     if (!trips?.length) return <div>loading...</div>
@@ -26,7 +25,7 @@ export const TripList = ({setCoords}: Props): ReactElement => {
     return (
         <section className='trip-list-container'>
             <h3>{trips.length} trips</h3>
-            <h1>trips in ...</h1>
+            <h1>trips worldwide</h1>
             
             {trips.map((trip)=>{
                 return (

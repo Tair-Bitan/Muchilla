@@ -15,7 +15,7 @@ export function useDebounce(val: string | number, delay: number) {
             // console.log('clearing');
             clearTimeout(handler)
         }
-    }, [val])
+    }, [val,delay])
 
     return debouncedValue
 }

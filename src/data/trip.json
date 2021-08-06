@@ -38,7 +38,7 @@
         "createdAt": 1626432303554,
         "imgUrl": "https://maps.googleapis.com/maps/api/place/js/PhotoService.GetPhoto?1sAap_uED5b8s6uxDaSrP3N0GPn7qEFqtb-byp_3btAKSMgWGhoKUpUXEQkcjjLeJ_1ArtwxnlMBPPEmxdF3Z0IKGXMdQ0k2o4D91-eK-lQAQKHuW3_tzmESUVMI8WTBEZ4wxM4L92b21nj6Hr2O8i5dlBe5NbkYmjpqAt69hSl0zfZyy-OfrW&3u6336&5m1&2e1&callback=none&key=AIzaSyBJt1HJ2UX7AlXY9pgE_f3VQena2BBVFVg&token=28576",
         "type": "shopping",
-        "typeImgUrl": "https://image.flaticon.com/icons/png/512/3081/3081433.png",
+        "typeImgUrl": "https://image.flaticon.com/icons/png/512/253/253298.png",
         "createdBy": {
             "_id": "d46a68d466",
             "username": "popo",
@@ -66,7 +66,7 @@
         "createdAt": 1626432103554,
         "imgUrl": "https://lh3.googleusercontent.com/places/AAcXr8q_CfgA9vCm6Z1DPQth5llOPmGUoEEQW3mO-ydmJKJZtE63POLCvEDgL-hv4uU8k85U4NrGXAfQxiMO0wpQV_Q5Iei4rKM3Y0s=s1600-w4000",
         "type": "clubbing",
-        "typeImgUrl": "https://image.flaticon.com/icons/png/512/3126/3126883.png",
+        "typeImgUrl": "https://image.flaticon.com/icons/png/512/937/937367.png",
         "createdBy": {
             "_id": "d5s4f68e4",
             "username": "toto",

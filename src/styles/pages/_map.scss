@@ -14,8 +14,9 @@
         gap: 8px;
 
         > img {
-            height: 50%;
-            width: 100%;
+            height: 160px;
+            width: 240px;
+            object-fit: cover;
         }
 
         .trip-info {

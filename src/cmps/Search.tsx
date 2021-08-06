@@ -1,4 +1,7 @@
 import usePlacesAutocomplete, { getGeocode, getLatLng, getDetails } from 'use-places-autocomplete';
+import { Combobox, ComboboxInput, ComboboxOption, ComboboxPopover } from '@reach/combobox'
+import "@reach/combobox/styles.css"
+
 
 interface Props {
     setCoords: Function
@@ -7,47 +10,43 @@ interface Props {
 export const Search = ({ setCoords }: Props) => {
 
     const { ready, value, suggestions: { status, data }, setValue, clearSuggestions } = usePlacesAutocomplete({
-        requestOptions: {
-
-        }
+        // requestOptions: {}
     })
 
     return (
+
+
         <div className="map-search" >
-            <input type="text"
-                value={value}
-                onChange={(ev) => setValue(ev.target.value)}
-                disabled={!ready}
-                placeholder={'where do you wanna go?'}
-            />
-            <select
-                name="suggestions"
-                id="suggestions"
-                onChange={async (ev) => {
-                    setValue(ev.target.value, false)
-                    clearSuggestions()
-                    try {
-                        const results = await getGeocode({ address: ev.target.value })
-                        const placeId = results[0].place_id
-                        const { lat, lng } = await getLatLng(results[0])
-                        setCoords({ lat, lng })
-                        const place: any = await getDetails({ placeId })
-                        const placePhoto = place.photos[0].getUrl()
-                        console.log(placePhoto);
+
+            <Combobox onSelect={async (address) => {
+                setValue(address, false)
+                clearSuggestions()
+                try {
+                    const results = await getGeocode({ address })
+                    const { lat, lng } = await getLatLng(results[0])
+                    setCoords({ lat, lng })
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+            }>
+                <ComboboxInput
+                    value={value}
+                    onChange={(ev) => { setValue(ev.target.value) }}
+                    disabled={!ready}
+                    placeholder={'where do you wanna go?'}
+                />
+
+                <ComboboxPopover>
+                    {status === "OK" && data.map(({ id, description }) => {
+                        return (
+                            <ComboboxOption key={id} value={description}></ComboboxOption>
+                        )
+                    })}
+                </ComboboxPopover>
 
 
-
-
-                    } catch (err) {
-                        console.log(err);
-                    }
-                }}>
-                {status === "OK" && data.map(({ id, description }) => {
-                    return (
-                        <option key={id} value={description}>{description}</option>
-                    )
-                })}
-            </select>
+            </Combobox>
         </div>
     )
 }
