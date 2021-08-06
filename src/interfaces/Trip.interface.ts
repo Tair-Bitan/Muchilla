@@ -3,6 +3,7 @@ export interface Trip {
     createdAt: number,
     type: string,
     typeImgUrl: string,
+    imgUrl?: string,
     createdBy: {
         _id: string,
         username: string,
@@ -23,3 +24,5 @@ export interface Trip {
         joinedAt: number
     }[]
 }
+
+export type NewTrip = Omit<Trip, "_id" | "imgUrl">;

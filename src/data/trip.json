@@ -2,8 +2,9 @@
     {
         "_id": "d468w4d6d",
         "createdAt": 1626432103554,
+        "imgUrl": "https://maps.googleapis.com/maps/api/place/js/PhotoService.GetPhoto?1sAap_uECG4XFm0_QNrIGKcR6COp88nEsmceUymv_ZSHkBaslY3zhP8mK7OxCC4gQ82JbgzrqEPFFoLgvuxBLbVzG5hN-mgENcsIHPWJlfwalBzy6zeLNmLYe944N9Vu-miIqobh34t0RuomvrwLRbgPneqz_hg_CSPczfkmu51WmVUAHG48nZ&3u500&5m1&2e1&callback=none&key=AIzaSyBJt1HJ2UX7AlXY9pgE_f3VQena2BBVFVg&token=128857",
         "type": "hiking",
-        "typeImgUrl": "https://image.flaticon.com/icons/png/512/3412/3412876.png",
+        "typeImgUrl": "https://image.flaticon.com/icons/png/512/71/71423.png",
         "createdBy": {
             "_id": "d46a68d466",
             "username": "popo",
@@ -35,8 +36,9 @@
     {
         "_id": "d468w4g6d",
         "createdAt": 1626432303554,
+        "imgUrl": "https://maps.googleapis.com/maps/api/place/js/PhotoService.GetPhoto?1sAap_uED5b8s6uxDaSrP3N0GPn7qEFqtb-byp_3btAKSMgWGhoKUpUXEQkcjjLeJ_1ArtwxnlMBPPEmxdF3Z0IKGXMdQ0k2o4D91-eK-lQAQKHuW3_tzmESUVMI8WTBEZ4wxM4L92b21nj6Hr2O8i5dlBe5NbkYmjpqAt69hSl0zfZyy-OfrW&3u6336&5m1&2e1&callback=none&key=AIzaSyBJt1HJ2UX7AlXY9pgE_f3VQena2BBVFVg&token=28576",
         "type": "shopping",
-        "typeImgUrl": "https://image.flaticon.com/icons/png/512/3081/3081415.png",
+        "typeImgUrl": "https://image.flaticon.com/icons/png/512/3081/3081433.png",
         "createdBy": {
             "_id": "d46a68d466",
             "username": "popo",
@@ -62,8 +64,9 @@
     {
         "_id": "d464w4d6d",
         "createdAt": 1626432103554,
+        "imgUrl": "https://lh3.googleusercontent.com/places/AAcXr8q_CfgA9vCm6Z1DPQth5llOPmGUoEEQW3mO-ydmJKJZtE63POLCvEDgL-hv4uU8k85U4NrGXAfQxiMO0wpQV_Q5Iei4rKM3Y0s=s1600-w4000",
         "type": "clubbing",
-        "typeImgUrl": "https://image.flaticon.com/icons/png/512/860/860330.png",
+        "typeImgUrl": "https://image.flaticon.com/icons/png/512/3126/3126883.png",
         "createdBy": {
             "_id": "d5s4f68e4",
             "username": "toto",
@@ -71,10 +74,10 @@
         },
         "loc": {
             "state": "Nepal",
-            "city": "lukla",
+            "city": "Surke",
             "pos": {
-                "lat": 27.67566,
-                "lng": 86.723806
+                "lat": 27.67296282062132,
+                "lng": 86.7171049118042
             }
         },
         "members": [

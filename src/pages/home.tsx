@@ -1,10 +1,12 @@
 import { ReactElement } from 'react'
 import { useState } from "react"
+import { Link } from 'react-router-dom';
 
 import '../styles/style.scss';
-// import img1 from '../assets/imgs/1.PNG'
-// import img2 from '../assets/imgs/2.PNG'
-// import img3 from '../assets/imgs/3.jpg'
+
+import Img1 from '../assets/imgs/1.png'
+import Img2 from '../assets/imgs/2.png'
+import Img3 from '../assets/imgs/3.jpg'
 
 interface Props {
 
@@ -17,9 +19,11 @@ export function Home({ }: Props): ReactElement {
     return (
         <main className='home-page main'>
             <div className="hero full">
-                <div className="hero-txt">
-                    <h1>Simple way to discover a new world of traveling</h1>
-                    <button>Start here</button>
+                <div className="main">
+                    <div className="hero-txt">
+                        <h1>Simple way to discover a new world of traveling</h1>
+                        <Link to="/map">Start here</Link>
+                    </div>
                 </div>
             </div>
             <div className="why-muchilla">
@@ -40,11 +44,11 @@ export function Home({ }: Props): ReactElement {
                 </div>
             </div>
             {/* <div className="map full"></div> */}
-            <div className="img-gallery full">
-                {/* <img src={img1}/>
-                <img src={img2}/>
-                <img src={img3}/> */}
-            </div>
+            {/* <div className="img-gallery full">
+                <img src={Img1} />
+                <img src={Img2} />
+                <img src={Img3} />
+            </div> */}
         </main>
     )
 }

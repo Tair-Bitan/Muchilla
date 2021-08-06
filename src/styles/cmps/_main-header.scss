@@ -21,11 +21,16 @@
                 color: #222;
                 font-size: 0.9em;
                 font-weight: 500;
+                
+                &:hover{
+                    color: $clr-1;
+                }
             }
 
             .active {
                 color: $clr-1;
             }
+
         }
 
         .user-container {
