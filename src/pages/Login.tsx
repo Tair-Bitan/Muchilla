@@ -21,7 +21,7 @@ export function Login({ }: Props): ReactElement {
     }, [])
 
     useEffect(() => {
-        setIsLogin(path.pathname === '/signup' ? false : true)
+        setIsLogin(path.pathname === '/login')
     }, [path.pathname])
 
     const loadUsers = async () => {

@@ -15,6 +15,7 @@
     "cors": "^2.8.5",
     "google-map-react": "^2.1.10",
     "google-maps": "^4.3.3",
+    "mobx": "^6.3.2",
     "node-sass": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
