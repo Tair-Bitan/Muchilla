@@ -1,13 +1,14 @@
-
-.main-input{
-   
+.main-input {
     padding: 10px 20px;
     border-radius: 8px;
     border: 1px solid $clr-5;
 
-    // &:visited, &:active, &:focus{
-    //     outline: none;
-        
+    &:visited,
+    &:active,
+    &:focus {
+        outline: none;
+    }
+
     //     &::placeholder{
     //         position: absolute;
     //         top: 0;
@@ -15,6 +16,6 @@
     //         z-index: 5;
     //         color: red;
     //     }
-        
+
     // }
 }

@@ -6,7 +6,7 @@ import '../styles/style.scss';
 
 import Img1 from '../assets/imgs/1.png'
 import Img2 from '../assets/imgs/2.png'
-import Img3 from '../assets/imgs/3.jpg'
+import Img3 from '../assets/imgs/3.png'
 
 interface Props {
 

@@ -14,11 +14,11 @@ export function MainHeader(): ReactElement {
                     <NavLink exact to="/">Home</NavLink>
                     <NavLink exact to="/map">Map</NavLink>
                     <NavLink to="/about">About</NavLink>
-                    <NavLink to="user/123">User</NavLink>
+                    {/* <NavLink to="user/123">User</NavLink> */}
                 </nav>
                 <div className="user-container">
-                    <Link to="/login">Login</Link>
-                    <Link to="/signup">Signup</Link>
+                    <NavLink to="/login">Login</NavLink>
+                    <NavLink to="/signup">Signup</NavLink>
 
                 </div>
             </div>

@@ -13,26 +13,7 @@
         justify-content: space-between;
         height: 100%;
 
-        .main-nav {
-            display: flex;
-            gap: 30px;
-
-            a {
-                color: #222;
-                font-size: 0.9em;
-                font-weight: 500;
-                
-                &:hover{
-                    color: $clr-1;
-                }
-            }
-
-            .active {
-                color: $clr-1;
-            }
-
-        }
-
+        .main-nav,
         .user-container {
             display: flex;
             gap: 30px;
@@ -41,6 +22,14 @@
                 color: #222;
                 font-size: 0.9em;
                 font-weight: 500;
+
+                &:hover {
+                    color: $clr-1;
+                }
+            }
+
+            .active {
+                color: $clr-1;
             }
         }
     }

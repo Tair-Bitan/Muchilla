@@ -4,16 +4,19 @@ import { utils } from "./utils";
 import { storageService } from "./storage-service";
 import { LoginCreds, SignupCreds } from "../interfaces/Creds.interface";
 import { User } from "../interfaces/User.interface";
+import userPic from "../assets/imgs/default-user.png"
 
 export const userService = {
     query,
     login,
     logout,
     signup,
+    checkUsername,
     getById,
     remove,
     update,
     getLoggedinUser,
+    getEmptyCreds
 }
 
 const loggedInUser_KEY = 'loggedInUser'
@@ -33,7 +36,7 @@ function login(creds: LoginCreds): Promise<User> | Promise<string> {
         return user.username === creds.username && user.password === creds.password
     }) as User
 
-    if (!user) return Promise.resolve(`Err: No such user ${creds.username}`)
+    if (!user) return Promise.reject('Incorrect username or password') as Promise<string>
 
     _saveLocalUser(user)
     return Promise.resolve(user)
@@ -43,7 +46,12 @@ function logout(): void {
     storageService.saveToStorage(loggedInUser_KEY, '')
 }
 
-function signup(creds: SignupCreds): void {
+async function signup(creds: SignupCreds): Promise<string> {
+    const isOccupied = await checkUsername(creds.username)
+    if (isOccupied) {
+        return Promise.reject(`${creds.username} is occupied, try another username`)
+    }
+
     const user: User = {
         _id: utils.makeId(),
         ...creds,
@@ -52,7 +60,15 @@ function signup(creds: SignupCreds): void {
     }
 
     gUsers.push(user)
+    _saveLocalUser(user)
     storageService.saveToStorage(users_KEY, gUsers)
+
+    return Promise.resolve(`successfully signed ${user}`)
+}
+
+function checkUsername(username: string): Promise<boolean> {
+    const isOccupied = gUsers.some(user => user.username === username)
+    return Promise.resolve(isOccupied)
 }
 
 function getById(userId: string): Promise<User> {
@@ -85,8 +101,25 @@ async function update(updatedUser: User): Promise<User> {
 }
 
 function getLoggedinUser(): User {
-   var user =  storageService.loadFromStorage(loggedInUser_KEY)
-   return user
+    var user = storageService.loadFromStorage(loggedInUser_KEY)
+    return user
+}
+
+function getEmptyCreds(isLogin: boolean): LoginCreds | SignupCreds {
+    if (isLogin) {
+        return {
+            username: '',
+            password: ''
+        }
+    } else {
+        return {
+            username: '',
+            password: '',
+            fullname: '',
+            email: '',
+            imgUrl: userPic
+        }
+    }
 }
 
 function _saveLocalUser(user: User): void {

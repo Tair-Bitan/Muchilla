@@ -1,12 +1,13 @@
 .login {
     min-height: 80vh;
     margin-top: 40px;
-    
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
     .login-container {
+        position: relative;
         width: fit-content;
         padding: 40px 20px;
         display: flex;
@@ -19,11 +20,42 @@
             margin-bottom: 20px;
         }
 
-        .login-form {
+        .login-form,
+        .signup-form {
             min-width: 280px;
             display: flex;
             flex-direction: column;
             gap: 10px;
+
+            button {
+                margin-bottom: 5px;
+            }
+        }
+
+        input.invalid {
+            border-color: red;
+        }
+
+        .p-occupied-user {
+            position: absolute;
+            bottom: 0;
+            font-size: 0.8em;
+            color: red;
+        }
+
+        .p-new-user {
+            position: absolute;
+            bottom: 0;
+        }
+
+        a {
+            color: #e99f5a;
+            &::before {
+                content: " ";
+            }
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 }
