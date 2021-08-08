@@ -119,49 +119,51 @@ export function Login({ }: Props): ReactElement {
                     </>
                 }
                 {!isLogin &&
-                    <form className="signup-form" onSubmit={(ev) => onSignup(ev)}>
-                        <input
-                            className="main-input"
-                            type="text"
-                            name="fullname"
-                            value={signupCreds.fullname}
-                            placeholder="fullname"
-                            onChange={signupHandelChange}
-                            required
-                        />
+                    <>
+                        <form className="signup-form" onSubmit={(ev) => onSignup(ev)}>
+                            <input
+                                className="main-input"
+                                type="text"
+                                name="fullname"
+                                value={signupCreds.fullname}
+                                placeholder="fullname"
+                                onChange={signupHandelChange}
+                                required
+                            />
+                            <input
+                                className={`main-input ${msg ? 'invalid' : ''}`}
+                                type="text"
+                                name="username"
+                                value={signupCreds.username}
+                                placeholder="username"
+                                onChange={signupHandelChange}
+                                required
+                            />
+
+                            <input
+                                className="main-input"
+                                type="text"
+                                name="password"
+                                value={signupCreds.password}
+                                placeholder="password"
+                                onChange={signupHandelChange}
+                                required
+                            />
+
+                            <input
+                                className="main-input"
+                                type="text"
+                                name="email"
+                                value={signupCreds.email}
+                                placeholder="name@provider.com"
+                                onChange={signupHandelChange}
+                                required
+                            />
+
+                            <button type="submit" className="main-btn">Save</button>
+                        </form>
                         {msg && <p className="p-occupied-user">*{msg}</p>}
-                        <input
-                            className={`main-input ${msg ? 'invalid' : ''}`}
-                            type="text"
-                            name="username"
-                            value={signupCreds.username}
-                            placeholder="username"
-                            onChange={signupHandelChange}
-                            required
-                        />
-
-                        <input
-                            className="main-input"
-                            type="text"
-                            name="password"
-                            value={signupCreds.password}
-                            placeholder="password"
-                            onChange={signupHandelChange}
-                            required
-                        />
-
-                        <input
-                            className="main-input"
-                            type="text"
-                            name="email"
-                            value={signupCreds.email}
-                            placeholder="name@provider.com"
-                            onChange={signupHandelChange}
-                            required
-                        />
-
-                        <button type="submit" className="main-btn">Save</button>
-                    </form>
+                    </>
                 }
             </div>
         </section>
