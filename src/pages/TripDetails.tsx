@@ -28,24 +28,38 @@ export default function TripDetails({ }: Props): ReactElement {
     if (!trip) return <h1>loading...</h1>
 
     return (
-        <main className="trip-details-container main-mini">
+        <main className="trip-details-container main">
             <div>
-                <img src={trip.imgUrl} alt="tripImg" />
+                <div className="trip-details-left">
+                    <img src={trip.imgUrl} className="main-trip-img" alt="tripImg" />
 
-                <div className="trip-info">
-                    <div className="trip-info-header">
-                        <div className="trip-type">
-                            <img src={trip.typeImgUrl} alt={trip.type} />
-                            <h3>{trip.type}</h3>
+                    <div className="trip-info">
+                        <div className="trip-info-header">
+                            <div className="trip-type">
+                                <img src={trip.typeImgUrl} alt={trip.type} />
+                                <h3>{trip.type}</h3>
+                            </div>
+                            <h4>{new Date(trip.createdAt).toLocaleDateString()}</h4>
                         </div>
-                        <h4>{new Date(trip.createdAt).toLocaleDateString()}</h4>
-                    </div>
-                    <div className="members-img-container">
-                        {trip.members?.map(member => {
-                            return <img key={`details-member-img-${member._id}`} src={member.imgUrl} alt="memberAvater"></img>
-                        })}
+                        <div className="members-img-container">
+                            {trip.members?.map(member => {
+                                return <img key={`details-member-img-${member._id}`} src={member.imgUrl} alt="memberAvater"></img>
+                            })}
+                        </div>
+                        <div className="trip-info-main">
+                            <h2>{trip.loc.city} , {trip.loc.state}</h2>
+                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id iste minima veniam.</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci debitis repudiandae deserunt itaque ullam cumque magnam culpa quas est neque! Ab iure ullam esse ipsum rem tempora et est modi odit, suscipit minima quaerat voluptate inventore doloribus possimus velit quas?</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci culpa quas est neque! Ab iure ullam esse ipsum rem tempora et est modi odit, suscipit minima quaerat voluptate debitis repudiandae deserunt itaque ullam cumque magnam culpa quas est neque! Ab iure ullam esse ipsum rem tempora et est modi odit, suscipit minima quaerat voluptate inventore doloribus possimus velit quas?</p>
+                        </div>
+                        <button className="main-btn join-btn">Join</button>
                     </div>
                 </div>
+                <div className="trip-details-right">
+                    <h1>Nearby trips</h1>
+                </div>
+
+
             </div>
         </main>
     )

@@ -1,31 +1,34 @@
-
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api'
-// import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete'
 import { useCallback, useEffect, useRef, useState } from 'react'
-
 
 import { TripList } from '../cmps/TripList'
 import { Trip } from '../interfaces/Trip.interface'
 import { MAP_API_KEY } from '../keys'
 import { tripService } from '../services/trip-service'
 import { Search } from '../cmps/Search'
+import { CreateTrip } from '../cmps/CreateTrip'
 
+const libraries = ["places"] as any
 
 export const Map = () => {
 
     const [trips, setTrips] = useState([] as Trip[])
     const [selectedTrip, setSelectedTrip] = useState(null as any)
     const [coords, setCoords] = useState({ lng: 86.727806, lat: 27.68566 })
+    const [newTripBtnData, setNewTripBtnData] = useState({
+        isOn: false,
+        pos: { lat: 0, lng: 0 }
+    })
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
 
     useEffect(() => {
         loadTrips()
-    }, [])
+    })
 
     const loadTrips = async () => {
         const trips = await tripService.query()
         setTrips(trips)
-        console.log('trips', trips);
     }
 
     const onSelectTrip = async (tripId: string | null) => {
@@ -38,10 +41,9 @@ export const Map = () => {
         }
     }
 
-
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: MAP_API_KEY,
-        libraries: ["places"]
+        libraries
     })
 
     const options = {
@@ -54,6 +56,12 @@ export const Map = () => {
         mapRef.current = map
     }, [])
 
+    const closeBtn = () => {
+        setNewTripBtnData({
+            isOn: false,
+            pos: { lat: 0, lng: 0 }
+        })
+    }
 
     if (loadError) return <div>got err</div>
     if (!isLoaded) return <div>loading...</div>
@@ -72,11 +80,12 @@ export const Map = () => {
                 //     console.log('Bounds Changed')
                 // }}
                 mapContainerStyle={{ width: '50vw', height: '90vh' }}
-                zoom={13}
+                zoom={11}
                 center={coords}
                 options={options}
                 onClick={(ev) => {
                     const clickedPos = { lat: ev.latLng.lat(), lng: ev.latLng.lng() }
+                    setNewTripBtnData({ isOn: true, pos: clickedPos })
                     console.log(clickedPos)
                 }}
                 onLoad={onMapLoad}>
@@ -137,8 +146,19 @@ export const Map = () => {
                         </div>
                     </InfoWindow>
                 )}
+
+                {newTripBtnData.isOn && (
+                    <InfoWindow
+                        options={{ disableAutoPan: true, maxWidth: 250 }}
+                        position={newTripBtnData.pos}
+                        onCloseClick={closeBtn}
+                    >
+                        <button className="main-btn" onClick={()=>{setIsModalOpen(true)}}>Create new trip</button>
+                    </InfoWindow>
+                )}
             </GoogleMap>
 
+            {isModalOpen && <CreateTrip pos={newTripBtnData.pos} setIsModalOpen={setIsModalOpen} closeBtn={closeBtn} />}
         </main>
     )
 }

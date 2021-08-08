@@ -10,9 +10,27 @@
     transition: 0.3s;
     
     &:hover{
-        background-color: $clr-4;
+        background-color: white;
         color: $clr-1;
         
     }
+}
 
+.join-btn{
+    width: 180px;
+}
+
+.exit-btn{
+    background-color: transparent;
+    border: none;
+    margin: 0 0;
+    padding: 0 0;
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+
+    &:hover{
+        font-weight: 600;
+    }
 }

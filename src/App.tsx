@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { HashRouter as Router, Switch, Route } from "react-router-dom"
 
 import './styles/style.scss';
-import { Home } from './pages/Home';
+import { Home } from './pages/home';
 import { Login } from './pages/Login';
 import {Map} from './pages/Map';
 import { MainHeader } from './cmps/MainHeader';
