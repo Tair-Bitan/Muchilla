@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function TripPreview({ trip, setCoords }: Props): ReactElement {
-    const { loc, type, typeImgUrl, createdAt, createdBy, members } = trip
+    const { loc, type, typeImgUrl, createdAt, title , members } = trip
 
     const [photoRef , setPhotoRef] = useState()
 
@@ -27,6 +27,7 @@ export default function TripPreview({ trip, setCoords }: Props): ReactElement {
             <div className="trip-info">
 
                 <h4>{new Date(createdAt).toLocaleDateString()}</h4>
+                <h3>{title}</h3>
                 <h2>{loc.city} , {loc.state}</h2>
                 <div className="trip-type">
                     <img src={typeImgUrl} alt={type} />

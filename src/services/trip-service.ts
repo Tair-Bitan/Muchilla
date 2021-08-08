@@ -44,6 +44,8 @@ async function add(tripInputs: { title: string, desc: string, type: string }, tr
         createdAt: Date.now(),
         type: tripInputs.type,
         typeImgUrl: _getTypeImgUrl(tripInputs.type),
+        title: tripInputs.title,
+        desc: tripInputs.desc,
         createdBy: {
             _id: 'd46a68d466',
             username: 'popo',

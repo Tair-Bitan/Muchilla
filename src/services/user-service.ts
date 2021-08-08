@@ -84,8 +84,9 @@ async function update(updatedUser: User): Promise<User> {
     return userToUpdate
 }
 
-function getLoggedinUser(): void {
-    storageService.loadFromStorage(loggedInUser_KEY)
+function getLoggedinUser(): User {
+   var user =  storageService.loadFromStorage(loggedInUser_KEY)
+   return user
 }
 
 function _saveLocalUser(user: User): void {

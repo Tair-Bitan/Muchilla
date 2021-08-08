@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { tripService } from "../services/trip-service"
 import { TripData } from '../interfaces/tripData'
 import { useForm } from '../services/customHooks'
+import { User } from '../interfaces/User.interface'
 
 interface Props {
     pos: { lat: number, lng: number }
@@ -13,16 +14,16 @@ interface Props {
 export const CreateTrip = ({ pos, setIsModalOpen, closeBtn }: Props) => {
 
     const [tripData, setTripData] = useState({} as TripData)
-
-    const getLocationData = async () => {
-        const locData = await tripService.getLocData(pos)
-        setTripData(locData)
-    }
+    const [loggedinUser,setLoggedinUser] = useState({} as User)
 
     useEffect(() => {
         getLocationData()
     })
-
+    
+    const getLocationData = async () => {
+        const locData = await tripService.getLocData(pos)
+        setTripData(locData)
+    }
 
     const [tripInputs, handelChange] = useForm({
         title: '',
