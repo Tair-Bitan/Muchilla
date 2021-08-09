@@ -11,6 +11,7 @@ const StoreProvider = StoreContext.Provider
 const useStore = () => {
     return useContext(StoreContext)
 }
+
 export const store = {
     createStore,
     StoreContext,
