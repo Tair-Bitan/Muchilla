@@ -11,7 +11,7 @@ export const userService = {
     login,
     logout,
     signup,
-    checkUsername,
+    checkIfTaken,
     getById,
     remove,
     update,
@@ -31,23 +31,24 @@ function query(filterBy?: any): Promise<User[]> {
     return Promise.resolve(gUsers)
 }
 
-function login(creds: LoginCreds): Promise<User> | Promise<string> {
+function login(creds: LoginCreds): Promise<string | User> {
     const user = gUsers.find(user => {
         return user.username === creds.username && user.password === creds.password
     }) as User
 
-    if (!user) return Promise.reject('Incorrect username or password') as Promise<string>
+    if (!user) return Promise.reject('Incorrect username or password')
 
     _saveLocalUser(user)
     return Promise.resolve(user)
 }
 
-function logout(): void {
+function logout(): Promise<null> {
     storageService.saveToStorage(loggedInUser_KEY, '')
+    return Promise.resolve(null)
 }
 
-async function signup(creds: SignupCreds): Promise<string> {
-    const isOccupied = await checkUsername(creds.username)
+async function signup(creds: SignupCreds): Promise<string | User> {
+    const isOccupied = await checkIfTaken(creds.username)
     if (isOccupied) {
         return Promise.reject(`${creds.username} is occupied, try another username`)
     }
@@ -63,41 +64,55 @@ async function signup(creds: SignupCreds): Promise<string> {
     _saveLocalUser(user)
     storageService.saveToStorage(users_KEY, gUsers)
 
-    return Promise.resolve(`successfully signed ${user}`)
+    return Promise.resolve(user)
 }
 
-function checkUsername(username: string): Promise<boolean> {
+function checkIfTaken(username: string): Promise<boolean> {
     const isOccupied = gUsers.some(user => user.username === username)
     return Promise.resolve(isOccupied)
 }
 
-function getById(userId: string): Promise<User> {
+function getById(userId: string): Promise<string | User> {
     const user = gUsers.find(user => {
         return user._id === userId
-    }) as User
+    })
+    if (!user) return Promise.reject(`Err: Couldn't find user with the following id: ${userId} `)
 
     return Promise.resolve(user)
 }
 
-function remove(userId: string): void {
+function remove(userId: string): Promise<null> {
+    /*
+    TODO:
+     every user can remove himself, only admin can remove others 
+     when deleting user, delete all of the trips he created or assign someone else
+     notify every member in the trip that trip is no longer exists
+    */
     const userIdx = gUsers.findIndex(user => {
         return user._id === userId
     })
 
     gUsers.splice(userIdx, 1)
     storageService.saveToStorage(users_KEY, gUsers)
+    return Promise.resolve(null)
 }
 
-async function update(updatedUser: User): Promise<User> {
-    const userToUpdate = await getById(updatedUser._id)
-    const userIdx = gUsers.findIndex(user => {
-        return user._id === updatedUser._id
-    })
+async function update(updatedUser: User): Promise<string | User> {
+    let userToUpdate
+    let userIdx
+    try {
+        userToUpdate = await getById(updatedUser._id)
+        userIdx = gUsers.findIndex(user => {
+            return user._id === updatedUser._id
+        })
+        gUsers[userIdx] = userToUpdate as User
+        storageService.saveToStorage(users_KEY, gUsers)
 
-    gUsers[userIdx] = userToUpdate
-    storageService.saveToStorage(users_KEY, gUsers)
+        return Promise.resolve(userToUpdate) as Promise<User>
 
-    return userToUpdate
+    } catch (error) {
+        return Promise.reject(error)
+    }
 }
 
 function getLoggedinUser(): User {

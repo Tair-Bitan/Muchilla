@@ -1,9 +1,15 @@
 import { ReactElement } from 'react'
 import { NavLink, Link } from 'react-router-dom';
+import { observer } from 'mobx-react-lite'
+
+import { store } from '../stores/storeHelpers';
 
 import "../styles/style.scss"
 
-export function MainHeader(): ReactElement {
+
+function _MainHeader(): ReactElement {
+
+    const { userStore: { loggedInUser } } = store.useStore()
 
     return (
         <section className="main-header main">
@@ -17,12 +23,23 @@ export function MainHeader(): ReactElement {
                     {/* <NavLink to="user/123">User</NavLink> */}
                 </nav>
                 <div className="user-container">
-                    <NavLink to="/login">Login</NavLink>
-                    <NavLink to="/signup">Signup</NavLink>
-
+                    {loggedInUser &&
+                        <>
+                            <NavLink to={`/user/${loggedInUser._id}`}>Hi, {loggedInUser.username}</NavLink>
+                            <NavLink to='/login'>Logout</NavLink>
+                        </>
+                    }
+                    {!loggedInUser &&
+                        <>
+                            <NavLink to="/login">Login</NavLink>
+                            <NavLink to="/signup">Signup</NavLink>
+                        </>
+                    }
                 </div>
             </div>
         </section>
     )
 
 }
+
+export const MainHeader = observer(_MainHeader)
