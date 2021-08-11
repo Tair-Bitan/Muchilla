@@ -7,6 +7,7 @@ import { MAP_API_KEY } from '../keys'
 import { tripService } from '../services/trip-service'
 import { Search } from '../cmps/Search'
 import { CreateTrip } from '../cmps/CreateTrip'
+import { User } from '../interfaces/User.interface'
 
 const libraries = ["places"] as any
 
@@ -20,11 +21,16 @@ export const Map = () => {
         pos: { lat: 0, lng: 0 }
     })
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [loggedinUser, setLoggedinUser] = useState({} as User)
 
 
     useEffect(() => {
         loadTrips()
     })
+
+    const getLoggedinUser = ()=>{
+        
+    }
 
     const loadTrips = async () => {
         const trips = await tripService.query()
@@ -76,9 +82,9 @@ export const Map = () => {
 
             <GoogleMap
                 mapContainerClassName={'google-map-container'}
-                // onBoundsChanged={() => {
-                //     console.log('Bounds Changed')
-                // }}
+                onCenterChanged={() => {
+                    console.log( mapRef.current)
+                }}
                 mapContainerStyle={{ width: '50vw', height: '90vh' }}
                 zoom={11}
                 center={coords}
