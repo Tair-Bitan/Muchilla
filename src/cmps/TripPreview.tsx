@@ -13,8 +13,6 @@ interface Props {
 export default function TripPreview({ trip, setCoords }: Props): ReactElement {
     const { loc, type, typeImgUrl, createdAt, title, members } = trip
 
-    const [photoRef, setPhotoRef] = useState()
-
     const setLocation = (pos: { lat: number, lng: number }) => {
         setCoords(pos)
     }

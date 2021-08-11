@@ -8,14 +8,15 @@ import { TripList } from '../cmps/TripList'
 import { Search } from '../cmps/Search'
 import { CreateTrip } from '../cmps/CreateTrip'
 import { store } from '../stores/storeHelpers'
+import { User } from '../interfaces/User.interface'
 
 const libraries = ["places"] as any
 
 export const Map = () => {
 
     const { tripStore } = store.useStore()
-
-    const [trips, setTrips] = useState([] as Trip[])
+    const [trips, setTrips] = useState<Trip[]>([])
+    const [markers, setMarkers] = useState<any[]>([])
     const [selectedTrip, setSelectedTrip] = useState(null as any)
     const [coords, setCoords] = useState({ lng: 86.727806, lat: 27.68566 })
     const [newTripBtnData, setNewTripBtnData] = useState({
@@ -23,11 +24,34 @@ export const Map = () => {
         pos: { lat: 0, lng: 0 }
     })
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [loggedinUser, setLoggedinUser] = useState({} as User)
 
 
     useEffect(() => {
         setTrips(tripStore.trips)
+        const loadedMarkers = loadMarkers()
+
+        setMarkers(loadedMarkers)
     }, [tripStore.trips])
+
+
+    const loadMarkers = () => {
+        return trips.map((trip) => {
+            return (
+                <Marker
+                    key={`marker-${trip._id}`}
+                    position={trip.loc.pos}
+                    icon={{
+                        url: trip.typeImgUrl,
+                        scaledSize: new google.maps.Size(40, 40),
+                        origin: new window.google.maps.Point(0, 0),
+                        anchor: new window.google.maps.Point(20, 20)
+                    }}
+                    onClick={() => { onSelectTrip(trip._id) }}
+                ></Marker>
+            )
+        })
+    }
 
     const onSelectTrip = async (tripId: string | null) => {
         if (tripId) {
@@ -61,6 +85,7 @@ export const Map = () => {
         })
     }
 
+
     if (loadError) return <div>got err</div>
     if (!isLoaded) return <div>loading...</div>
 
@@ -74,45 +99,19 @@ export const Map = () => {
 
             <GoogleMap
                 mapContainerClassName={'google-map-container'}
-                // onBoundsChanged={() => {
-                //     console.log('Bounds Changed')
-                // }}
                 mapContainerStyle={{ width: '50vw', height: '90vh' }}
                 zoom={11}
                 center={coords}
                 options={options}
+
                 onClick={(ev) => {
                     const clickedPos = { lat: ev.latLng.lat(), lng: ev.latLng.lng() }
                     setNewTripBtnData({ isOn: true, pos: clickedPos })
-                    console.log(clickedPos)
                 }}
-                onLoad={onMapLoad}>
+                onLoad={onMapLoad}
+            >
 
-                {trips.map((trip) => {
-                    return (
-                        <Marker
-                            key={`marker-${trip._id}`}
-                            position={trip.loc.pos}
-                            // label={{
-                            //     text: `${trip.members.length}`,
-                            //     fontSize: '0.75rem',
-                            //     fontWeight: '500',
-                            //     className: 'marker-label'
-
-                            // }}
-                            icon={{
-                                url: trip.typeImgUrl,
-                                scaledSize: new google.maps.Size(40, 40),
-                                origin: new window.google.maps.Point(0, 0),
-                                anchor: new window.google.maps.Point(20, 20)
-                            }}
-                            onClick={() => { onSelectTrip(trip._id) }}
-
-                        >
-
-                        </Marker>
-                    )
-                })}
+                {markers.map(marker => marker)}
 
                 {selectedTrip && (
                     <InfoWindow
