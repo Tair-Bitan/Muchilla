@@ -23,6 +23,7 @@ export const Map = () => {
         isOn: false,
         pos: { lat: 0, lng: 0 }
     })
+    
     const [isModalOpen, setIsModalOpen] = useState(false)
     const history = useHistory()
 
