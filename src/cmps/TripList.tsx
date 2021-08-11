@@ -8,12 +8,12 @@ interface Props {
 }
 
 
-export const TripList = ({setCoords}: Props): ReactElement => {
+export const TripList = ({ setCoords }: Props): ReactElement => {
     const [trips, setTrips] = useState([] as Trip[])
 
     useEffect(() => {
         loadTrips()
-    })
+    }, [trips])
 
     const loadTrips = async () => {
         const trips = await tripService.query()
@@ -26,10 +26,10 @@ export const TripList = ({setCoords}: Props): ReactElement => {
         <section className='trip-list-container'>
             <h3>{trips.length} trips</h3>
             <h1>trips worldwide</h1>
-            
-            {trips.map((trip)=>{
+
+            {trips.map((trip) => {
                 return (
-                    <TripPreview key={`preview-${trip._id}`} trip={trip} setCoords={setCoords}/>
+                    <TripPreview key={`preview-${trip._id}`} trip={trip} setCoords={setCoords} />
                 )
             })}
 

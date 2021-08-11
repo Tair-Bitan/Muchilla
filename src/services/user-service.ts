@@ -1,6 +1,6 @@
 import users from "../data/user.json"
 
-import { utils } from "./utils";
+import { utilService } from "./util-service";
 import { storageService } from "./storage-service";
 import { LoginCreds, SignupCreds } from "../interfaces/Creds.interface";
 import { User } from "../interfaces/User.interface";
@@ -54,7 +54,7 @@ async function signup(creds: SignupCreds): Promise<string | User> {
     }
 
     const user: User = {
-        _id: utils.makeId(),
+        _id: utilService.makeId(),
         ...creds,
         interests: [],
         trips: []
@@ -86,7 +86,7 @@ function remove(userId: string): Promise<null> {
     TODO:
      every user can remove himself, only admin can remove others 
      when deleting user, delete all of the trips he created or assign someone else
-     notify every member in the trip that trip is no longer exists
+     notify every member in the trip that trip no longer exists
     */
     const userIdx = gUsers.findIndex(user => {
         return user._id === userId
@@ -94,6 +94,7 @@ function remove(userId: string): Promise<null> {
 
     gUsers.splice(userIdx, 1)
     storageService.saveToStorage(users_KEY, gUsers)
+
     return Promise.resolve(null)
 }
 

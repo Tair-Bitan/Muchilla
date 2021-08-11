@@ -1,17 +1,20 @@
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import { TripList } from '../cmps/TripList'
+import { tripService } from '../services/trip-service'
 import { Trip } from '../interfaces/Trip.interface'
 import { MAP_API_KEY } from '../keys'
-import { tripService } from '../services/trip-service'
+import { TripList } from '../cmps/TripList'
 import { Search } from '../cmps/Search'
 import { CreateTrip } from '../cmps/CreateTrip'
+import { store } from '../stores/storeHelpers'
 import { User } from '../interfaces/User.interface'
 
 const libraries = ["places"] as any
 
 export const Map = () => {
+
+    const { tripStore } = store.useStore()
 
     const [trips, setTrips] = useState([] as Trip[])
     const [selectedTrip, setSelectedTrip] = useState(null as any)
@@ -25,21 +28,12 @@ export const Map = () => {
 
 
     useEffect(() => {
-        loadTrips()
-    })
-
-    const getLoggedinUser = ()=>{
-        
-    }
-
-    const loadTrips = async () => {
-        const trips = await tripService.query()
-        setTrips(trips)
-    }
+        setTrips(tripStore.trips)
+    }, [tripStore.trips])
 
     const onSelectTrip = async (tripId: string | null) => {
         if (tripId) {
-            const trip = await tripService.getById(tripId)
+            const trip = await tripService.getById(tripId) as Trip
             setSelectedTrip(trip)
             setCoords(trip.loc.pos)
         } else {
@@ -159,7 +153,7 @@ export const Map = () => {
                         position={newTripBtnData.pos}
                         onCloseClick={closeBtn}
                     >
-                        <button className="main-btn" onClick={()=>{setIsModalOpen(true)}}>Create new trip</button>
+                        <button className="main-btn" onClick={() => { setIsModalOpen(true) }}>Create new trip</button>
                     </InfoWindow>
                 )}
             </GoogleMap>

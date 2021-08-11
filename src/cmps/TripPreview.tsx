@@ -1,8 +1,8 @@
 
 
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useState } from 'react'
 import { Trip } from '../interfaces/Trip.interface'
-import { MAP_API_KEY} from '../keys'
+import { MAP_API_KEY } from '../keys'
 import { tripService } from '../services/trip-service'
 
 interface Props {
@@ -11,9 +11,9 @@ interface Props {
 }
 
 export default function TripPreview({ trip, setCoords }: Props): ReactElement {
-    const { loc, type, typeImgUrl, createdAt, title , members } = trip
+    const { loc, type, typeImgUrl, createdAt, title, members } = trip
 
-    const [photoRef , setPhotoRef] = useState()
+    const [photoRef, setPhotoRef] = useState()
 
     const setLocation = (pos: { lat: number, lng: number }) => {
         setCoords(pos)
@@ -21,9 +21,9 @@ export default function TripPreview({ trip, setCoords }: Props): ReactElement {
 
     return (
         <div className="trip-preview-container" onClick={() => setLocation(loc.pos)}>
-        
+
             <img src={trip.imgUrl} alt="tripImg" />
-          
+
             <div className="trip-info">
 
                 <h4>{new Date(createdAt).toLocaleDateString()}</h4>

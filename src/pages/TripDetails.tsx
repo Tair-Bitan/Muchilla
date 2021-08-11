@@ -16,10 +16,10 @@ export default function TripDetails({ }: Props): ReactElement {
 
     useEffect(() => {
         loadTrip(params.tripId)
-    }, [])
+    }, [params.tripId])
 
     const loadTrip = async (tripId: string) => {
-        const trip: Trip = await tripService.getById(tripId)
+        const trip = await tripService.getById(tripId) as Trip
         if (trip) {
             setTrip(trip)
         }

@@ -9,12 +9,14 @@ export class UserStore {
 
     users: User[] = []
     loggedInUser: User | null = null
+
     rootStore: RootStore
     status: 'pending' | 'done' | 'error' = 'pending'
     errMsg: string = ''
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore
+        this.loadUsers()
         makeAutoObservable(this)
     }
 
@@ -147,6 +149,15 @@ export class UserStore {
 
     getEmptyCreds(isLogin: boolean) {
         return userService.getEmptyCreds(isLogin)
+    }
+
+    get miniUser() {
+        if (!this.loggedInUser) return null
+        return {
+            _id: this.loggedInUser._id,
+            username: this.loggedInUser.username,
+            imgUrl: this.loggedInUser.imgUrl
+        }
     }
 
     _setNewReq(): void {
