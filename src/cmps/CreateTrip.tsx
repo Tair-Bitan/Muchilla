@@ -24,7 +24,7 @@ export const CreateTrip = ({ pos, setIsModalOpen, closeBtn }: Props) => {
     useEffect(() => {
         loadLocationData()
         setLoggedinUser(userStore.miniUser as MiniUser)
-    },[userStore.miniUser])
+    },[])
 
     const loadLocationData = async () => {
         const locData = await tripService.getLocData(pos)

@@ -8,13 +8,13 @@ import { TripList } from '../cmps/TripList'
 import { Search } from '../cmps/Search'
 import { CreateTrip } from '../cmps/CreateTrip'
 import { store } from '../stores/storeHelpers'
-import { User } from '../interfaces/User.interface'
+import { useHistory } from 'react-router'
 
 const libraries = ["places"] as any
 
 export const Map = () => {
 
-    const { tripStore } = store.useStore()
+    const { tripStore, userStore } = store.useStore()
     const [trips, setTrips] = useState<Trip[]>([])
     const [markers, setMarkers] = useState<any[]>([])
     const [selectedTrip, setSelectedTrip] = useState(null as any)
@@ -24,7 +24,7 @@ export const Map = () => {
         pos: { lat: 0, lng: 0 }
     })
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [loggedinUser, setLoggedinUser] = useState({} as User)
+    const history = useHistory()
 
 
     useEffect(() => {
@@ -150,7 +150,11 @@ export const Map = () => {
                         position={newTripBtnData.pos}
                         onCloseClick={closeBtn}
                     >
-                        <button className="main-btn" onClick={() => { setIsModalOpen(true) }}>Create new trip</button>
+                        <button className="main-btn" onClick={() => {
+                            if (userStore.miniUser){
+                                setIsModalOpen(true)
+                            } else {history.push('/login')}
+                        }}>Create new trip</button>
                     </InfoWindow>
                 )}
             </GoogleMap>
