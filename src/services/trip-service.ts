@@ -2,11 +2,10 @@ import { getDetails, getGeocode } from 'use-places-autocomplete';
 
 import trips from "../data/trip.json"
 
+import { utilService } from './util-service';
 import { storageService } from "./storage-service";
-import { NewTrip, Trip } from "../interfaces/Trip.interface";
-import { utils } from './utils';
-import { TripData } from '../interfaces/tripData';
-
+import { NewTrip, Trip, TripData, TripInputs } from "../interfaces/Trip.interface";
+import { MiniUser } from '../interfaces/User.interface';
 
 export const tripService = {
     query,
@@ -14,7 +13,6 @@ export const tripService = {
     add,
     remove,
     update,
-    setTripPhoto,
     getLocData
 }
 
@@ -29,66 +27,106 @@ function query(filterBy?: any): Promise<Trip[]> {
     return Promise.resolve(gTrips)
 }
 
-function getById(tripId: string): Promise<Trip> {
+function getById(tripId: string): Promise<string | Trip> {
     const trip = gTrips.find(trip => {
         return trip._id === tripId
-    }) as Trip
+    })
+    if (!trip) return Promise.reject(`Err: Couldn't find trip with the following id: ${tripId} `)
 
     return Promise.resolve(trip)
 }
 
-async function add(tripInputs: { title: string, desc: string, type: string }, tripData: TripData, pos: { lat: number, lng: number }): Promise<void> {
-    const address: string[] = tripData.formatted_address.split(',')
-    const tripToAdd = {
-        _id: utils.makeId(6),
-        createdAt: Date.now(),
-        type: tripInputs.type,
-        typeImgUrl: _getTypeImgUrl(tripInputs.type),
-        title: tripInputs.title,
-        desc: tripInputs.desc,
-        createdBy: {
-            _id: 'd46a68d466',
-            username: 'popo',
-            imgUrl: 'https://randomuser.me/api/portraits/men/1.jpg'
-        },
-        loc: {
-            state: address[address.length - 1],
-            city: address[address.length - 2],
-            pos: {
-                lng: pos.lng,
-                lat: pos.lat
-            }
-        },
-        members: [{
-            _id: 'd46a68d466',
-            username: 'popo',
-            imgUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
-            joinedAt: Date.now()
-        }]
-    }
+async function add(user: MiniUser, tripInputs: TripInputs, tripData: TripData, pos: { lat: number, lng: number }): Promise<Trip> {
+    const formattedTrip = _formatTrip(user, tripInputs, tripData, pos)
+    const imgUrl = await _getTripPhoto(formattedTrip)
 
-    const imgUrl = await setTripPhoto(tripToAdd)
     const trip: Trip = {
-        ...tripToAdd,
+        ...formattedTrip,
         imgUrl
     }
 
     gTrips.push(trip)
-
     storageService.saveToStorage(trips_KEY, gTrips)
+
+    return Promise.resolve(trip)
 }
 
-// async function add(tripToAdd: NewTrip): Promise<void> {
-//     const imgUrl = await setTripPhoto(tripToAdd)
-//     const trip: Trip = {
-//         _id: utils.makeId(),
-//         ...tripToAdd,
-//         imgUrl
-//     }
+function remove(tripId: string): Promise<null> {
+    /*
+   TODO:
+    only trip creator can remove trip
+    when deleting trip, delete the trip from all users
+    notify every member in the trip that trip no longer exists
+   */
+    const tripIdx = gTrips.findIndex(trip => {
+        return trip._id === tripId
+    })
 
-//     gTrips.push(trip)
-//     storageService.saveToStorage(trips_KEY, gTrips)
-// }
+    gTrips.splice(tripIdx, 1)
+    storageService.saveToStorage(trips_KEY, gTrips)
+
+    return Promise.resolve(null)
+}
+
+async function update(updatedTrip: Trip): Promise<string | Trip> {
+    let tripToUpdate
+    let tripIdx
+    try {
+        tripToUpdate = await getById(updatedTrip._id)
+        tripIdx = gTrips.findIndex(trip => {
+            return trip._id === updatedTrip._id
+        })
+        gTrips[tripIdx] = tripToUpdate as Trip
+        storageService.saveToStorage(trips_KEY, gTrips)
+
+        return Promise.resolve(tripToUpdate) as Promise<Trip>
+
+    } catch (error) {
+        return Promise.reject(error)
+    }
+}
+
+async function getLocData(loc: { lat: number, lng: number }) {
+    const results = await getGeocode({ location: loc })
+    const placeId = results[0].place_id
+    const place: any = await getDetails({ placeId })
+    return (place) ? place : null
+}
+
+function _formatTrip(user: MiniUser, tripInputs: TripInputs, tripData: TripData, pos: { lat: number, lng: number }) {
+    const { desc, type, title } = tripInputs
+    const { lat, lng } = pos
+    const addresses: string[] = tripData.formatted_address.split(',')
+
+    return {
+        _id: utilService.makeId(6),
+        createdAt: Date.now(),
+        type,
+        typeImgUrl: _getTypeImgUrl(type),
+        title,
+        desc,
+        createdBy: user,
+        loc: {
+            state: addresses[addresses.length - 1],
+            city: addresses[addresses.length - 2],
+            pos: {
+                lng,
+                lat
+            }
+        },
+        members: [user]
+    }
+}
+
+async function _getTripPhoto(trip: Trip | NewTrip) {
+    const results = await getGeocode({ address: `${trip.loc.state}, ${trip.loc.city}` })
+    const placeId = results[0].place_id
+    const place: any = await getDetails({ placeId })
+    if (place?.photos) {
+        return place.photos[0].getUrl()
+    }
+    return "https://www.marketing91.com/wp-content/uploads/2020/02/Definition-of-place-marketing.jpg"
+}
 
 function _getTypeImgUrl(type: string) {
     switch (type) {
@@ -101,44 +139,6 @@ function _getTypeImgUrl(type: string) {
         default:
             return "https://image.flaticon.com/icons/png/512/5097/5097702.png"
     }
-}
-
-function remove(tripId: string): void {
-    const tripIdx = gTrips.findIndex(trip => {
-        return trip._id === tripId
-    })
-
-    gTrips.splice(tripIdx, 1)
-    storageService.saveToStorage(trips_KEY, gTrips)
-}
-
-async function update(updatedTrip: Trip): Promise<Trip> {
-    const tripToUpdate = await getById(updatedTrip._id)
-    const tripIdx = gTrips.findIndex(trip => {
-        return trip._id === updatedTrip._id
-    })
-
-    gTrips[tripIdx] = tripToUpdate
-    storageService.saveToStorage(trips_KEY, gTrips)
-
-    return tripToUpdate
-}
-
-async function setTripPhoto(trip: Trip | NewTrip) {
-    const results = await getGeocode({ address: `${trip.loc.state}, ${trip.loc.city}` })
-    const placeId = results[0].place_id
-    const place: any = await getDetails({ placeId })
-    if (place?.photos) {
-        return place.photos[0].getUrl()
-    }
-    return "https://www.marketing91.com/wp-content/uploads/2020/02/Definition-of-place-marketing.jpg"
-}
-
-async function getLocData(loc: { lat: number, lng: number }) {
-    const results = await getGeocode({ location: loc })
-    const placeId = results[0].place_id
-    const place: any = await getDetails({ placeId })
-    return (place) ? place : null
 }
 
 function _loadTrips(): void {

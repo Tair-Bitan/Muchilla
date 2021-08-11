@@ -1,5 +1,3 @@
-import { Trip } from "./Trip.interface";
-
 export interface User {
     _id: string,
     username: string,
@@ -9,4 +7,10 @@ export interface User {
     imgUrl: string,
     interests: string[] | [],
     trips: string[] | [],
+}
+
+export interface MiniUser {
+    _id: string,
+    username: string,
+    imgUrl: string,
 }

@@ -1,4 +1,4 @@
-export const utils = {
+export const utilService = {
     makeId
 }
 
