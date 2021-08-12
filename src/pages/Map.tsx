@@ -10,49 +10,29 @@ import { CreateTrip } from '../cmps/CreateTrip'
 import { store } from '../stores/storeHelpers'
 import { useHistory } from 'react-router'
 
+
 const libraries = ["places"] as any
 
 export const Map = () => {
 
     const { tripStore, userStore } = store.useStore()
     const [trips, setTrips] = useState<Trip[]>([])
-    const [markers, setMarkers] = useState<any[]>([])
+    const [map, setMap] = useState<GoogleMap>(null as any)
+    const [bounds, setBounds] = useState<google.maps.LatLngBounds>(null as any)
     const [selectedTrip, setSelectedTrip] = useState(null as any)
     const [coords, setCoords] = useState({ lng: 86.727806, lat: 27.68566 })
     const [newTripBtnData, setNewTripBtnData] = useState({
         isOn: false,
         pos: { lat: 0, lng: 0 }
     })
-    
+
     const [isModalOpen, setIsModalOpen] = useState(false)
     const history = useHistory()
 
-
     useEffect(() => {
-        setTrips(tripStore.trips)
-        const loadedMarkers = loadMarkers()
-
-        setMarkers(loadedMarkers)
-    }, [tripStore.trips])
-
-
-    const loadMarkers = () => {
-        return trips.map((trip) => {
-            return (
-                <Marker
-                    key={`marker-${trip._id}`}
-                    position={trip.loc.pos}
-                    icon={{
-                        url: trip.typeImgUrl,
-                        scaledSize: new google.maps.Size(40, 40),
-                        origin: new window.google.maps.Point(0, 0),
-                        anchor: new window.google.maps.Point(20, 20)
-                    }}
-                    onClick={() => { onSelectTrip(trip._id) }}
-                ></Marker>
-            )
-        })
-    }
+        const loadedTrips = bounds ? tripStore.trips.filter(trip => bounds.contains(trip.loc.pos)) : tripStore.trips
+        setTrips(loadedTrips)
+    }, [tripStore.trips, bounds])
 
     const onSelectTrip = async (tripId: string | null) => {
         if (tripId) {
@@ -75,9 +55,10 @@ export const Map = () => {
     }
 
     const mapRef = useRef()
-    const onMapLoad = useCallback((map) => {
-        mapRef.current = map
+    const onMapLoad = useCallback((googleMap) => {
+        mapRef.current = googleMap
     }, [])
+
 
     const closeBtn = () => {
         setNewTripBtnData({
@@ -86,33 +67,56 @@ export const Map = () => {
         })
     }
 
-
     if (loadError) return <div>got err</div>
     if (!isLoaded) return <div>loading...</div>
 
-    if (!trips || !trips.length) return <div>loading...</div>
-
     return (
         <main className='main map-container'>
-            <TripList setCoords={setCoords} />
+            <TripList setCoords={setCoords} loadedTrips={trips} />
 
             <Search setCoords={setCoords} />
 
             <GoogleMap
+                onLoad={onMapLoad}
                 mapContainerClassName={'google-map-container'}
                 mapContainerStyle={{ width: '50vw', height: '90vh' }}
                 zoom={11}
                 center={coords}
                 options={options}
+                ref={GoogleMap => {
+                    if (!GoogleMap) return
+                    setMap(GoogleMap)
+                }}
+                onBoundsChanged={() => {
+                    if (!map) return
+                    const mapBounds = map.state.map?.getBounds();
+                    if (!mapBounds) return
+                    setBounds(mapBounds)
+                }}
 
                 onClick={(ev) => {
                     const clickedPos = { lat: ev.latLng.lat(), lng: ev.latLng.lng() }
                     setNewTripBtnData({ isOn: true, pos: clickedPos })
                 }}
-                onLoad={onMapLoad}
             >
 
-                {markers.map(marker => marker)}
+                {bounds && trips.map((trip) => {
+                    if (bounds.contains(trip.loc.pos)) {
+                        return (
+                            <Marker
+                                key={`marker-${trip._id}`}
+                                position={trip.loc.pos}
+                                icon={{
+                                    url: trip.typeImgUrl,
+                                    scaledSize: new google.maps.Size(40, 40),
+                                    origin: new window.google.maps.Point(0, 0),
+                                    anchor: new window.google.maps.Point(20, 20)
+                                }}
+                                onClick={() => { onSelectTrip(trip._id) }}
+                            />
+                        )
+                    }
+                })}
 
                 {selectedTrip && (
                     <InfoWindow
@@ -152,9 +156,9 @@ export const Map = () => {
                         onCloseClick={closeBtn}
                     >
                         <button className="main-btn" onClick={() => {
-                            if (userStore.miniUser){
+                            if (userStore.miniUser) {
                                 setIsModalOpen(true)
-                            } else {history.push('/login')}
+                            } else { history.push('/login') }
                         }}>Create new trip</button>
                     </InfoWindow>
                 )}

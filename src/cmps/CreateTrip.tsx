@@ -32,7 +32,7 @@ export const CreateTrip = ({ pos, setIsModalOpen, closeBtn }: Props) => {
     }
 
     const onCreateTrip = async (tripInputs: TripInputs, tripData: TripData, pos: { lat: number, lng: number }) => {
-        await tripService.add(loggedinUser, tripInputs, tripData, pos)
+        await  tripStore.addTrip(loggedinUser, tripInputs, tripData, pos)
         setIsModalOpen(false)
     }
 

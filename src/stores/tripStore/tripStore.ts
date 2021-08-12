@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 
-import { Trip } from "../../interfaces/Trip.interface";
+import { Trip, TripData, TripInputs } from "../../interfaces/Trip.interface";
+import { MiniUser } from "../../interfaces/User.interface";
 import { tripService } from "../../services/trip-service";
 import { RootStore } from "../rootStore";
 
@@ -69,6 +70,22 @@ export class TripStore {
 
         try {
             await tripService.remove(tripId)
+            runInAction(() => {
+                this.loadTrips()
+                this.status = 'done'
+            })
+        } catch (error) {
+            runInAction(() => {
+                this._setErr(error)
+            })
+        }
+    }
+
+    async addTrip(loggedinUser:MiniUser, tripInputs:TripInputs, tripData:TripData, pos:{ lat: number, lng: number }) {
+        this._setNewReq()
+
+        try {
+            await tripService.add(loggedinUser, tripInputs, tripData, pos)
             runInAction(() => {
                 this.loadTrips()
                 this.status = 'done'
