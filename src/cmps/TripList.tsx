@@ -6,11 +6,11 @@ import TripPreview from './TripPreview'
 interface Props {
     setCoords: Function,
     loadedTrips: Trip[],
-    onClickMarker:Function
+    onClickMarker: Function
 }
 
 
-export const TripList = ({ setCoords, loadedTrips,onClickMarker }: Props): ReactElement => {
+export const TripList = ({ setCoords, loadedTrips, onClickMarker }: Props): ReactElement => {
     const [trips, setTrips] = useState<Trip[]>([])
 
     useEffect(() => {
@@ -19,21 +19,22 @@ export const TripList = ({ setCoords, loadedTrips,onClickMarker }: Props): React
 
     return (
         <section className='trip-list-container'>
-            <h3>{trips.length} trips</h3>
-            <h1>trips {trips.length ? `in ${trips[0].loc.state}` : 'worldwide'}</h1>
+            {trips.length ?
+                <>
+                    <h3>{trips.length} trips</h3>
+                    <h1>trips {`in ${trips[0].loc.state}`}</h1>
+                    {trips.map((trip) => {
+                        return (
+                            <TripPreview key={`preview-${trip._id}`} trip={trip} setCoords={setCoords} onClickMarker={onClickMarker} />
+                        )
+                    })}
+                </>
 
-            {trips.length &&
-                trips.map((trip) => {
-                    return (
-                        <TripPreview key={`preview-${trip._id}`} trip={trip} setCoords={setCoords} onClickMarker={onClickMarker} />
-                    )
-                })}
-
-            {!trips.length  &&
-                <div>
+                :
+                <div className="trip-list-msg">
+                    <h1>No trips found</h1>
                     <h3>Search for trips and locations</h3>
-                    <h4>or</h4>
-                    <h3>click on the map to create new trip</h3>
+                    <h3>or click on the map to create new trip</h3>
                 </div>
 
             }
