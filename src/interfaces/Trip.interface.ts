@@ -20,7 +20,8 @@ export interface Trip {
         pos: {
             lng: number,
             lat: number
-        }
+        },
+        stations: ([{name: string, pos: {lat: number, lng: number}}]) | any[]
     },
     members: {
         _id: string,

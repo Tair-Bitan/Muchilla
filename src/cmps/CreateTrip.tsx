@@ -34,7 +34,6 @@ export const CreateTrip = ({ pos, setIsModalOpen, closeBtn }: Props) => {
     const onCreateTrip = async (tripInputs: TripInputs, tripData: TripData, pos: { lat: number, lng: number }) => {
         await tripStore.addTrip(loggedinUser, tripInputs, tripData, pos)
         setIsModalOpen(false)
-        
     }
 
     if (!tripData) return <div>Loading...</div>
@@ -89,7 +88,6 @@ export const CreateTrip = ({ pos, setIsModalOpen, closeBtn }: Props) => {
                     {tripService.getPossibleTypes().map(type => <option value={type}>{type}</option>)}
                 </datalist>
 
-
                 <label htmlFor="memberCount">Members: {memberCount}</label>
                 <input
                     type="range"
@@ -100,6 +98,8 @@ export const CreateTrip = ({ pos, setIsModalOpen, closeBtn }: Props) => {
                     value={memberCount}
                     onChange={handelChange}
                 />
+
+
                 <button type="submit" className="main-btn">Create trip</button>
             </form>
         </div>

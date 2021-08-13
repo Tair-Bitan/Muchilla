@@ -116,7 +116,8 @@ function _formatTrip(user: MiniUser, tripInputs: TripInputs, tripData: TripData,
             pos: {
                 lng,
                 lat
-            }
+            },
+            stations:[]
         },
         members: [user]
     }

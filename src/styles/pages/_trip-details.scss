@@ -92,12 +92,13 @@
                     color: $clr-2;
                 }
             }
-
-            .join-btn {
-                margin: 30px 0;
-            }
         }
     }
+    
+    .join-btn {
+       margin-bottom: 30px;
+    }
+    
 
     .trip-details-right {
         max-width: 35%;
@@ -105,5 +106,9 @@
         h1 {
             margin-bottom: 20px;
         }
+    }
+
+    .members-content-container{
+        margin-bottom: 40px;
     }
 }
