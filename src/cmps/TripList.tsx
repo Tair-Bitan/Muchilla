@@ -5,11 +5,12 @@ import TripPreview from './TripPreview'
 
 interface Props {
     setCoords: Function,
-    loadedTrips: Trip[]
+    loadedTrips: Trip[],
+    onClickMarker:Function
 }
 
 
-export const TripList = ({ setCoords, loadedTrips }: Props): ReactElement => {
+export const TripList = ({ setCoords, loadedTrips,onClickMarker }: Props): ReactElement => {
     const [trips, setTrips] = useState<Trip[]>([])
 
     useEffect(() => {
@@ -24,7 +25,7 @@ export const TripList = ({ setCoords, loadedTrips }: Props): ReactElement => {
             {trips.length &&
                 trips.map((trip) => {
                     return (
-                        <TripPreview key={`preview-${trip._id}`} trip={trip} setCoords={setCoords} />
+                        <TripPreview key={`preview-${trip._id}`} trip={trip} setCoords={setCoords} onClickMarker={onClickMarker} />
                     )
                 })}
 

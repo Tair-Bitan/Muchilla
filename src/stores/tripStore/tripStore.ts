@@ -9,6 +9,7 @@ export class TripStore {
 
     trips: Trip[] = []
     activeTrip: Trip | null = null
+    nearbyTrips: Trip[] = []
 
     rootStore: RootStore
     status: 'pending' | 'done' | 'error' = 'pending'
@@ -30,6 +31,19 @@ export class TripStore {
                 this.status = 'done'
             })
         } catch (error) {
+            runInAction(() => {
+                this._setErr(error)
+            })
+        }
+    }
+
+    async setNearbyTrips(currTrips: Trip[]) {
+        this._setNewReq()
+        try {
+            this.nearbyTrips = currTrips
+            this.status = 'done'
+        }
+        catch (error) {
             runInAction(() => {
                 this._setErr(error)
             })
@@ -81,7 +95,7 @@ export class TripStore {
         }
     }
 
-    async addTrip(loggedinUser:MiniUser, tripInputs:TripInputs, tripData:TripData, pos:{ lat: number, lng: number }) {
+    async addTrip(loggedinUser: MiniUser, tripInputs: TripInputs, tripData: TripData, pos: { lat: number, lng: number }) {
         this._setNewReq()
 
         try {

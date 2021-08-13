@@ -16,7 +16,7 @@ const libraries = ["places"] as any
 export const Map = () => {
 
     const { tripStore, userStore } = store.useStore()
-    const [trips, setTrips] = useState<Trip[]>([])
+    // const [trips, setTrips] = useState<Trip[]>([])
     const [map, setMap] = useState<GoogleMap>(null as any)
     const [bounds, setBounds] = useState<google.maps.LatLngBounds>(null as any)
     const [selectedTrip, setSelectedTrip] = useState(null as any)
@@ -31,8 +31,9 @@ export const Map = () => {
 
     useEffect(() => {
         const loadedTrips = bounds ? tripStore.trips.filter(trip => bounds.contains(trip.loc.pos)) : tripStore.trips
-        setTrips(loadedTrips)
-    }, [tripStore.trips, bounds])
+        tripStore.setNearbyTrips(loadedTrips)
+        // setTrips(loadedTrips)
+    }, [tripStore.trips, bounds, tripStore.nearbyTrips])
 
     const onSelectTrip = async (tripId: string | null) => {
         if (tripId) {
@@ -67,12 +68,17 @@ export const Map = () => {
         })
     }
 
+    const onClickMarker = (tripId:string) => {
+        setNewTripBtnData({ isOn: false, pos: { lat: 0, lng: 0 } })
+        onSelectTrip(tripId)
+    }
+
     if (loadError) return <div>got err</div>
     if (!isLoaded) return <div>loading...</div>
 
     return (
         <main className='main map-container'>
-            <TripList setCoords={setCoords} loadedTrips={trips} />
+            <TripList setCoords={setCoords} onClickMarker={onClickMarker} loadedTrips={tripStore.nearbyTrips} />
 
             <Search setCoords={setCoords} />
 
@@ -95,12 +101,14 @@ export const Map = () => {
                 }}
 
                 onClick={(ev) => {
+                    setSelectedTrip(null)
+                    setIsModalOpen(false)
                     const clickedPos = { lat: ev.latLng.lat(), lng: ev.latLng.lng() }
                     setNewTripBtnData({ isOn: true, pos: clickedPos })
                 }}
             >
 
-                {bounds && trips.map((trip) => {
+                {bounds && tripStore.nearbyTrips.map((trip) => {
                     if (bounds.contains(trip.loc.pos)) {
                         return (
                             <Marker
@@ -112,7 +120,7 @@ export const Map = () => {
                                     origin: new window.google.maps.Point(0, 0),
                                     anchor: new window.google.maps.Point(20, 20)
                                 }}
-                                onClick={() => { onSelectTrip(trip._id) }}
+                                onClick={() => {onClickMarker(trip._id)}}
                             />
                         )
                     }
@@ -144,7 +152,7 @@ export const Map = () => {
                                     })}
                                 </div>
                             </div>
-                            <button onClick={() => { window.location.hash = `/trip/${selectedTrip._id}` }}>Join Now</button>
+                            <button onClick={() => { window.location.hash = `/trip/${selectedTrip._id}` }}>More info</button>
                         </div>
                     </InfoWindow>
                 )}

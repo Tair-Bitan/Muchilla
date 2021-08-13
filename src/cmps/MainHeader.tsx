@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 import { NavLink, Link } from 'react-router-dom';
 import { observer } from 'mobx-react-lite'
 
@@ -9,7 +9,12 @@ import "../styles/style.scss"
 
 function _MainHeader(): ReactElement {
 
-    const { userStore: { loggedInUser } } = store.useStore()
+    const { userStore } = store.useStore()
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState<Boolean>(false)
+
+    const onToggleUserMenu = () => {
+        setIsUserMenuOpen(!isUserMenuOpen)
+    }
 
     return (
         <section className="main-header main">
@@ -22,19 +27,32 @@ function _MainHeader(): ReactElement {
                     <NavLink to="/about">About</NavLink>
                     {/* <NavLink to="user/123">User</NavLink> */}
                 </nav>
+
                 <div className="user-container">
-                    {loggedInUser &&
+
+                    {userStore.loggedInUser &&
                         <>
-                            <NavLink to={`/user/${loggedInUser._id}`}>Hi, {loggedInUser.username}</NavLink>
-                            <NavLink to='/login'>Logout</NavLink>
+                            <div className="user-menu-btn" onClick={onToggleUserMenu} >
+                                <img src={userStore.loggedInUser.imgUrl} alt="user-avatar" />
+                                <button >☰</button>
+                            </div>
+
+                            {isUserMenuOpen &&
+                                <div className="user-menu-modal">
+                                    <NavLink to={`/user/${userStore.loggedInUser._id}`}>Profile</NavLink>
+                                    <NavLink to='/' onClick={()=>{userStore.logoutUser()}}>Logout</NavLink>
+                                </div>
+                            }
                         </>
                     }
-                    {!loggedInUser &&
+
+                    {!userStore.loggedInUser &&
                         <>
                             <NavLink to="/login">Login</NavLink>
                             <NavLink to="/signup">Signup</NavLink>
                         </>
                     }
+
                 </div>
             </div>
         </section>

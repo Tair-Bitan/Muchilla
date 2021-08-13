@@ -7,10 +7,11 @@ import { tripService } from '../services/trip-service'
 
 interface Props {
     trip: Trip
-    setCoords: Function
+    setCoords: Function,
+    onClickMarker:Function
 }
 
-export default function TripPreview({ trip, setCoords }: Props): ReactElement {
+export default function TripPreview({ trip, setCoords,onClickMarker }: Props): ReactElement {
     const { loc, type, typeImgUrl, createdAt, title, members } = trip
 
     const setLocation = (pos: { lat: number, lng: number }) => {
@@ -18,7 +19,10 @@ export default function TripPreview({ trip, setCoords }: Props): ReactElement {
     }
 
     return (
-        <div className="trip-preview-container" onClick={() => setLocation(loc.pos)}>
+        <div className="trip-preview-container" onClick={() => {
+            setLocation(loc.pos)
+            onClickMarker(trip._id)
+            }}>
 
             <img src={trip.imgUrl} alt="tripImg" />
 
