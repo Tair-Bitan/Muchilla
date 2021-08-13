@@ -4,6 +4,7 @@ export interface Trip {
     _id: string,
     createdAt: number,
     type: string,
+    memberCount: number,
     typeImgUrl: string,
     imgUrl?: string,
     title?: string,
@@ -50,5 +51,6 @@ export interface TripData {
 export interface TripInputs {
     title: string,
     desc: string,
-    type: string
+    type: string,
+    memberCount: number
 }

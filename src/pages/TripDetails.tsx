@@ -58,6 +58,7 @@ export default function TripDetails({ }: Props): ReactElement {
                             <h3>{trip.type}</h3>
                         </div>
                     </div>
+                    {trip.memberCount - trip.members.length ? <h3 className="members-count-msg">Open for {trip.memberCount - trip.members.length} more members</h3> : <h3 className="members-count-msg fully-booked">Fully booked</h3>}
                     <img src={trip.imgUrl} className="main-trip-img" alt="tripImg" />
 
                     <div className="trip-info">
