@@ -151,6 +151,10 @@ export class UserStore {
         return userService.getEmptyCreds(isLogin)
     }
 
+    setLoggedinUser() {
+        this.loggedInUser = userService.getLoggedinUser()
+    }
+
     get miniUser() {
         if (!this.loggedInUser) return null
         return {

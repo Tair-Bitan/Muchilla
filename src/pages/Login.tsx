@@ -44,7 +44,7 @@ function _Login({ }: Props): ReactElement {
         try {
             await userStore.loginUser(loginCreds)
             resetForm()
-            history.push('/map')
+            history.goBack()
         } catch (error) {
             setisWrongCreds(true)
         }
@@ -55,7 +55,7 @@ function _Login({ }: Props): ReactElement {
         try {
             await userStore.signupUser(signupCreds)
             resetForm()
-            history.push('/map')
+            history.goBack()
         } catch (error) {
             setMsg(error)
         }

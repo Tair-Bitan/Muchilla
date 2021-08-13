@@ -32,7 +32,7 @@ export default function TripDetails({ }: Props): ReactElement {
     }
 
     const onAddMember = async (user: (User | null)) => {
-        if (!user) return
+        if (!user) return window.location.hash = '/login'
         const updatedTrip = {
             ...trip,
             members: [...trip.members, {

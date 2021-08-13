@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import { NavLink, Link } from 'react-router-dom';
 import { observer } from 'mobx-react-lite'
 
@@ -11,6 +11,10 @@ function _MainHeader(): ReactElement {
 
     const { userStore } = store.useStore()
     const [isUserMenuOpen, setIsUserMenuOpen] = useState<Boolean>(false)
+
+    useEffect(()=>{
+        userStore.setLoggedinUser()
+    },[])
 
     const onToggleUserMenu = () => {
         setIsUserMenuOpen(!isUserMenuOpen)
