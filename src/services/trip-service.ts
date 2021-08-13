@@ -69,17 +69,15 @@ function remove(tripId: string): Promise<null> {
 }
 
 async function update(updatedTrip: Trip): Promise<string | Trip> {
-    let tripToUpdate
     let tripIdx
     try {
-        tripToUpdate = await getById(updatedTrip._id)
         tripIdx = gTrips.findIndex(trip => {
             return trip._id === updatedTrip._id
         })
-        gTrips[tripIdx] = tripToUpdate as Trip
+        gTrips[tripIdx] = updatedTrip as Trip
         storageService.saveToStorage(trips_KEY, gTrips)
 
-        return Promise.resolve(tripToUpdate) as Promise<Trip>
+        return Promise.resolve(updatedTrip) as Promise<Trip>
 
     } catch (error) {
         return Promise.reject(error)
