@@ -1,3 +1,5 @@
+import { MiniUser } from "./User.interface";
+
 export type NewTrip = Omit<Trip, "_id" | "imgUrl">;
 
 export interface Trip {
@@ -9,6 +11,7 @@ export interface Trip {
     imgUrl?: string,
     title?: string,
     desc?: string,
+    chat?: ([{createdAt: number, txt: string, createdBy: MiniUser}]) | any[]
     createdBy: {
         _id: string,
         username: string,
@@ -21,7 +24,7 @@ export interface Trip {
             lng: number,
             lat: number
         },
-        stations: ([{name: string, pos: {lat: number, lng: number}}]) | any[]
+        stations: ([{ _id: string, name: string, time: { day: string, hour: string }, pos: { lat: number, lng: number } }]) | any[]
     },
     members: {
         _id: string,

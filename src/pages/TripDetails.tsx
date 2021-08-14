@@ -7,6 +7,7 @@ import { store } from '../stores/storeHelpers'
 import { User } from '../interfaces/User.interface';
 import { MAP_API_KEY } from '../keys';
 import { CreateStation } from '../cmps/CreateStation';
+import { TripChat } from '../cmps/TripChat';
 
 interface Props {
 
@@ -108,6 +109,7 @@ export default function TripDetails({ }: Props): ReactElement {
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci culpa quas est neque! Ab iure ullam esse ipsum rem tempora et est modi odit, suscipit minima quaerat voluptate debitis repudiandae deserunt itaque ullam cumque magnam culpa quas est neque! Ab iure ullam esse ipsum rem tempora et est modi odit, suscipit minima quaerat voluptate inventore doloribus possimus velit quas?</p>
                         </div>
                     </div>
+                    {isMember && <TripChat tripId={trip._id} />}
                 </div>
                 <div className="trip-details-right">
                     <h1>Nearby trips</h1>
@@ -143,7 +145,7 @@ export default function TripDetails({ }: Props): ReactElement {
                         onLoad={onMapLoad}
                         mapContainerClassName={'google-map-container'}
                         mapContainerStyle={{ width: '100vw', height: '90vh' }}
-                        zoom={14}
+                        zoom={15}
                         center={trip.loc.pos}
                         options={options}
                         ref={GoogleMap => {
@@ -152,6 +154,7 @@ export default function TripDetails({ }: Props): ReactElement {
                         }}
 
                         onClick={(ev) => {
+                            if (userStore.loggedInUser?._id !== trip.createdBy._id) return
                             setIsModalOpen(false)
                             const clickedPos = { lat: ev.latLng.lat(), lng: ev.latLng.lng() }
                             setNewTripBtnData({ isOn: true, pos: clickedPos })
@@ -161,11 +164,13 @@ export default function TripDetails({ }: Props): ReactElement {
                         {trip.loc.stations.map((station) => {
                             return (
                                 <Marker
-                                    key={`station-${station.name + station.pos.lat}`}
+                                    key={station._id}
                                     position={station.pos}
-                                    onClick={() => { console.log('station clicked!');
+                                    onClick={() => {
+                                        console.log('station clicked: ', station);
                                     }}
-                                    title={station.name}
+                                    title={`${station.time.day} - ${station.time.hour}`}
+                                    label={station.name}
                                 />
                             )
                         })}
@@ -177,18 +182,20 @@ export default function TripDetails({ }: Props): ReactElement {
                                 onCloseClick={closeBtn}
                             >
                                 <button className="main-btn" onClick={() => {
-                                    if (userStore.loggedInUser && isMember) {
-                                        setIsModalOpen(true)
-                                    }
+
+                                    setIsModalOpen(true)
+
                                 }}>Add station</button>
                             </InfoWindow>
                         )}
                     </GoogleMap>
+
+
                 </div>
             }
 
             {isModalOpen && <CreateStation stationPos={newTripBtnData.pos} trip={trip} setIsModalOpen={setIsModalOpen} closeBtn={closeBtn} />}
-            
+
         </main>
     )
 }

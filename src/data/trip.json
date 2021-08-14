@@ -1,6 +1,6 @@
 [
     {
-        "_id": "d468w4d6d",
+        "_id": "t-d468w4d6d",
         "createdAt": 1626432103554,
         "imgUrl": "https://maps.googleapis.com/maps/api/place/js/PhotoService.GetPhoto?1sAap_uEAJEao10EX_wR-9c3F1C8bnQ_tXoB38vnGRZaxzNOjLDRCZChATBj--I47fddnU-tL7IWMg4TWBN-mOBaPORvzd_FyrZbhKoGqoanXuBHgWSAp4I-IjcyJ21_jIL6ZhBiMCB5_uSwnR89do00c6HpHr-uFNlOmFom6Npwbcjre0jtpY&3u4640&5m1&2e1&callback=none&key=AIzaSyBJt1HJ2UX7AlXY9pgE_f3VQena2BBVFVg&token=36718",
         "type": "hiking",
@@ -8,6 +8,17 @@
         "typeImgUrl": "https://image.flaticon.com/icons/png/512/71/71423.png",
         "title": "climbing the everest with friends",
         "desc": "Departing Sunday morning, a group of medium to high class climbers. 4-day route, accommodation in tents and accompanied by a local guide.",
+        "chat": [
+            {
+                "createdAt": 1626434103554,
+                "txt": "hello",
+                "createdBy": {
+                    "_id": "d46a68d466",
+                    "username": "popo",
+                    "imgUrl": "https://randomuser.me/api/portraits/men/1.jpg"
+                }
+            }
+        ],
         "createdBy": {
             "_id": "d46a68d466",
             "username": "popo",
@@ -21,20 +32,53 @@
                 "lng": 86.727806
             },
             "stations": [
-                {"name": "start", "pos": {"lat": 27.68566, "lng": 86.727906}},
-                {"name": "Coffee break", "pos": {"lat": 27.68466, "lng": 86.727906}},
-                {"name": "Dinner", "pos": {"lat": 27.68466, "lng": 86.727606}}
+                {
+                    "_id": "s-d46s54fd6d",
+                    "time": {
+                        "day": "2021-09-22",
+                        "hour": "09:00"
+                    },
+                    "name": "start",
+                    "pos": {
+                        "lat": 27.68566,
+                        "lng": 86.727906
+                    }
+                },
+                {
+                    "_id": "s-d46sd5fd6d",
+                    "time": {
+                        "day": "2021-09-23",
+                        "hour": "10:00"
+                    },
+                    "name": "Coffee break",
+                    "pos": {
+                        "lat": 27.68466,
+                        "lng": 86.727906
+                    }
+                },
+                {
+                    "_id": "s-d46s548ald",
+                    "time": {
+                        "day": "2021-09-22",
+                        "hour": "23:00"
+                    },
+                    "name": "Dinner",
+                    "pos": {
+                        "lat": 27.68466,
+                        "lng": 86.727606
+                    }
+                }
             ]
         },
         "members": [
             {
-                "_id": "d5s4f68e4",
+                "_id": "u-d5s4f68e4",
                 "username": "toto",
                 "imgUrl": "https://randomuser.me/api/portraits/men/2.jpg",
                 "joinedAt": 1626432103544
             },
             {
-                "_id": "d46a68d466",
+                "_id": "u-d46a68d466",
                 "username": "popo",
                 "imgUrl": "https://randomuser.me/api/portraits/men/1.jpg",
                 "joinedAt": 1626431103554
@@ -42,7 +86,7 @@
         ]
     },
     {
-        "_id": "d468w4g6d",
+        "_id": "t-d468w4g6d",
         "createdAt": 1626432303554,
         "imgUrl": "https://maps.googleapis.com/maps/api/place/js/PhotoService.GetPhoto?1sAap_uEA48MIMxfW4CI--38HWRaSuCZNMakwWSoZRJHVpxv69ScdJgrYviJEYLrD2VDagmKAgyzjGUKqiFZyYYTKxhQL1UJ6c2lTKpxGLAXI8uPgsjxQwCGCDEsak23xRMpxTF1KGXGHWc3qZH8ehakmKQJDWBEEEoySy_8iCG6XRiD08SKjE&3u12000&5m1&2e1&callback=none&key=AIzaSyBJt1HJ2UX7AlXY9pgE_f3VQena2BBVFVg&token=15117",
         "type": "shopping",
@@ -50,6 +94,17 @@
         "typeImgUrl": "https://image.flaticon.com/icons/png/512/253/253298.png",
         "title": "Market tour in dudhakunda",
         "desc": "A one-day market tour accompanied by a local guide, passing through the three main markets of dudhakunda.",
+        "chat": [
+            {
+                "createdAt": 1626442303554,
+                "txt": "hi",
+                "createdBy": {
+                    "_id": "d46a68d466",
+                    "username": "popo",
+                    "imgUrl": "https://randomuser.me/api/portraits/men/1.jpg"
+                }
+            }
+        ],
         "createdBy": {
             "_id": "d46a68d466",
             "username": "popo",
@@ -63,14 +118,47 @@
                 "lng": 86.5602614
             },
             "stations": [
-                {"name": "start", "pos": {"lat": 27.5775969, "lng": 86.5602614}},
-                {"name": "Coffee break", "pos": {"lat": 27.5775869, "lng": 86.5602614}},
-                {"name": "Dinner", "pos": {"lat": 27.5775669, "lng": 86.5602614}}
+                {
+                    "_id": "s-d467w4g6d",
+                    "time": {
+                        "day": "2021-09-18",
+                        "hour": "09:00"
+                    },
+                    "name": "start",
+                    "pos": {
+                        "lat": 27.5775969,
+                        "lng": 86.5602614
+                    }
+                },
+                {
+                    "_id": "s-d468r4lud",
+                    "time": {
+                        "day": "2021-09-18",
+                        "hour": "13:00"
+                    },
+                    "name": "Coffee break",
+                    "pos": {
+                        "lat": 27.5775869,
+                        "lng": 86.5602614
+                    }
+                },
+                {
+                    "_id": "s-d46998w6d",
+                    "time": {
+                        "day": "2021-09-18",
+                        "hour": "16:30"
+                    },
+                    "name": "Dinner",
+                    "pos": {
+                        "lat": 27.5775669,
+                        "lng": 86.5602614
+                    }
+                }
             ]
         },
         "members": [
             {
-                "_id": "d46a68d466",
+                "_id": "u-d46a68d466",
                 "username": "popo",
                 "imgUrl": "https://randomuser.me/api/portraits/men/1.jpg",
                 "joinedAt": 1626432303554
@@ -78,7 +166,7 @@
         ]
     },
     {
-        "_id": "d464w4d6d",
+        "_id": "t-d464w4d6d",
         "createdAt": 1626432103554,
         "imgUrl": "https://lh3.googleusercontent.com/places/AAcXr8q_CfgA9vCm6Z1DPQth5llOPmGUoEEQW3mO-ydmJKJZtE63POLCvEDgL-hv4uU8k85U4NrGXAfQxiMO0wpQV_Q5Iei4rKM3Y0s=s1600-w4000",
         "type": "clubbing",
@@ -86,6 +174,17 @@
         "typeImgUrl": "https://image.flaticon.com/icons/png/512/937/937367.png",
         "title": "A nature party in the forests of the village of Surke",
         "desc": "3 days of performances featuring top DJs from around the world",
+        "chat": [
+            {
+                "createdAt": 1626532103554,
+                "txt": "hi",
+                "createdBy": {
+                    "_id": "d5s4f68e4",
+                    "username": "toto",
+                    "imgUrl": "https://randomuser.me/api/portraits/men/2.jpg"
+                }
+            }
+        ],
         "createdBy": {
             "_id": "d5s4f68e4",
             "username": "toto",
@@ -99,14 +198,47 @@
                 "lng": 86.7171049118042
             },
             "stations": [
-                {"name": "start", "pos": {"lat": 27.67296282052132, "lng": 86.7171049118042}},
-                {"name": "Coffee break", "pos": {"lat": 27.67296282042132, "lng": 86.7171049118042}},
-                {"name": "Dinner", "pos": {"lat": 27.67296282042132, "lng": 86.7171049117042}}
+                {
+                    "_id": "s-d7w914d6d",
+                    "time": {
+                        "day": "2021-09-06",
+                        "hour": "09:00"
+                    },
+                    "name": "start",
+                    "pos": {
+                        "lat": 27.67296282052132,
+                        "lng": 86.7171049118042
+                    }
+                },
+                {
+                    "_id": "s-d7w5f4we6d",
+                    "time": {
+                        "day": "2021-09-06",
+                        "hour": "16:00"
+                    },
+                    "name": "Coffee break",
+                    "pos": {
+                        "lat": 27.67296282042132,
+                        "lng": 86.7171049118042
+                    }
+                },
+                {
+                    "_id": "s-d7w912lb6d",
+                    "time": {
+                        "day": "2021-09-06",
+                        "hour": "22:00"
+                    },
+                    "name": "Dinner",
+                    "pos": {
+                        "lat": 27.67296282042132,
+                        "lng": 86.7171049117042
+                    }
+                }
             ]
         },
         "members": [
             {
-                "_id": "d5s4f68e4",
+                "_id": "u-d5s4f68e4",
                 "username": "toto",
                 "imgUrl": "https://randomuser.me/api/portraits/men/2.jpg",
                 "joinedAt": 1626432103554

@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react'
-
 import { useForm } from '../services/customHooks'
-import { MiniUser } from '../interfaces/User.interface'
 import { store } from '../stores/storeHelpers'
 import { Trip } from '../interfaces/Trip.interface'
+import { utilService } from '../services/util-service'
 
 interface Props {
     stationPos: { lat: number, lng: number }
@@ -13,25 +11,21 @@ interface Props {
 }
 
 export const CreateStation = ({ stationPos, trip, setIsModalOpen, closeBtn }: Props) => {
-    const { userStore, tripStore } = store.useStore()
-    const [loggedinUser, setLoggedinUser] = useState({} as MiniUser)
-    const [stationInputs, handelChange] = useForm({ name: '' })
-    useEffect(() => {
-        setLoggedinUser(userStore.miniUser as MiniUser)
-    }, [])
+    const {tripStore } = store.useStore()
+    const [stationInputs, handelChange] = useForm({ name: '', day: "0000-00-00", hour: "00:00" })
 
-    const onAddStation = async (name: string, pos: { lat: number, lng: number }) => {
-        console.log(name, pos);
+    const onAddStation = async (name: string, pos: { lat: number, lng: number }, day: string, hour: string) => {
+        console.log(name, pos, day, hour);
 
         const tripToUpdate = { ...trip }
-        tripToUpdate.loc.stations.push({ name, pos })
+        tripToUpdate.loc.stations.push({ name, pos, time: { day, hour }, _id: `s-${utilService.makeId()}` })
         await tripStore.updateTrip(tripToUpdate)
     }
 
-    const { name } = stationInputs
+    const { name, day, hour } = stationInputs
 
     return (
-        <div className="create-trip-modal">
+        <div className="create-station-modal">
             <button className="exit-btn" onClick={() => {
                 setIsModalOpen(false)
                 closeBtn()
@@ -39,7 +33,7 @@ export const CreateStation = ({ stationPos, trip, setIsModalOpen, closeBtn }: Pr
             <h1>Add station</h1>
             <form onSubmit={(ev) => {
                 ev.preventDefault()
-                onAddStation(name, stationPos)
+                onAddStation(name, stationPos, day, hour)
                 closeBtn()
                 setIsModalOpen(false)
             }}>
@@ -53,7 +47,26 @@ export const CreateStation = ({ stationPos, trip, setIsModalOpen, closeBtn }: Pr
                     placeholder="station name"
                     value={name}
                     onChange={handelChange}
+                    required
                 />
+                <label htmlFor="day">Arrival date:</label>
+                <div className="station-date-inputs-container">
+                    <input
+                        type="date"
+                        name="day"
+                        id="day"
+                        value={day}
+                        onChange={handelChange}
+                        required
+                    />
+                    <input
+                        type="time"
+                        name="hour "
+                        value={hour}
+                        onChange={handelChange}
+                        required
+                    />
+                </div>
 
                 <button type="submit" className="main-btn">Add station</button>
             </form>
