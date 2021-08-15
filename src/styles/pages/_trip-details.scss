@@ -105,6 +105,7 @@
                 padding: 10px 40px;
                 background-image: url("../../assets/imgs/chat-bg.PNG");
                 overflow-y: scroll;
+                scroll-behavior: smooth;
 
                 .chat-msg {
                     position: relative;
