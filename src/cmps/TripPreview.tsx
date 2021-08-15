@@ -1,28 +1,30 @@
 
 
-import { ReactElement, useState } from 'react'
+import { ReactElement } from 'react'
 import { Trip } from '../interfaces/Trip.interface'
-import { MAP_API_KEY } from '../keys'
-import { tripService } from '../services/trip-service'
 
 interface Props {
     trip: Trip
-    setCoords: Function,
-    onClickMarker:Function
+    setCoords?: Function,
+    onClickMarker?: Function
 }
 
-export default function TripPreview({ trip, setCoords,onClickMarker }: Props): ReactElement {
-    const { loc, type, typeImgUrl, createdAt, title, members } = trip
+export function TripPreview({ trip, setCoords, onClickMarker }: Props): ReactElement {
+    const { _id, loc, type, typeImgUrl, createdAt, title, members } = trip
 
     const setLocation = (pos: { lat: number, lng: number }) => {
-        setCoords(pos)
+        if (setCoords) setCoords(pos)
     }
 
     return (
         <div className="trip-preview-container" onClick={() => {
-            setLocation(loc.pos)
-            onClickMarker(trip._id)
-            }}>
+            if (setCoords && onClickMarker) {
+                setLocation(loc.pos)
+                onClickMarker(trip._id)
+            } else {
+                window.location.hash = `/trip/${_id}`
+            }
+        }}>
 
             <img src={trip.imgUrl} alt="tripImg" />
 

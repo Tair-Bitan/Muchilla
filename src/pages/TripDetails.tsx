@@ -8,6 +8,7 @@ import { User } from '../interfaces/User.interface';
 import { MAP_API_KEY } from '../keys';
 import { CreateStation } from '../cmps/CreateStation';
 import { TripChat } from '../cmps/TripChat';
+import { TripList } from '../cmps/TripList';
 
 interface Props {
 
@@ -114,7 +115,8 @@ export default function TripDetails({ }: Props): ReactElement {
                 </div>
                 <div className="trip-details-right">
                     <h1>Nearby trips</h1>
-                    {tripStore.nearbyTrips.map(trip => {
+                    <TripList loadedTrips={tripStore.nearbyTrips} />
+                    {/* {tripStore.nearbyTrips.map(trip => {
                         return (
                             <div className="trip-preview-container" key={`nearby-trip-${trip._id + Math.random()}`} onClick={() => { window.location.hash = `/trip/${trip._id}` }}>
                                 <img src={trip.imgUrl} alt="tripImg" />
@@ -134,11 +136,11 @@ export default function TripDetails({ }: Props): ReactElement {
                                 </div>
                             </div>
                         )
-                    })}
+                    })} */}
                 </div>
             </div>
 
-         
+
 
             {isMember &&
                 <div className="members-content-container">

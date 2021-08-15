@@ -113,31 +113,6 @@ export class TripStore {
         }
     }
 
-    getUserTrips(filterBy: string, userId: string = 'd46a68d466') {
-        switch (filterBy) {
-            case 'created':
-                return this.trips.filter(trip => {
-                    return trip.createdBy._id === userId
-                })
-            case 'joined':
-                return this.trips.filter(trip => {
-                    return trip.members.filter(member => {
-                        return member._id === userId
-                    }) && trip.createdBy._id !== userId
-                })
-            case 'passed':
-                //Will be implemnted when trip.dueDate is available
-                // return this.trips.filter(trip=>{
-                //     return trip.dueDate < Date.now()
-                // })
-                return this.trips.filter(trip => {
-                    return trip.createdBy._id === userId
-                })
-            default:
-                break;
-        }
-    }
-
     _setNewReq(): void {
         this.status = 'pending'
         this.errMsg = ''

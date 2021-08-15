@@ -1,8 +1,12 @@
+import { useState } from "react"
+import { TripList } from "../cmps/TripList"
 import { store } from "../stores/storeHelpers"
 
 export const UserDetails = () => {
 
     const { userStore, tripStore } = store.useStore()
+
+    const [tripSearch, setTripSearch] = useState('created')
 
     const getFirstName = () => {
         const names = loggedInUser?.fullname.split(' ')
@@ -18,9 +22,10 @@ export const UserDetails = () => {
                 })
             case 'joined':
                 return tripStore.trips.filter(trip => {
-                    return trip.members.filter(member => {
-                        return member._id === loggedInUser?._id
-                    }) && trip.createdBy._id !== loggedInUser?._id
+                    return (
+                        trip.createdBy._id !== loggedInUser?._id &&
+                        trip.members.some(member => member._id === loggedInUser?._id)
+                    )
                 })
             case 'passed':
                 //Will be implemnted when trip.dueDate is available
@@ -37,8 +42,6 @@ export const UserDetails = () => {
 
 
     const { loggedInUser } = userStore
-    console.log('getUserTrips("joined")', tripStore.getUserTrips('joined', loggedInUser?._id))
-
     if (!loggedInUser) return <h1>loading..</h1>
     return (
         <div className="user-details-container main">
@@ -66,17 +69,22 @@ export const UserDetails = () => {
                                 <h3>3</h3>
                                 <p>Followers</p>
                             </div>
+                            <div className="followers">
+                                <h3>5</h3>
+                                <p>Following</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="user-trips">
                 <h3>Trips</h3>
-                <div className="flex space-between">
-                    <div className="created">Created</div>
-                    <div className="joined">Joined</div>
-                    <div className="passed">Passed</div>
+                <div className="flex">
+                    <h4 onClick={() => { setTripSearch('created') }}>Created</h4>
+                    <h4 onClick={() => { setTripSearch('joined') }}>Joined</h4>
+                    <h4 onClick={() => { setTripSearch('passed') }}>Passed</h4>
                 </div>
+                <TripList loadedTrips={getUserTrips(tripSearch)!} />
             </div>
         </div>
     )
