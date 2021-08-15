@@ -109,6 +109,7 @@ export default function TripDetails({ }: Props): ReactElement {
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci culpa quas est neque! Ab iure ullam esse ipsum rem tempora et est modi odit, suscipit minima quaerat voluptate debitis repudiandae deserunt itaque ullam cumque magnam culpa quas est neque! Ab iure ullam esse ipsum rem tempora et est modi odit, suscipit minima quaerat voluptate inventore doloribus possimus velit quas?</p>
                         </div>
                     </div>
+                    {!isMember && <button className="main-btn join-btn" onClick={() => onAddMember(userStore.loggedInUser)}>Join</button>}
                     {isMember && <TripChat tripId={trip._id} />}
                 </div>
                 <div className="trip-details-right">
@@ -137,7 +138,7 @@ export default function TripDetails({ }: Props): ReactElement {
                 </div>
             </div>
 
-            {!isMember && <button className="main-btn join-btn" onClick={() => onAddMember(userStore.loggedInUser)}>Join</button>}
+         
 
             {isMember &&
                 <div className="members-content-container">

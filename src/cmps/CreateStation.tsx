@@ -18,7 +18,7 @@ export const CreateStation = ({ stationPos, trip, setIsModalOpen, closeBtn }: Pr
         console.log(name, pos, day, hour);
 
         const tripToUpdate = { ...trip }
-        tripToUpdate.loc.stations.push({ name, pos, time: { day, hour }, _id: `s-${utilService.makeId()}` })
+        tripToUpdate.loc.stations.push({ name, pos, time: { day, hour }, _id: `s-${utilService.makeId(6)}` })
         await tripStore.updateTrip(tripToUpdate)
     }
 

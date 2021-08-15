@@ -9,14 +9,14 @@ import { Search } from '../cmps/Search'
 import { CreateTrip } from '../cmps/CreateTrip'
 import { store } from '../stores/storeHelpers'
 import { useHistory } from 'react-router'
+import { observer } from 'mobx-react-lite'
 
 
 const libraries = ["places"] as any
 
-export const Map = () => {
+export const _Map = () => {
 
     const { tripStore, userStore } = store.useStore()
-    // const [trips, setTrips] = useState<Trip[]>([])
     const [map, setMap] = useState<GoogleMap>(null as any)
     const [bounds, setBounds] = useState<google.maps.LatLngBounds>(null as any)
     const [selectedTrip, setSelectedTrip] = useState(null as any)
@@ -32,8 +32,7 @@ export const Map = () => {
     useEffect(() => {
         const loadedTrips = bounds ? tripStore.trips.filter(trip => bounds.contains(trip.loc.pos)) : tripStore.trips
         tripStore.setNearbyTrips(loadedTrips)
-        // setTrips(loadedTrips)
-    }, [tripStore.trips, bounds, tripStore.nearbyTrips])
+    }, [bounds, tripStore.trips])
 
     const onSelectTrip = async (tripId: string | null) => {
         if (tripId) {
@@ -176,3 +175,5 @@ export const Map = () => {
         </main>
     )
 }
+
+export const Map = observer(_Map)

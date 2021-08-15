@@ -5,6 +5,7 @@ import { useForm } from '../services/customHooks'
 import { MiniUser } from '../interfaces/User.interface'
 import { TripInputs, TripData } from '../interfaces/Trip.interface'
 import { store } from '../stores/storeHelpers'
+import { observer } from 'mobx-react-lite'
 
 interface Props {
     pos: { lat: number, lng: number }
@@ -12,7 +13,7 @@ interface Props {
     closeBtn: Function
 }
 
-export const CreateTrip = ({ pos, setIsModalOpen, closeBtn }: Props) => {
+export const _CreateTrip = ({ pos, setIsModalOpen, closeBtn }: Props) => {
 
     const { userStore, tripStore } = store.useStore()
 
@@ -105,3 +106,5 @@ export const CreateTrip = ({ pos, setIsModalOpen, closeBtn }: Props) => {
         </div>
     )
 }
+
+export const CreateTrip = observer(_CreateTrip)

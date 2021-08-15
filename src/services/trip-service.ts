@@ -102,7 +102,7 @@ function _formatTrip(user: MiniUser, tripInputs: TripInputs, tripData: TripData,
     const addresses: string[] = tripData.formatted_address.split(',')
 
     return {
-        _id: utilService.makeId(6),
+        _id: `t-${utilService.makeId(6)}`,
         createdAt: Date.now(),
         type,
         memberCount,
