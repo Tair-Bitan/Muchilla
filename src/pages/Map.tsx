@@ -9,11 +9,12 @@ import { Search } from '../cmps/Search'
 import { CreateTrip } from '../cmps/CreateTrip'
 import { store } from '../stores/storeHelpers'
 import { useHistory } from 'react-router'
+import { observer } from 'mobx-react-lite'
 
 
 const libraries = ["places"] as any
 
-export const Map = () => {
+const _Map = () => {
 
     const { tripStore, userStore } = store.useStore()
     // const [trips, setTrips] = useState<Trip[]>([])
@@ -33,7 +34,7 @@ export const Map = () => {
         const loadedTrips = bounds ? tripStore.trips.filter(trip => bounds.contains(trip.loc.pos)) : tripStore.trips
         tripStore.setNearbyTrips(loadedTrips)
         // setTrips(loadedTrips)
-    }, [tripStore.trips, bounds, tripStore.nearbyTrips])
+    }, [bounds, tripStore.trips])
 
     const onSelectTrip = async (tripId: string | null) => {
         if (tripId) {
@@ -68,7 +69,7 @@ export const Map = () => {
         })
     }
 
-    const onClickMarker = (tripId:string) => {
+    const onClickMarker = (tripId: string) => {
         setNewTripBtnData({ isOn: false, pos: { lat: 0, lng: 0 } })
         onSelectTrip(tripId)
     }
@@ -120,7 +121,7 @@ export const Map = () => {
                                     origin: new window.google.maps.Point(0, 0),
                                     anchor: new window.google.maps.Point(20, 20)
                                 }}
-                                onClick={() => {onClickMarker(trip._id)}}
+                                onClick={() => { onClickMarker(trip._id) }}
                             />
                         )
                     }
@@ -176,3 +177,5 @@ export const Map = () => {
         </main>
     )
 }
+
+export const Map = observer(_Map)

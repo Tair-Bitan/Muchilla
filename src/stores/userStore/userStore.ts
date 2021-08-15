@@ -164,12 +164,12 @@ export class UserStore {
         }
     }
 
-    _setNewReq(): void {
+    private _setNewReq(): void {
         this.status = 'pending'
         this.errMsg = ''
     }
 
-    _setErr(error: string): void {
+    private _setErr(error: string): void {
         this.status = 'error'
         this.errMsg = error
     }

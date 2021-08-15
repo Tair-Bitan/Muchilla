@@ -65,10 +65,10 @@ export class TripStore {
 
     async updateTrip(updatedTrip: Trip) {
         this._setNewReq()
-        
+
         try {
             await tripService.update(updatedTrip)
-            
+
             runInAction(() => {
                 this.loadTrips()
                 this.status = 'done'
@@ -110,6 +110,31 @@ export class TripStore {
             runInAction(() => {
                 this._setErr(error)
             })
+        }
+    }
+
+    getUserTrips(filterBy: string, userId: string = 'd46a68d466') {
+        switch (filterBy) {
+            case 'created':
+                return this.trips.filter(trip => {
+                    return trip.createdBy._id === userId
+                })
+            case 'joined':
+                return this.trips.filter(trip => {
+                    return trip.members.filter(member => {
+                        return member._id === userId
+                    }) && trip.createdBy._id !== userId
+                })
+            case 'passed':
+                //Will be implemnted when trip.dueDate is available
+                // return this.trips.filter(trip=>{
+                //     return trip.dueDate < Date.now()
+                // })
+                return this.trips.filter(trip => {
+                    return trip.createdBy._id === userId
+                })
+            default:
+                break;
         }
     }
 

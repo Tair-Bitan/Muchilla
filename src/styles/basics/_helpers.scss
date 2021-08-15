@@ -152,3 +152,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.landscape {
+    @include aspect-ratio(21, 9);
+}
+
+.portrait {
+    @include aspect-ratio(9, 21);
+}
+
+.square {
+    @include aspect-ratio(1, 1);
+}
