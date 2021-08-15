@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { ActivityList } from "../cmps/ActivityList"
 import { TripList } from "../cmps/TripList"
 import { store } from "../stores/storeHelpers"
 
@@ -86,6 +87,8 @@ export const UserDetails = () => {
                 </div>
                 <TripList loadedTrips={getUserTrips(tripSearch)!} />
             </div>
+            {/* TO BE IMPLEMNTED: loggedInUser === match.params.userId ?  */}
+            <ActivityList activities={loggedInUser.activities} />
         </div>
     )
 

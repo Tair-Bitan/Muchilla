@@ -18,6 +18,24 @@
         "trips": [
             "t-d468w4d6d",
             "t-d468w4g6d"
+        ],
+        "activities": [
+            {
+                "_id": "a-eV636Fd465",
+                "createdAt": 1629061428678,
+                "imgUrl": "https://randomuser.me/api/portraits/men/1.jpg",
+                "title": "popo created a new trip to dudhakunda , Nepal",
+                "url": "t-d468w4g6d",
+                "type": "create"
+            },
+            {
+                "_id": "a-e864C3w357",
+                "createdAt": 1619051428678,
+                "imgUrl": "https://randomuser.me/api/portraits/men/1.jpg",
+                "title": "popo is now following Toto Loto",
+                "url": "u-d5s4f68e4",
+                "type": "follow"
+            }
         ]
     },
     {
@@ -39,6 +57,32 @@
         "trips": [
             "t-d468w4d6d",
             "t-d464w4d6d"
+        ],
+        "activities": [
+            {
+                "_id": "a-d52B62d166",
+                "createdAt": 1629051428678,
+                "imgUrl": "https://randomuser.me/api/portraits/men/2.jpg",
+                "title": "toto joined a trip to Lukla , Nepal",
+                "url": "t-d468w4d6d",
+                "type": "join"
+            },
+            {
+                "_id": "a-e53B62E166",
+                "createdAt": 1629061428678,
+                "imgUrl": "https://randomuser.me/api/portraits/men/2.jpg",
+                "title": "toto created a new trip to Surke , Nepal",
+                "url": "t-d464w4d6d",
+                "type": "create"
+            },
+            {
+                "_id": "a-5b2B62D132",
+                "createdAt": 1619051428678,
+                "imgUrl": "https://randomuser.me/api/portraits/men/2.jpg",
+                "title": "toto is now following Popo Lopo",
+                "url": "u-d46a68d466",
+                "type": "follow"
+            }
         ]
     }
 ]

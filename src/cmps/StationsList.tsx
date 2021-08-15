@@ -10,11 +10,11 @@ interface Props {
     }>>
 }
 
-export const StationsList = ({ stations,setCoords  }: Props) => {
+export const StationsList = ({ stations, setCoords }: Props) => {
     return (
         <div className="station-list">
             <h2>Trip stations</h2>
-            {stations.map(station => <StationPreview station={station} setCoords={setCoords} />)}
+            {stations.map(station => <StationPreview key={`station-${Math.random()}`} station={station} setCoords={setCoords} />)}
         </div>
     )
 }

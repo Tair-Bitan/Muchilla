@@ -1,0 +1,34 @@
+.activity-preview {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgb(233, 233, 233);
+    cursor: pointer;
+
+    > img {
+        object-fit: cover;
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+    }
+
+    > div {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        flex: 1;
+    }
+
+    h3,
+    h5 {
+        font-weight: 400;
+    }
+
+    .svg-inline--fa.fa-w-16,
+    .svg-inline--fa {
+        height: 1.3rem;
+        width: 1.3rem;
+        color: $clr-2;
+    }
+}

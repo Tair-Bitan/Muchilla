@@ -57,7 +57,8 @@ async function signup(creds: SignupCreds): Promise<string | User> {
         _id: `u-${utilService.makeId(6)}`,
         ...creds,
         interests: [],
-        trips: []
+        trips: [],
+        activities: []
     }
 
     gUsers.push(user)

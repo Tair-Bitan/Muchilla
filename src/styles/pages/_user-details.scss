@@ -8,9 +8,15 @@
 
     .user-info {
         transform: translate(0, -5rem);
+
         > * {
             margin-bottom: 1rem;
         }
+        
+        >h1{
+            margin-bottom: 3rem;
+        }
+
         .profile-img-container {
             width: 10rem;
             border-radius: 50%;
@@ -18,7 +24,6 @@
         }
 
         .desc {
-            padding: 1rem;
             gap: 4rem;
             > div {
                 flex: 1;
@@ -28,5 +33,9 @@
                 text-align: center;
             }
         }
+    }
+
+    .user-trips {
+        margin-bottom: 5rem;
     }
 }
