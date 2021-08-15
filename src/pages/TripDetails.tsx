@@ -8,6 +8,7 @@ import { User } from '../interfaces/User.interface';
 import { MAP_API_KEY } from '../keys';
 import { CreateStation } from '../cmps/CreateStation';
 import { TripChat } from '../cmps/TripChat';
+import { StationsList } from '../cmps/StationsList';
 
 interface Props {
 
@@ -17,10 +18,11 @@ const libraries = ["places"] as any
 
 export default function TripDetails({ }: Props): ReactElement {
 
+    const params: { tripId: string } = useParams()
     const [trip, setTrip] = useState({} as Trip)
     const [isMember, setIsMember] = useState(false)
     const [map, setMap] = useState<GoogleMap>(null as any)
-    const params: { tripId: string } = useParams()
+    const [coords, setCoords] = useState({ lng: 0, lat: 0 })
     const { tripStore, userStore } = store.useStore()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [newTripBtnData, setNewTripBtnData] = useState({
@@ -30,12 +32,13 @@ export default function TripDetails({ }: Props): ReactElement {
 
     useEffect(() => {
         loadTrip(params.tripId)
-    }, [params.tripId])
+        }, [params.tripId])
 
     const loadTrip = async (tripId: string) => {
         const trip = await tripService.getById(tripId) as Trip
         if (!trip) return
         setTrip(trip)
+        setCoords(trip.loc?.pos)
         if (trip.members.some((member) => {
             return (member._id === userStore.loggedInUser?._id) ? true : false
         })) setIsMember(true)
@@ -76,6 +79,7 @@ export default function TripDetails({ }: Props): ReactElement {
             pos: { lat: 0, lng: 0 }
         })
     }
+
 
     if (!trip || !trip.loc) return <h1>loading...</h1>
     if (loadError) return <div>got err</div>
@@ -138,16 +142,15 @@ export default function TripDetails({ }: Props): ReactElement {
                 </div>
             </div>
 
-         
 
             {isMember &&
                 <div className="members-content-container">
                     <GoogleMap
                         onLoad={onMapLoad}
-                        mapContainerClassName={'google-map-container'}
+                        mapContainerClassName={'google-map-container trip-map'}
                         mapContainerStyle={{ width: '100vw', height: '90vh' }}
                         zoom={15}
-                        center={trip.loc.pos}
+                        center={coords}
                         options={options}
                         ref={GoogleMap => {
                             if (!GoogleMap) return
@@ -189,6 +192,8 @@ export default function TripDetails({ }: Props): ReactElement {
                                 }}>Add station</button>
                             </InfoWindow>
                         )}
+
+                        <StationsList stations={trip.loc.stations} setCoords={setCoords}/>
                     </GoogleMap>
 
 
