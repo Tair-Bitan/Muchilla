@@ -67,7 +67,7 @@ export const _Map = () => {
         })
     }
 
-    const onClickMarker = (tripId:string) => {
+    const onClickMarker = (tripId: string) => {
         setNewTripBtnData({ isOn: false, pos: { lat: 0, lng: 0 } })
         onSelectTrip(tripId)
     }
@@ -119,7 +119,7 @@ export const _Map = () => {
                                     origin: new window.google.maps.Point(0, 0),
                                     anchor: new window.google.maps.Point(20, 20)
                                 }}
-                                onClick={() => {onClickMarker(trip._id)}}
+                                onClick={() => { onClickMarker(trip._id) }}
                             />
                         )
                     }

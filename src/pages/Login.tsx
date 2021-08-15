@@ -100,6 +100,7 @@ function _Login({ }: Props): ReactElement {
                                     placeholder="username"
                                     onChange={loginHandelChange}
                                     required
+                                    autoFocus
                                 />
 
                                 <input
@@ -139,6 +140,7 @@ function _Login({ }: Props): ReactElement {
                                     placeholder="fullname"
                                     onChange={signupHandelChange}
                                     required
+                                    autoFocus
                                 />
                                 <input
                                     className={`main-input ${msg ? 'invalid' : ''}`}

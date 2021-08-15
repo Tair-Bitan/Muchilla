@@ -65,10 +65,10 @@ export class TripStore {
 
     async updateTrip(updatedTrip: Trip) {
         this._setNewReq()
-        
+
         try {
             await tripService.update(updatedTrip)
-            
+
             runInAction(() => {
                 this.loadTrips()
                 this.status = 'done'

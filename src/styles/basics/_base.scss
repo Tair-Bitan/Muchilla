@@ -1,8 +1,8 @@
-*{
+* {
     box-sizing: border-box;
 }
 
-::selection{
+::selection {
     background-color: $clr-1;
     color: $clr-4;
 }
@@ -11,21 +11,26 @@
 
 // }
 
-img{
+img {
     width: 100%;
 }
 
-body{
+body {
     margin: 0;
     font-family: Roboto, sans-serif;
-
 }
 
-h1,h2,h3,h4,h5,h6{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
     margin: 0 0;
 }
 
-a{
+a {
     text-decoration: none;
     color: black;
 }
