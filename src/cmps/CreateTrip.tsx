@@ -86,7 +86,7 @@ export const _CreateTrip = ({ pos, setIsModalOpen, closeBtn }: Props) => {
                 />
 
                 <datalist id="type">
-                    {tripService.getPossibleTypes().map(type => <option value={type}>{type}</option>)}
+                    {tripService.getPossibleTypes().map((type, idx) => <option key={type + idx} value={type}>{type}</option>)}
                 </datalist>
 
                 <label htmlFor="memberCount">Members: {memberCount}</label>
