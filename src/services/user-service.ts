@@ -54,7 +54,7 @@ async function signup(creds: SignupCreds): Promise<string | User> {
     }
 
     const user: User = {
-        _id: utilService.makeId(),
+        _id: `u-${utilService.makeId(6)}`,
         ...creds,
         interests: [],
         trips: []

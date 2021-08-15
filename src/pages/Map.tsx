@@ -14,10 +14,9 @@ import { observer } from 'mobx-react-lite'
 
 const libraries = ["places"] as any
 
-const _Map = () => {
+export const _Map = () => {
 
     const { tripStore, userStore } = store.useStore()
-    // const [trips, setTrips] = useState<Trip[]>([])
     const [map, setMap] = useState<GoogleMap>(null as any)
     const [bounds, setBounds] = useState<google.maps.LatLngBounds>(null as any)
     const [selectedTrip, setSelectedTrip] = useState(null as any)
@@ -33,7 +32,6 @@ const _Map = () => {
     useEffect(() => {
         const loadedTrips = bounds ? tripStore.trips.filter(trip => bounds.contains(trip.loc.pos)) : tripStore.trips
         tripStore.setNearbyTrips(loadedTrips)
-        // setTrips(loadedTrips)
     }, [bounds, tripStore.trips])
 
     const onSelectTrip = async (tripId: string | null) => {

@@ -5,6 +5,7 @@ import { useForm } from '../services/customHooks'
 import { MiniUser } from '../interfaces/User.interface'
 import { TripInputs, TripData } from '../interfaces/Trip.interface'
 import { store } from '../stores/storeHelpers'
+import { observer } from 'mobx-react-lite'
 
 interface Props {
     pos: { lat: number, lng: number }
@@ -12,19 +13,19 @@ interface Props {
     closeBtn: Function
 }
 
-export const CreateTrip = ({ pos, setIsModalOpen, closeBtn }: Props) => {
+export const _CreateTrip = ({ pos, setIsModalOpen, closeBtn }: Props) => {
 
     const { userStore, tripStore } = store.useStore()
 
     const [tripData, setTripData] = useState({} as TripData)
     const [loggedinUser, setLoggedinUser] = useState({} as MiniUser)
 
-    const [tripInputs, handelChange] = useForm({ title: '', desc: '', type: '' })
+    const [tripInputs, handelChange] = useForm({ title: '', desc: '', type: '', memberCount: 2 })
 
     useEffect(() => {
         loadLocationData()
         setLoggedinUser(userStore.miniUser as MiniUser)
-    },[])
+    }, [])
 
     const loadLocationData = async () => {
         const locData = await tripService.getLocData(pos)
@@ -32,14 +33,14 @@ export const CreateTrip = ({ pos, setIsModalOpen, closeBtn }: Props) => {
     }
 
     const onCreateTrip = async (tripInputs: TripInputs, tripData: TripData, pos: { lat: number, lng: number }) => {
-        await  tripStore.addTrip(loggedinUser, tripInputs, tripData, pos)
+        await tripStore.addTrip(loggedinUser, tripInputs, tripData, pos)
         setIsModalOpen(false)
     }
 
     if (!tripData) return <div>Loading...</div>
 
     const { formatted_address } = tripData
-    const { title, desc, type } = tripInputs
+    const { title, desc, type, memberCount } = tripInputs
     return (
         <div className="create-trip-modal">
             <button className="exit-btn" onClick={() => { setIsModalOpen(false) }}>X</button>
@@ -85,13 +86,25 @@ export const CreateTrip = ({ pos, setIsModalOpen, closeBtn }: Props) => {
                 />
 
                 <datalist id="type">
-                    {/* TODO: Replace with possibleTypes.map()  */}
-                    <option value="hiking">Hiking</option>
-                    <option value="shopping">Shopping</option>
-                    <option value="clubbing">Clubbing</option>
+                    {tripService.getPossibleTypes().map(type => <option value={type}>{type}</option>)}
                 </datalist>
+
+                <label htmlFor="memberCount">Members: {memberCount}</label>
+                <input
+                    type="range"
+                    id="memberCount"
+                    name="memberCount"
+                    min={2}
+                    max={10}
+                    value={memberCount}
+                    onChange={handelChange}
+                />
+
+
                 <button type="submit" className="main-btn">Create trip</button>
             </form>
         </div>
     )
 }
+
+export const CreateTrip = observer(_CreateTrip)

@@ -13,7 +13,8 @@ export const tripService = {
     add,
     remove,
     update,
-    getLocData
+    getLocData,
+    getPossibleTypes
 }
 
 const trips_KEY = 'trips'
@@ -91,15 +92,20 @@ async function getLocData(loc: { lat: number, lng: number }) {
     return (place) ? place : null
 }
 
+function getPossibleTypes() {
+    return ['hiking', 'shopping', 'clubbing']
+}
+
 function _formatTrip(user: MiniUser, tripInputs: TripInputs, tripData: TripData, pos: { lat: number, lng: number }) {
-    const { desc, type, title } = tripInputs
+    const { desc, type, title, memberCount } = tripInputs
     const { lat, lng } = pos
     const addresses: string[] = tripData.formatted_address.split(',')
 
     return {
-        _id: utilService.makeId(6),
+        _id: `t-${utilService.makeId(6)}`,
         createdAt: Date.now(),
         type,
+        memberCount,
         typeImgUrl: _getTypeImgUrl(type),
         title,
         desc,
@@ -110,7 +116,8 @@ function _formatTrip(user: MiniUser, tripInputs: TripInputs, tripData: TripData,
             pos: {
                 lng,
                 lat
-            }
+            },
+            stations:[]
         },
         members: [user]
     }

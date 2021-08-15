@@ -1,6 +1,5 @@
 import { ReactElement, useEffect, useState } from 'react'
 import { Trip } from '../interfaces/Trip.interface'
-// import { tripService } from '../services/trip-service'
 import TripPreview from './TripPreview'
 
 interface Props {
