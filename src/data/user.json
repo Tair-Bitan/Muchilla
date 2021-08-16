@@ -36,7 +36,9 @@
                 "url": "u-d5s4f68e4",
                 "type": "follow"
             }
-        ]
+        ],
+        "followed": ["u-d5s4f68e4"],
+        "following": ["u-d5s4f68e4"]
     },
     {
         "_id": "u-d5s4f68e4",
@@ -83,6 +85,8 @@
                 "url": "u-d46a68d466",
                 "type": "follow"
             }
-        ]
+        ],
+        "followed": ["u-d46a68d466"],
+        "following": ["u-d46a68d466"]
     }
 ]

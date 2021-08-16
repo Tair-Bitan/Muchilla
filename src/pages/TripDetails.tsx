@@ -33,7 +33,7 @@ export default function TripDetails({ }: Props): ReactElement {
 
     useEffect(() => {
         loadTrip(params.tripId)
-        }, [params.tripId])
+    }, [params.tripId])
 
     const loadTrip = async (tripId: string) => {
         const trip = await tripService.getById(tripId) as Trip
@@ -105,7 +105,7 @@ export default function TripDetails({ }: Props): ReactElement {
                         </div>
                         <div className="members-img-container">
                             {trip.members?.map((member) => {
-                                return <img key={`details-member-img-${member._id + Math.random()}`} src={member.imgUrl} alt="memberAvater"></img>
+                                return <img key={`details-member-img-${member._id + Math.random()}`} src={member.imgUrl} alt="memberAvater" onClick={()=> window.location.hash = `user/${member._id}`}></img>
                             })}
                         </div>
                         <div className="trip-info-main">
@@ -120,27 +120,6 @@ export default function TripDetails({ }: Props): ReactElement {
                 <div className="trip-details-right">
                     <h1>Nearby trips</h1>
                     <TripList loadedTrips={tripStore.nearbyTrips} />
-                    {/* {tripStore.nearbyTrips.map(trip => {
-                        return (
-                            <div className="trip-preview-container" key={`nearby-trip-${trip._id + Math.random()}`} onClick={() => { window.location.hash = `/trip/${trip._id}` }}>
-                                <img src={trip.imgUrl} alt="tripImg" />
-                                <div className="trip-info">
-                                    <h4>{new Date(trip.createdAt).toLocaleDateString()}</h4>
-                                    <h3>{trip.title}</h3>
-                                    <h2>{trip.loc.city} , {trip.loc.state}</h2>
-                                    <div className="trip-type">
-                                        <img src={trip.typeImgUrl} alt={trip.type} />
-                                        <h3>{trip.type}</h3>
-                                    </div>
-                                    <div className="members-img-container">
-                                        {trip.members.map(member => {
-                                            return <img key={`trip-preview-member-${member._id}`} src={member.imgUrl} alt="memberAvater"></img>
-                                        })}
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })} */}
                 </div>
             </div>
 
@@ -195,7 +174,7 @@ export default function TripDetails({ }: Props): ReactElement {
                             </InfoWindow>
                         )}
 
-                        <StationsList stations={trip.loc.stations} setCoords={setCoords}/>
+                        <StationsList stations={trip.loc.stations} setCoords={setCoords} />
                     </GoogleMap>
 
 

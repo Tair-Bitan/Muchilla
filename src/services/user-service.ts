@@ -5,6 +5,7 @@ import { storageService } from "./storage-service";
 import { LoginCreds, SignupCreds } from "../interfaces/Creds.interface";
 import { User } from "../interfaces/User.interface";
 import userPic from "../assets/imgs/default-user.png"
+import { Activity } from "../interfaces/Activity.interface";
 
 export const userService = {
     query,
@@ -16,7 +17,9 @@ export const userService = {
     remove,
     update,
     getLoggedinUser,
-    getEmptyCreds
+    getEmptyCreds,
+    getFollowUserActivities,
+    followUser
 }
 
 const loggedInUser_KEY = 'loggedInUser'
@@ -58,7 +61,9 @@ async function signup(creds: SignupCreds): Promise<string | User> {
         ...creds,
         interests: [],
         trips: [],
-        activities: []
+        activities: [],
+        followed: [],
+        following: []
     }
 
     gUsers.push(user)
@@ -137,6 +142,24 @@ function getEmptyCreds(isLogin: boolean): LoginCreds | SignupCreds {
             imgUrl: userPic
         }
     }
+}
+
+function getFollowUserActivities(userId: string | null | undefined) {
+    if (!userId) return
+    let usersActivities: Activity[] = []
+    gUsers.forEach(user => {
+        if (user.followed.includes(userId)) {
+            usersActivities = [...usersActivities, ...user.activities]
+        }
+    })
+    return usersActivities.sort((activityA, activityB) => activityA.createdAt - activityB.createdAt)
+}
+
+async function followUser(userId: string, followedUserId: string) {
+    const user = getLoggedinUser()
+    const followedUser = await getById(followedUserId) as User
+    user.following.push(followedUserId)
+    followedUser.followed.push(userId)
 }
 
 function _saveLocalUser(user: User): void {

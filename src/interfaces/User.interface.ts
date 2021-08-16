@@ -7,6 +7,8 @@ export interface User {
     fullname: string,
     email: string,
     imgUrl: string,
+    followed: string[],
+    following: string[],
     interests: string[] | [],
     trips: string[] | [],
     activities: Activity[]

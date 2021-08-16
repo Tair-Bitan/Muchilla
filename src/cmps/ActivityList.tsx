@@ -2,7 +2,7 @@ import { Activity } from "../interfaces/Activity.interface"
 import { ActivityPreview } from "./ActivityPreview"
 
 interface Props {
-    activities: Activity[]
+    activities: Activity[] | null |undefined
 }
 
 export const ActivityList = ({ activities }: Props) => {

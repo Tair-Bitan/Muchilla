@@ -147,8 +147,16 @@ export class UserStore {
         }
     }
 
+    async onFollowUser(userId: string, followedUserId: string) {
+        return await userService.followUser(userId, followedUserId)
+    }
+
     getEmptyCreds(isLogin: boolean) {
         return userService.getEmptyCreds(isLogin)
+    }
+
+    get followActivities() {
+        return userService.getFollowUserActivities(this.loggedInUser?._id)
     }
 
     setLoggedinUser() {
