@@ -54,9 +54,18 @@ export const UserDetails = () => {
         }
     }
 
-    
     const { loggedInUser } = userStore
     if (!user || !loggedInUser) return <h1>loading..</h1>
+
+    const follow = () => {
+        console.log(loggedInUser.fullname, 'Now following', user.fullname);
+        userStore.onFollowUser(loggedInUser._id, user._id, true)
+    }
+    const unfollow = () => {
+        console.log(loggedInUser.fullname, 'unfollowing', user.fullname);
+        userStore.onFollowUser(loggedInUser._id, user._id, false)
+    }
+
 
     return (
         <div className="user-details-container main">
@@ -74,7 +83,10 @@ export const UserDetails = () => {
                         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit accusantium sit optio quis exercitationem nemo nisi, amet a perferendis sint at. Nobis cumque distinctio quidem aspernatur odio, laudantium eum in.</p>
                     </div>
                     <div className="actions flex col space-between">
-                        <button className="main-btn" onClick={()=>userStore.onFollowUser(loggedInUser._id , params.userId)}>Follow</button>
+                        {user.followed.includes(loggedInUser._id) ?
+                            <button className={"main-btn following"} onClick={unfollow}>Unfollow</button> :
+                            <button className={"main-btn"} onClick={follow}>Follow</button>
+                        }
                         <div className="flex space-around">
                             <div className="trips">
                                 <h3>{user.trips.length}</h3>
@@ -101,8 +113,8 @@ export const UserDetails = () => {
                 </div>
                 <TripList loadedTrips={getUserTrips(tripSearch)!} />
             </div>
-           {loggedInUser?._id !== params.userId && <ActivityList activities={user.activities} />}
-           {loggedInUser?._id === params.userId && <ActivityList activities={userStore.followActivities} />}
+            {loggedInUser?._id !== params.userId && <ActivityList activities={user.activities} />}
+            {loggedInUser?._id === params.userId && <ActivityList activities={userStore.followActivities} />}
         </div>
     )
 

@@ -147,8 +147,8 @@ export class UserStore {
         }
     }
 
-    async onFollowUser(userId: string, followedUserId: string) {
-        return await userService.followUser(userId, followedUserId)
+    async onFollowUser(userId: string, followedUserId: string, isFollow: boolean) {
+        return await userService.followUser(userId, followedUserId, isFollow)
     }
 
     getEmptyCreds(isLogin: boolean) {

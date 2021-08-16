@@ -12,8 +12,8 @@
         > * {
             margin-bottom: 1rem;
         }
-        
-        >h1{
+
+        > h1 {
             margin-bottom: 3rem;
         }
 
@@ -31,6 +31,10 @@
 
             .actions {
                 text-align: center;
+
+                button.main-btn.following {
+                    background-color: rgb(156, 156, 156);
+                }
             }
         }
     }

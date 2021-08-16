@@ -155,11 +155,23 @@ function getFollowUserActivities(userId: string | null | undefined) {
     return usersActivities.sort((activityA, activityB) => activityA.createdAt - activityB.createdAt)
 }
 
-async function followUser(userId: string, followedUserId: string) {
+async function followUser(userId: string, followedUserId: string, isFollow:boolean) {
     const user = getLoggedinUser()
     const followedUser = await getById(followedUserId) as User
-    user.following.push(followedUserId)
-    followedUser.followed.push(userId)
+    if (isFollow){
+        user.following.push(followedUserId)
+        followedUser.followed.push(userId)
+        await update(user)
+        await update(followedUser)
+    } else{
+        const followIdx = user.following.findIndex((id)=> id === followedUserId)
+        const userIdx = user.following.findIndex((id)=> id === userId)
+        user.following.splice(followIdx, 1)
+        user.following.splice(userIdx, 1)
+        await update(user)
+        await update(followedUser)
+    }
+    
 }
 
 function _saveLocalUser(user: User): void {
