@@ -20,6 +20,18 @@ export class UserStore {
         makeAutoObservable(this)
     }
 
+    async query(searchStr: string) {
+        this._setNewReq()
+        try {
+           return await userService.query({username: searchStr})
+
+        } catch (error) {
+            runInAction(() => {
+                this._setErr(error)
+            })
+        }
+    }
+
     async loadUsers() {
         this._setNewReq()
 
@@ -151,17 +163,19 @@ export class UserStore {
         return await userService.followUser(userId, followedUserId, isFollow)
     }
 
-    getEmptyCreds(isLogin: boolean) {
-        return userService.getEmptyCreds(isLogin)
-    }
-
     get followActivities() {
         return userService.getFollowUserActivities(this.loggedInUser?._id)
+    }
+
+    getEmptyCreds(isLogin: boolean) {
+        return userService.getEmptyCreds(isLogin)
     }
 
     setLoggedinUser() {
         this.loggedInUser = userService.getLoggedinUser()
     }
+
+
 
     get miniUser() {
         if (!this.loggedInUser) return null

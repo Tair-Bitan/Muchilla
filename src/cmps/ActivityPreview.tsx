@@ -1,3 +1,4 @@
+import { faTrashAlt } from "@fortawesome/free-regular-svg-icons"
 import { faEllipsisH, faEllipsisV } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Activity } from "../interfaces/Activity.interface"
@@ -29,7 +30,7 @@ export const ActivityPreview = ({ activity }: Props) => {
                 <h3>{activity.title}</h3>
                 <h5>{activity.type}</h5>
             </div>
-            <FontAwesomeIcon icon={faEllipsisH} />
+            <FontAwesomeIcon icon={faTrashAlt} />
         </div>
     )
 }

@@ -28,10 +28,17 @@ const users_KEY = 'users'
 let gUsers: User[]
 _loadUsers()
 
-function query(filterBy?: any): Promise<User[]> {
-    if (!filterBy) return Promise.resolve(gUsers)
-
-    return Promise.resolve(gUsers)
+function query(filterBy?: { username?: string }): Promise<User[]> {
+    let queryUsers = gUsers.slice()
+    if (!filterBy) return Promise.resolve(queryUsers)
+    queryUsers = queryUsers.filter(user => {
+        if (filterBy.username) {
+            return user.username.includes(filterBy.username)
+        } else {
+            return true
+        }
+    })
+    return Promise.resolve(queryUsers)
 }
 
 function login(creds: LoginCreds): Promise<string | User> {
@@ -155,23 +162,23 @@ function getFollowUserActivities(userId: string | null | undefined) {
     return usersActivities.sort((activityA, activityB) => activityA.createdAt - activityB.createdAt)
 }
 
-async function followUser(userId: string, followedUserId: string, isFollow:boolean) {
+async function followUser(userId: string, followedUserId: string, isFollow: boolean) {
     const user = getLoggedinUser()
     const followedUser = await getById(followedUserId) as User
-    if (isFollow){
+    if (isFollow) {
         user.following.push(followedUserId)
         followedUser.followed.push(userId)
         await update(user)
         await update(followedUser)
-    } else{
-        const followIdx = user.following.findIndex((id)=> id === followedUserId)
-        const userIdx = user.following.findIndex((id)=> id === userId)
+    } else {
+        const followIdx = user.following.findIndex((id) => id === followedUserId)
+        const userIdx = user.following.findIndex((id) => id === userId)
         user.following.splice(followIdx, 1)
         user.following.splice(userIdx, 1)
         await update(user)
         await update(followedUser)
     }
-    
+
 }
 
 function _saveLocalUser(user: User): void {

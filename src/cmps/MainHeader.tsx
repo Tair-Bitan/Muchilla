@@ -5,6 +5,8 @@ import { observer } from 'mobx-react-lite'
 import { store } from '../stores/storeHelpers';
 
 import "../styles/style.scss"
+import { useForm } from '../services/customHooks';
+import { MainSearch } from './MainSearch';
 
 
 function _MainHeader(): ReactElement {
@@ -12,9 +14,12 @@ function _MainHeader(): ReactElement {
     const { userStore } = store.useStore()
     const [isUserMenuOpen, setIsUserMenuOpen] = useState<Boolean>(false)
 
-    useEffect(()=>{
+
+    useEffect(() => {
         userStore.setLoggedinUser()
-    },[])
+    }, [])
+
+
 
     const onToggleUserMenu = () => {
         setIsUserMenuOpen(!isUserMenuOpen)
@@ -29,22 +34,21 @@ function _MainHeader(): ReactElement {
                     <NavLink exact to="/">Home</NavLink>
                     <NavLink exact to="/map">Map</NavLink>
                     <NavLink to="/about">About</NavLink>
-                    {/* <NavLink to="user/123">User</NavLink> */}
                 </nav>
 
-                <div className="user-container">
+                <MainSearch/> 
 
+                <div className="user-container">
                     {userStore.loggedInUser &&
                         <>
                             <div className="user-menu-btn" onClick={onToggleUserMenu} >
                                 <img src={userStore.loggedInUser.imgUrl} alt="user-avatar" />
                                 <button >☰</button>
                             </div>
-
                             {isUserMenuOpen &&
                                 <div className="user-menu-modal">
                                     <NavLink to={`/user/${userStore.loggedInUser._id}`}>Profile</NavLink>
-                                    <NavLink to='/' onClick={()=>{userStore.logoutUser()}}>Logout</NavLink>
+                                    <NavLink to='/' onClick={() => { userStore.logoutUser() }}>Logout</NavLink>
                                 </div>
                             }
                         </>
@@ -56,7 +60,6 @@ function _MainHeader(): ReactElement {
                             <NavLink to="/signup">Signup</NavLink>
                         </>
                     }
-
                 </div>
             </div>
         </section>

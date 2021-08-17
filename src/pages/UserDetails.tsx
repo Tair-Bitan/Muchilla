@@ -56,6 +56,7 @@ export const UserDetails = () => {
 
     const { loggedInUser } = userStore
     if (!user || !loggedInUser) return <h1>loading..</h1>
+    
 
     const follow = () => {
         console.log(loggedInUser.fullname, 'Now following', user.fullname);
