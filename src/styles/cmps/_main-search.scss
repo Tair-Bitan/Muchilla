@@ -1,7 +1,7 @@
 .main-search-container{
    >input{
        padding: 10px 20px;
-      width: 250px;
+      width: 300px;
        border-radius: 25px;
        border: 1px solid rgb(180, 180, 180);
        outline: none;
@@ -10,7 +10,7 @@
    .search-result-list{
        position: absolute;
        background-color: #fff;
-       width: 250px;
+       width: 300px;
        border-radius: 25px;
        
        .search-result-preview{

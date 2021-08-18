@@ -11,7 +11,7 @@ import { MainSearch } from './MainSearch';
 
 function _MainHeader(): ReactElement {
 
-    const { userStore } = store.useStore()
+    const { userStore, uiStore } = store.useStore()
     const [isUserMenuOpen, setIsUserMenuOpen] = useState<Boolean>(false)
 
 
@@ -23,10 +23,12 @@ function _MainHeader(): ReactElement {
 
     const onToggleUserMenu = () => {
         setIsUserMenuOpen(!isUserMenuOpen)
+        uiStore.setScreen(!uiStore.isScreenOn)
     }
 
     return (
         <section className="main-header main">
+            <div className={uiStore.isScreenOn ? 'screen open' : 'screen'} onClick={onToggleUserMenu}></div>
             <div className="header-container">
                 <Link to="/"><h1 className="main-logo">Muchilla</h1></Link>
 
@@ -46,7 +48,7 @@ function _MainHeader(): ReactElement {
                                 <button >☰</button>
                             </div>
                             {isUserMenuOpen &&
-                                <div className="user-menu-modal">
+                                <div className="user-menu-modal" onClick={onToggleUserMenu}>
                                     <NavLink to={`/user/${userStore.loggedInUser._id}`}>Profile</NavLink>
                                     <NavLink to='/' onClick={() => { userStore.logoutUser() }}>Logout</NavLink>
                                 </div>

@@ -8,7 +8,7 @@ interface Props {
 
 export const MainSearch = (props: Props) => {
 
-    const { userStore } = store.useStore()
+    const { userStore, tripStore } = store.useStore()
     const [searchResults, setSearchResults] = useState<({ imgUrl: string, txt: string, type: string, url: string }[] | undefined)>()
     const [formInputs, handleChange] = useForm({ searchStr: '' })
 
@@ -23,10 +23,16 @@ export const MainSearch = (props: Props) => {
             return
         }
         const users = await userStore.query(formInputs.searchStr)
-        const userSearchResults = users?.map(user => {
-            return { imgUrl: user.imgUrl, txt: user.fullname, type: 'user', url: `/user/${user._id}` }
+        const trips = await tripStore.query(formInputs.searchStr)
+
+        const searchResultsForDisplay: { imgUrl: string, txt: string, type: string, url: string }[] = []
+        users?.forEach(user => {
+            searchResultsForDisplay.push({ imgUrl: user.imgUrl, txt: user.fullname, type: 'user', url: `/user/${user._id}` })
         })
-        setSearchResults(userSearchResults)
+        trips?.forEach(trip => {
+            searchResultsForDisplay.push({ imgUrl: trip.imgUrl, txt: trip.title, type: 'trip', url: `/trip/${trip._id}` })
+        })
+        setSearchResults(searchResultsForDisplay)
     }
 
     return (

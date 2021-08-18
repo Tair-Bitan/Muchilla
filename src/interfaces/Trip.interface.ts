@@ -8,8 +8,8 @@ export interface Trip {
     type: string,
     memberCount: number,
     typeImgUrl: string,
-    imgUrl?: string,
-    title?: string,
+    imgUrl: string,
+    title: string,
     desc?: string,
     chat?: ([{createdAt: number, txt: string, createdBy: MiniUser}]) | any[]
     createdBy: {
