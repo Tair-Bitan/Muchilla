@@ -62,6 +62,7 @@
             bottom: 0;
             transform: translateY(100%) translateX(-25%);
             background-color: #fff;
+            z-index: 6;
 
             > a {
                 display: inline-block;

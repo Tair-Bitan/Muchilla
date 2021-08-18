@@ -16,7 +16,7 @@ const libraries = ["places"] as any
 
 export const _Map = () => {
 
-    const { tripStore, userStore } = store.useStore()
+    const { tripStore, userStore,uiStore } = store.useStore()
     const [map, setMap] = useState<GoogleMap>(null as any)
     const [bounds, setBounds] = useState<google.maps.LatLngBounds>(null as any)
     const [selectedTrip, setSelectedTrip] = useState(null as any)
@@ -28,6 +28,14 @@ export const _Map = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const history = useHistory()
+
+    useEffect(()=>{
+        uiStore.setFooter(false)
+        
+        return ()=>{
+            uiStore.setFooter(true)
+        }
+    },[])
 
     useEffect(() => {
         const loadedTrips = bounds ? tripStore.trips.filter(trip => bounds.contains(trip.loc.pos)) : tripStore.trips

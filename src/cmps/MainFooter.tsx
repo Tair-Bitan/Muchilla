@@ -1,9 +1,15 @@
+import { observer } from 'mobx-react-lite';
 import { ReactElement } from 'react'
 import { NavLink, Link } from 'react-router-dom';
+import { store } from '../stores/storeHelpers';
 
 import "../styles/style.scss"
 
-export function MainFooter(): ReactElement {
+export function _MainFooter(): ReactElement {
+
+    const {uiStore} = store.useStore()
+
+    if (!uiStore.isFooterOn) return <div></div>
 
     return (
         <section className="main-footer main">
@@ -21,3 +27,5 @@ export function MainFooter(): ReactElement {
     )
 
 }
+
+export const MainFooter = observer(_MainFooter)

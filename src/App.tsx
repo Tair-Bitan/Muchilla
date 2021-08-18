@@ -21,7 +21,7 @@ export function App(): ReactElement {
     <div className="App">
       <StoreProvider value={rootStore}>
         <Router>
-          <MainHeader></MainHeader>
+          <MainHeader/>
           <Switch>
             <Route component={UserDetails} path='/user/:userId'></Route>
             <Route component={TripDetails} path='/trip/:tripId'></Route>
@@ -30,7 +30,7 @@ export function App(): ReactElement {
             <Route component={Map} path='/map'></Route>
             <Route component={Home} path='/'></Route>
           </Switch>
-          <MainFooter></MainFooter>
+          <MainFooter/>
         </Router>
       </StoreProvider>
     </div>

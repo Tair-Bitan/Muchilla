@@ -16,6 +16,11 @@
     z-index: 4;
     opacity: 0;
     cursor: default;
+    pointer-events: none;
+
+    &.open{
+        pointer-events: all;
+    }
 }
 .dark-screen {
     position: fixed;
