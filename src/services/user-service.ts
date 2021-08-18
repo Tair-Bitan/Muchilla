@@ -33,7 +33,9 @@ function query(filterBy?: { username?: string }): Promise<User[]> {
     if (!filterBy) return Promise.resolve(queryUsers)
     queryUsers = queryUsers.filter(user => {
         if (filterBy.username) {
-            return user.username.includes(filterBy.username)
+            return user.username.toLowerCase().includes(filterBy.username.toLowerCase())||
+             user.fullname.toLowerCase().includes(filterBy.username.toLowerCase())||
+             user.email.toLowerCase().includes(filterBy.username.toLowerCase())
         } else {
             return true
         }

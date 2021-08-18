@@ -1,4 +1,4 @@
-import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api'
+import { GoogleMap, useLoadScript, Marker, InfoWindow, DirectionsRenderer } from '@react-google-maps/api'
 import React, { ReactElement, useCallback, useEffect, useRef, useState, } from 'react'
 import { useParams } from "react-router-dom";
 import { tripService } from '../services/trip-service';

@@ -21,6 +21,18 @@ export class TripStore {
         makeAutoObservable(this)
     }
 
+    async query(searchStr?: string) {
+        this._setNewReq()
+        try {
+            return await tripService.query(searchStr)
+
+        } catch (error) {
+            runInAction(() => {
+                this._setErr(error)
+            })
+        }
+    }
+
     async loadTrips() {
         this._setNewReq()
 

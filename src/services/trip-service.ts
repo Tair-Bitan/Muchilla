@@ -22,10 +22,20 @@ const trips_KEY = 'trips'
 let gTrips: Trip[]
 _loadTrips()
 
-function query(filterBy?: any): Promise<Trip[]> {
-    if (!filterBy) return Promise.resolve(gTrips)
 
-    return Promise.resolve(gTrips)
+function query(filterBy?: string ): Promise<Trip[]> {
+    let queryTrips = gTrips.slice()
+    if (!filterBy) return Promise.resolve(queryTrips)
+    queryTrips = queryTrips.filter(trip => {
+        if (filterBy) {
+            return trip.title?.toLowerCase().includes(filterBy.toLowerCase()) ||
+            trip.loc.city?.toLowerCase().includes(filterBy.toLowerCase()) || 
+            trip.loc.state?.toLowerCase().includes(filterBy.toLowerCase())
+        } else {
+            return true
+        }
+    })
+    return Promise.resolve(queryTrips)
 }
 
 function getById(tripId: string): Promise<string | Trip> {
