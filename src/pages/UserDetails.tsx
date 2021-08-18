@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite'
 import { useEffect } from "react"
 import { useState } from "react"
 import { useParams } from "react-router"
@@ -6,22 +7,37 @@ import { TripList } from "../cmps/TripList"
 import { User } from "../interfaces/User.interface"
 import { store } from "../stores/storeHelpers"
 
-export const UserDetails = () => {
+const _UserDetails = () => {
+    // export const UserDetails = () => {
 
     const { userStore, tripStore } = store.useStore()
+    const [tripSearch, setTripSearch] = useState('created')
     const [user, setUser] = useState<User>()
     const params: { userId: string } = useParams()
 
+    const { loggedInUser, onFollowUser, followActivities } = userStore
+
+    const follow = async () => {
+        if (!loggedInUser || !user) return
+        console.log(loggedInUser.fullname, 'Now following', user.fullname);
+        await userStore.onFollowUser(loggedInUser._id, user._id, true)
+    }
+
+    const unfollow = async () => {
+        if (!loggedInUser || !user) return
+        console.log(loggedInUser.fullname, 'unfollowing', user.fullname);
+        await userStore.onFollowUser(loggedInUser._id, user._id, false)
+    }
+
     useEffect(() => {
         loadUser()
-    }, [params.userId])
+    }, [params.userId, loggedInUser?.following])
 
     const loadUser = async () => {
         const userForDisplay = await userStore.getUserById(params.userId) as User
+        console.log('userForDisplay', userForDisplay)
         setUser(userForDisplay)
     }
-
-    const [tripSearch, setTripSearch] = useState('created')
 
     const getFirstName = () => {
         const names = user?.fullname.split(' ')
@@ -54,20 +70,7 @@ export const UserDetails = () => {
         }
     }
 
-    const { loggedInUser } = userStore
     if (!user || !loggedInUser) return <h1>loading..</h1>
-    
-
-    const follow = () => {
-        console.log(loggedInUser.fullname, 'Now following', user.fullname);
-        userStore.onFollowUser(loggedInUser._id, user._id, true)
-    }
-    const unfollow = () => {
-        console.log(loggedInUser.fullname, 'unfollowing', user.fullname);
-        userStore.onFollowUser(loggedInUser._id, user._id, false)
-    }
-
-
     return (
         <div className="user-details-container main">
             <div className="cover-img-container landscape">
@@ -84,7 +87,7 @@ export const UserDetails = () => {
                         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit accusantium sit optio quis exercitationem nemo nisi, amet a perferendis sint at. Nobis cumque distinctio quidem aspernatur odio, laudantium eum in.</p>
                     </div>
                     <div className="actions flex col space-between">
-                        {user.followed.includes(loggedInUser._id) ?
+                        {loggedInUser.following.includes(user._id) ?
                             <button className={"main-btn following"} onClick={unfollow}>Unfollow</button> :
                             <button className={"main-btn"} onClick={follow}>Follow</button>
                         }
@@ -94,7 +97,7 @@ export const UserDetails = () => {
                                 <p>Trips</p>
                             </div>
                             <div className="followers">
-                                <h3>{user.followed.length}</h3>
+                                <h3>{user.followers.length}</h3>
                                 <p>Followers</p>
                             </div>
                             <div className="followers">
@@ -115,9 +118,9 @@ export const UserDetails = () => {
                 <TripList loadedTrips={getUserTrips(tripSearch)!} />
             </div>
             {loggedInUser?._id !== params.userId && <ActivityList activities={user.activities} />}
-            {loggedInUser?._id === params.userId && <ActivityList activities={userStore.followActivities} />}
+            {loggedInUser?._id === params.userId && <ActivityList activities={followActivities} />}
         </div>
     )
-
-
 }
+
+export const UserDetails = observer(_UserDetails)

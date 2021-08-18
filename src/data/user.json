@@ -37,7 +37,7 @@
                 "type": "follow"
             }
         ],
-        "followed": ["u-d5s4f68e4"],
+        "followers": ["u-d5s4f68e4"],
         "following": ["u-d5s4f68e4"]
     },
     {
@@ -86,7 +86,7 @@
                 "type": "follow"
             }
         ],
-        "followed": ["u-d46a68d466"],
+        "followers": ["u-d46a68d466"],
         "following": ["u-d46a68d466"]
     }
 ]

@@ -69,7 +69,7 @@ async function signup(creds: SignupCreds): Promise<string | User> {
         interests: [],
         trips: [],
         activities: [],
-        followed: [],
+        followers: [],
         following: []
     }
 
@@ -119,7 +119,7 @@ async function update(updatedUser: User): Promise<string | User> {
         userIdx = gUsers.findIndex(user => {
             return user._id === updatedUser._id
         })
-        gUsers[userIdx] = userToUpdate as User
+        gUsers[userIdx] = updatedUser as User
         storageService.saveToStorage(users_KEY, gUsers)
 
         return Promise.resolve(userToUpdate) as Promise<User>
@@ -155,28 +155,30 @@ function getFollowUserActivities(userId: string | null | undefined) {
     if (!userId) return
     let usersActivities: Activity[] = []
     gUsers.forEach(user => {
-        if (user.followed.includes(userId)) {
+        if (user.followers.includes(userId)) {
             usersActivities = [...usersActivities, ...user.activities]
         }
     })
     return usersActivities.sort((activityA, activityB) => activityA.createdAt - activityB.createdAt)
 }
 
-async function followUser(userId: string, followedUserId: string, isFollow: boolean) {
+async function followUser(userId: string, followerId: string, isFollow: boolean) {
     const user = getLoggedinUser()
-    const followedUser = await getById(followedUserId) as User
+    const follower = await getById(followerId) as User
     if (isFollow) {
-        user.following.push(followedUserId)
-        followedUser.followed.push(userId)
+        user.following.push(followerId)
+        follower.followers.push(userId)
         await update(user)
-        await update(followedUser)
+        await update(follower)
+        _saveLocalUser(user)
     } else {
-        const followIdx = user.following.findIndex((id) => id === followedUserId)
+        const followIdx = user.following.findIndex((id) => id === followerId)
         const userIdx = user.following.findIndex((id) => id === userId)
         user.following.splice(followIdx, 1)
-        user.following.splice(userIdx, 1)
+        follower.followers.splice(userIdx, 1)
         await update(user)
-        await update(followedUser)
+        await update(follower)
+        _saveLocalUser(user)
     }
 
 }
