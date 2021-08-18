@@ -10,7 +10,7 @@ interface Props {
     }>>
 }
 
-export const StationsList = ({ stations, setCoords }: Props) => {
+export const StationList = ({ stations, setCoords }: Props) => {
     return (
         <div className="station-list">
             <h2>Trip stations</h2>

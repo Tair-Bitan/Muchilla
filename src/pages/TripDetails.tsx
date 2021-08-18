@@ -8,7 +8,7 @@ import { User } from '../interfaces/User.interface';
 import { MAP_API_KEY } from '../keys';
 import { CreateStation } from '../cmps/CreateStation';
 import { TripChat } from '../cmps/TripChat';
-import { StationsList } from '../cmps/StationsList';
+import { StationList } from '../cmps/StationList';
 import { TripList } from '../cmps/TripList';
 
 interface Props {
@@ -105,7 +105,7 @@ export default function TripDetails({ }: Props): ReactElement {
                         </div>
                         <div className="members-img-container">
                             {trip.members?.map((member) => {
-                                return <img key={`details-member-img-${member._id + Math.random()}`} src={member.imgUrl} alt="memberAvater" onClick={()=> window.location.hash = `user/${member._id}`}></img>
+                                return <img key={`details-member-img-${member._id + Math.random()}`} src={member.imgUrl} alt="memberAvater" onClick={() => window.location.hash = `user/${member._id}`}></img>
                             })}
                         </div>
                         <div className="trip-info-main">
@@ -174,7 +174,7 @@ export default function TripDetails({ }: Props): ReactElement {
                             </InfoWindow>
                         )}
 
-                        <StationsList stations={trip.loc.stations} setCoords={setCoords} />
+                        <StationList stations={trip.loc.stations} setCoords={setCoords} />
                     </GoogleMap>
 
 

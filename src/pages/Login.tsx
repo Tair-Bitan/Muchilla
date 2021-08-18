@@ -112,7 +112,7 @@ function _Login({ }: Props): ReactElement {
                                     onChange={loginHandelChange}
                                     required
                                 />
-                                <button type="submit" className="main-btn">Save</button>
+                                <button type="submit" className="main-btn">Login</button>
                             </form>
                             {isWrongCreds &&
                                 <p className="p-new-user">
@@ -172,7 +172,7 @@ function _Login({ }: Props): ReactElement {
                                     required
                                 />
 
-                                <button type="submit" className="main-btn">Save</button>
+                                <button type="submit" className="main-btn">Signup</button>
                             </form>
                             {msg && <p className="p-occupied-user">*{msg}</p>}
                         </>

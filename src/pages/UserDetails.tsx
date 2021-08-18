@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { useParams } from "react-router"
 import { ActivityList } from "../cmps/ActivityList"
+import { FriendList } from '../cmps/FriendList'
 import { TripList } from "../cmps/TripList"
 import { User } from "../interfaces/User.interface"
 import { store } from "../stores/storeHelpers"
@@ -12,36 +13,47 @@ const _UserDetails = () => {
 
     const { userStore, tripStore } = store.useStore()
     const [tripSearch, setTripSearch] = useState('created')
+    const [userFriends, setUserFriends] = useState([] as User[])
     const [user, setUser] = useState<User>()
     const params: { userId: string } = useParams()
 
-    const { loggedInUser, onFollowUser, followActivities } = userStore
+    const { loggedInUser, followActivities } = userStore
 
     const follow = async () => {
         if (!loggedInUser || !user) return
-        console.log(loggedInUser.fullname, 'Now following', user.fullname);
         await userStore.onFollowUser(loggedInUser._id, user._id, true)
     }
 
     const unfollow = async () => {
         if (!loggedInUser || !user) return
-        console.log(loggedInUser.fullname, 'unfollowing', user.fullname);
         await userStore.onFollowUser(loggedInUser._id, user._id, false)
     }
 
     useEffect(() => {
         loadUser()
-    }, [params.userId, loggedInUser?.following])
+        getUserFriends(true)
+    }, [params.userId, loggedInUser?.following, user])
 
     const loadUser = async () => {
         const userForDisplay = await userStore.getUserById(params.userId) as User
-        console.log('userForDisplay', userForDisplay)
         setUser(userForDisplay)
     }
 
     const getFirstName = () => {
         const names = user?.fullname.split(' ')
         return names![0]
+    }
+
+    const getUserFriends = async (isFollow: boolean) => {
+        if (!user) return
+        const friends = isFollow ? user.following : user.followers
+
+        const followers = await Promise.all(friends.map(async (id) => {
+            const friend = await userStore.getUserById(id)
+            return friend
+        }))
+
+        setUserFriends(followers as User[])
     }
 
     const getUserTrips = (filterBy: string) => {
@@ -116,6 +128,14 @@ const _UserDetails = () => {
                     <h4 onClick={() => { setTripSearch('passed') }}>Passed</h4>
                 </div>
                 <TripList loadedTrips={getUserTrips(tripSearch)!} />
+            </div>
+            <div className="user-friends">
+                <h3>Friends</h3>
+                <div className="flex">
+                    <h4 onClick={() => { getUserFriends(true) }}>Following</h4>
+                    <h4 onClick={() => { getUserFriends(false) }}>Followers</h4>
+                </div>
+                <FriendList friends={userFriends!} />
             </div>
             {loggedInUser?._id !== params.userId && <ActivityList activities={user.activities} />}
             {loggedInUser?._id === params.userId && <ActivityList activities={followActivities} />}
