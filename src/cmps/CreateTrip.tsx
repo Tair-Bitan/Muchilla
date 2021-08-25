@@ -15,7 +15,7 @@ interface Props {
 export const _CreateTrip = ({ pos, setIsModalOpen, closeBtn }: Props) => {
 
     const { userStore, tripStore } = store.useStore()
-    const [selectedType, setSelectedType] = useState<string | null>(null)
+    const [selectedType, setSelectedType] = useState<string>('hiking')
     const [memberCount, setMemberCount] = useState<number>(2)
     const [tripData, setTripData] = useState({} as TripData)
     const [loggedinUser, setLoggedinUser] = useState({} as MiniUser)
@@ -33,6 +33,8 @@ export const _CreateTrip = ({ pos, setIsModalOpen, closeBtn }: Props) => {
     }
 
     const onCreateTrip = async (tripInputs: TripInputs, tripData: TripData, pos: { lat: number, lng: number }) => {
+        tripInputs.memberCount = memberCount
+        tripInputs.type = selectedType
         await tripStore.addTrip(loggedinUser, tripInputs, tripData, pos)
         setIsModalOpen(false)
     }
@@ -85,9 +87,7 @@ export const _CreateTrip = ({ pos, setIsModalOpen, closeBtn }: Props) => {
                         className={selectedType === type ? "trip-icon selected" : "trip-icon"}
                         key={type + Math.random()}
                         src={tripService.getTypeImgUrl(type)}
-                        onClick={() => {
-                            selectedType === type ? setSelectedType(null) : setSelectedType(type)
-                        }}
+                        onClick={() => setSelectedType(type)}
                     />)}
                 </div>
 

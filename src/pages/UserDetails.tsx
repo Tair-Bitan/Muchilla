@@ -76,7 +76,7 @@ const _UserDetails = () => {
             <div className="cover-img-container landscape">
                 <img className="cover-img" src={user?.imgUrl} alt="cover" />
             </div>
-            <div className="user-info flex col align-center">
+            <div className="user-info">
                 <div className="profile-img-container square">
                     <img className="profile-img" src={user?.imgUrl} alt="profile" />
                 </div>
@@ -108,27 +108,33 @@ const _UserDetails = () => {
                     </div>
                 </div>
             </div>
-            <div className="user-trips">
-                <h3>Trips</h3>
-                <div className="flex">
-                    <h4 onClick={() => { setTripSearch('created') }}>Created</h4>
-                    <h4 onClick={() => { setTripSearch('joined') }}>Joined</h4>
-                    <h4 onClick={() => { setTripSearch('passed') }}>Passed</h4>
-                </div>
-                <TripList loadedTrips={getUserTrips(tripSearch)!} />
-            </div>
-            <div className="user-friends">
-                <h3>Friends</h3>
-                <div className="flex">
-                    <h4 onClick={() => { setIsFollowers(false) }}>Following</h4>
-                    <h4 onClick={() => { setIsFollowers(true) }}>Followers</h4>
-                </div>
-                {userStore.currUser && isFollowers && <FriendList friends={userStore.currUser.followers} />}
-                {userStore.currUser && !isFollowers && <FriendList friends={userStore.currUser.following} />}
+            <div className="main-content">
+                <div className="user-details-left">
+                    <div className="user-trips">
+                        <h3>Trips</h3>
+                        <div className="tabs">
+                            <h4 className={tripSearch === 'created' ? 'selected': ''} onClick={() => { setTripSearch('created') }}>Created</h4>
+                            <h4 className={tripSearch === 'joined' ? 'selected': ''} onClick={() => { setTripSearch('joined') }}>Joined</h4>
+                            <h4 className={tripSearch === 'passed' ? 'selected': ''} onClick={() => { setTripSearch('passed') }}>Passed</h4>
+                        </div>
+                        <TripList loadedTrips={getUserTrips(tripSearch)!} />
+                    </div>
+                    <div className="user-friends">
+                        <h3>Friends</h3>
+                        <div className="tabs">
+                            <h4 className={!isFollowers ? 'selected' : ''} onClick={() => { setIsFollowers(false) }}>Following</h4>
+                            <h4 className={isFollowers ? 'selected' : ''} onClick={() => { setIsFollowers(true) }}>Followers</h4>
+                        </div>
+                        {userStore.currUser && isFollowers && <FriendList friends={userStore.currUser.followers} />}
+                        {userStore.currUser && !isFollowers && <FriendList friends={userStore.currUser.following} />}
 
+                    </div>
+                </div>
+                <div className="user-details-right">
+                    {loggedInUser?._id !== params.userId && <ActivityList activities={user.activities} />}
+                    {loggedInUser?._id === params.userId && <ActivityList activities={followActivities} />}
+                </div>
             </div>
-            {loggedInUser?._id !== params.userId && <ActivityList activities={user.activities} />}
-            {loggedInUser?._id === params.userId && <ActivityList activities={followActivities} />}
         </div>
     )
 }

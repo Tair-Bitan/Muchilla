@@ -1,6 +1,8 @@
-.trip-list {
-    max-width: 45vw;
-
+.friend-list {
     display: grid;
+    grid-template-columns: repeat(auto-fill, 33.33%);
+    gap: 10px;
+    margin-bottom: 40px;
+
     margin-top: 20px;
 }

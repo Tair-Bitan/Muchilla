@@ -8,6 +8,9 @@
 
     .user-info {
         transform: translate(0, -5rem);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
         > * {
             margin-bottom: 1rem;
@@ -41,5 +44,70 @@
 
     .user-trips {
         margin-bottom: 5rem;
+    }
+
+    .main-content {
+        display: flex;
+        gap: 4rem;
+
+        > div {
+            width: 50%;
+        }
+
+        .user-friends{
+
+            >h3{
+                font-size: 2rem;
+            }
+
+            .tabs {
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                margin: 20px 0;
+         
+
+                > h4 {
+                    padding: 10px 0;
+                    flex-grow: 1;
+                    text-align: center;
+                    cursor: pointer;
+
+                    &.selected{
+                        border-bottom: 2px solid rgba(0, 0, 0, 0.219);
+                    }
+                }
+            }
+        }
+
+        .user-details-left {
+            .user-trips {
+                min-height: 60vh;
+
+                >h3{
+                    font-size: 2rem;
+                }
+                
+                .tabs {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-evenly;
+                    margin: 20px 0;
+             
+
+                    > h4 {
+                        display: inline-block;
+                        padding: 10px 0;
+                        flex-grow: 1;
+                        text-align: center;
+                        cursor: pointer;
+
+                        &.selected{
+                            border-bottom: 2px solid rgba(0, 0, 0, 0.219);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
