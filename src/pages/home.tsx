@@ -1,5 +1,4 @@
 import { ReactElement } from 'react'
-import { useState } from "react"
 import { Link } from 'react-router-dom';
 
 import '../styles/style.scss';
@@ -8,13 +7,7 @@ import Img1 from '../assets/imgs/1.png'
 import Img2 from '../assets/imgs/2.png'
 import Img3 from '../assets/imgs/3.png'
 
-interface Props {
-
-}
-
-export function Home({ }: Props): ReactElement {
-
-    const [state, setState] = useState({})
+export function Home(): ReactElement {
 
     return (
         <main className='home-page main'>
@@ -43,11 +36,10 @@ export function Home({ }: Props): ReactElement {
                     <h3>Schedule an automatic safty location message to your loved ones when there is wifi available</h3>
                 </div>
             </div>
-            {/* <div className="map full"></div> */}
             <div className="img-gallery full">
-                <img src={Img1} />
-                <img src={Img2} />
-                <img src={Img3} />
+                <img src={Img1} alt="landscape" />
+                <img src={Img2} alt="landscape" />
+                <img src={Img3} alt="landscape" />
             </div>
         </main>
     )

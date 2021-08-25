@@ -1,5 +1,4 @@
 .create-trip-modal {
-    // height: 70vh;
     width: 40vw;
     position: fixed;
     top: 50%;
@@ -37,5 +36,54 @@
             border-bottom: 1px solid rgb(182, 182, 182);
             outline: none;
         }
+
+        .trip-icons-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin: 10px 0;
+
+            .trip-icon {
+                width: 40px;
+                height: 40px;
+                object-fit: cover;
+                padding: 5px;
+                cursor: pointer;
+
+                &.selected {
+                    border-radius: 5px;
+                    box-shadow: 0 0 5px rgba(0, 0, 0, 0.26);
+                }
+            }
+        }
+
+        .members-count-picker {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            button {
+                background-color: transparent;
+                border: 1px solid rgb(170, 170, 170);
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                line-height: 1em;
+                font-size: 1.25em;
+                padding: 0 0;
+                cursor: pointer;
+            }
+
+            p {
+                font-weight: 700;
+                font-size: 1.25em;
+                width: 3ch;
+                text-align: center;
+            }
+        }
+    }
+
+    .create-trip-btn{
+        margin-top: 20px;
     }
 }

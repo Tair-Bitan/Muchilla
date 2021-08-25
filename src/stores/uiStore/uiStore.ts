@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable } from "mobx";
 
 import { RootStore } from "../rootStore";
 
@@ -14,22 +14,6 @@ export class UiStore {
         this.rootStore = rootStore
         makeAutoObservable(this)
     }
-
-    // async loadUsers() {
-    //     this._setNewReq()
-
-    //     try {
-    //         const users = await userService.query()
-    //         runInAction(() => {
-    //             this.users = users
-    //             this.status = 'done'
-    //         })
-    //     } catch (error) {
-    //         runInAction(() => {
-    //             this._setErr(error)
-    //         })
-    //     }
-    // }
 
     setFooter(isFooterOn: boolean){
         this.isFooterOn = isFooterOn

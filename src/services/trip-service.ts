@@ -14,7 +14,8 @@ export const tripService = {
     remove,
     update,
     getLocData,
-    getPossibleTypes
+    getPossibleTypes,
+    getTypeImgUrl
 }
 
 const trips_KEY = 'trips'
@@ -116,7 +117,7 @@ function _formatTrip(user: MiniUser, tripInputs: TripInputs, tripData: TripData,
         createdAt: Date.now(),
         type,
         memberCount,
-        typeImgUrl: _getTypeImgUrl(type),
+        typeImgUrl: getTypeImgUrl(type),
         title,
         desc,
         createdBy: user,
@@ -143,7 +144,7 @@ async function _getTripPhoto(trip: Trip | NewTrip) {
     return "https://www.marketing91.com/wp-content/uploads/2020/02/Definition-of-place-marketing.jpg"
 }
 
-function _getTypeImgUrl(type: string) {
+function getTypeImgUrl(type: string) {
     switch (type) {
         case 'hiking':
             return "https://image.flaticon.com/icons/png/512/71/71423.png"
