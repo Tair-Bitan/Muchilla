@@ -1,7 +1,7 @@
-import { User } from "../interfaces/User.interface"
+import { MiniUser, User } from "../interfaces/User.interface"
 
 interface Props {
-    friend: User
+    friend: MiniUser
 }
 
 export const FriendPreview = ({ friend }: Props) => {
@@ -10,7 +10,7 @@ export const FriendPreview = ({ friend }: Props) => {
 
     return (
         <div className="friend-preview">
-            <h3>{friend.fullname}</h3>
+            <img src={friend.imgUrl} alt="friend" />
         </div>
     )
 }

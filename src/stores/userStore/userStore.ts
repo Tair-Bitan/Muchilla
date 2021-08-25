@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { LoginCreds, SignupCreds } from "../../interfaces/Creds.interface";
 
-import { User } from "../../interfaces/User.interface";
+import { MiniUser, User } from "../../interfaces/User.interface";
 import { userService } from "../../services/user-service";
 import { RootStore } from "../rootStore";
 
@@ -9,6 +9,11 @@ export class UserStore {
 
     users: User[] = []
     loggedInUser: User | null = null
+    currUser: ({
+        user: User,
+        followers: MiniUser[],
+        following: MiniUser[],
+    } | null) = null
 
     rootStore: RootStore
     status: 'pending' | 'done' | 'error' = 'pending'
@@ -176,6 +181,45 @@ export class UserStore {
 
     getEmptyCreds(isLogin: boolean) {
         return userService.getEmptyCreds(isLogin)
+    }
+
+    async loadCurrUser(userId: string) {
+        this._setNewReq()
+
+        try {
+            const user = await this.getUserById(userId) as User
+            if (!user) return
+
+            const followers = await Promise.all(user.followers.map(async (id) => {
+                const follower = await this.getUserById(id) as User
+                return {
+                    _id: follower?._id,
+                    username: follower?.username,
+                    imgUrl: follower?.imgUrl
+                }
+            }))
+
+            const following = await Promise.all(user.following.map(async (id) => {
+                const followed = await this.getUserById(id) as User
+                return {
+                    _id: followed?._id,
+                    username: followed?.username,
+                    imgUrl: followed?.imgUrl
+                }
+            }))
+
+            runInAction(() => {
+                this.currUser = {
+                    user,
+                    followers,
+                    following
+                }
+                this.status = 'done'
+            })
+
+        } catch (error) {
+            this._setErr(error)
+        }
     }
 
     get followActivities() {

@@ -1,8 +1,8 @@
-import { User } from "../interfaces/User.interface"
+import { MiniUser, User } from "../interfaces/User.interface"
 import { FriendPreview } from "./FriendPreview"
 
 interface Props {
-    friends: User[]
+    friends: MiniUser[]
 }
 
 export const FriendList = ({ friends }: Props) => {

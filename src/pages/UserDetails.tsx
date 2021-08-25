@@ -13,7 +13,7 @@ const _UserDetails = () => {
 
     const { userStore, tripStore } = store.useStore()
     const [tripSearch, setTripSearch] = useState('created')
-    const [userFriends, setUserFriends] = useState([] as User[])
+    const [isFollowers, setIsFollowers] = useState<boolean>(true)
     const [user, setUser] = useState<User>()
     const params: { userId: string } = useParams()
 
@@ -31,7 +31,7 @@ const _UserDetails = () => {
 
     useEffect(() => {
         loadUser()
-        getUserFriends(true)
+        userStore.loadCurrUser(params.userId)
     }, [params.userId, loggedInUser?.following, user])
 
     const loadUser = async () => {
@@ -42,18 +42,6 @@ const _UserDetails = () => {
     const getFirstName = () => {
         const names = user?.fullname.split(' ')
         return names![0]
-    }
-
-    const getUserFriends = async (isFollow: boolean) => {
-        if (!user) return
-        const friends = isFollow ? user.following : user.followers
-
-        const followers = await Promise.all(friends.map(async (id) => {
-            const friend = await userStore.getUserById(id)
-            return friend
-        }))
-
-        setUserFriends(followers as User[])
     }
 
     const getUserTrips = (filterBy: string) => {
@@ -132,10 +120,12 @@ const _UserDetails = () => {
             <div className="user-friends">
                 <h3>Friends</h3>
                 <div className="flex">
-                    <h4 onClick={() => { getUserFriends(true) }}>Following</h4>
-                    <h4 onClick={() => { getUserFriends(false) }}>Followers</h4>
+                    <h4 onClick={() => { setIsFollowers(false) }}>Following</h4>
+                    <h4 onClick={() => { setIsFollowers(true) }}>Followers</h4>
                 </div>
-                <FriendList friends={userFriends!} />
+                {userStore.currUser && isFollowers && <FriendList friends={userStore.currUser.followers} />}
+                {userStore.currUser && !isFollowers && <FriendList friends={userStore.currUser.following} />}
+
             </div>
             {loggedInUser?._id !== params.userId && <ActivityList activities={user.activities} />}
             {loggedInUser?._id === params.userId && <ActivityList activities={followActivities} />}
